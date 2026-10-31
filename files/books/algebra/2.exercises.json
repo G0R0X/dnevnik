@@ -1,0 +1,10543 @@
+{
+  "textbook_path": "/algebra/2",
+  "total_pages": 415,
+  "models": {
+    "text": "GigaChat-2-Max",
+    "image": "GigaChat-2-Max"
+  },
+  "scanned_at": "2026-10-28T23:18:13",
+  "pages": {
+    "1": {
+      "items": []
+    },
+    "3": {
+      "items": []
+    },
+    "4": {
+      "items": [
+        {
+          "block": null,
+          "number": "5.1"
+        },
+        {
+          "block": null,
+          "number": "5.6"
+        }
+      ]
+    },
+    "5": {
+      "items": []
+    },
+    "6": {
+      "items": []
+    },
+    "7": {
+      "items": []
+    },
+    "8": {
+      "items": []
+    },
+    "9": {
+      "items": []
+    },
+    "10": {
+      "items": []
+    },
+    "11": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "1.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "1.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "1.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "1.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "1.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "1.6"
+        }
+      ]
+    },
+    "13": {
+      "items": [
+        {
+          "block": null,
+          "number": "1.16"
+        },
+        {
+          "block": null,
+          "number": "1.17"
+        },
+        {
+          "block": null,
+          "number": "1.18"
+        },
+        {
+          "block": null,
+          "number": "1.19"
+        },
+        {
+          "block": null,
+          "number": "1.20"
+        },
+        {
+          "block": null,
+          "number": "1.21"
+        },
+        {
+          "block": null,
+          "number": "1.22"
+        },
+        {
+          "block": null,
+          "number": "1.23"
+        },
+        {
+          "block": null,
+          "number": "1.24"
+        },
+        {
+          "block": null,
+          "number": "1.25"
+        }
+      ]
+    },
+    "12": {
+      "items": [
+        {
+          "block": null,
+          "number": "1.7"
+        },
+        {
+          "block": null,
+          "number": "1.8"
+        },
+        {
+          "block": null,
+          "number": "1.9"
+        },
+        {
+          "block": null,
+          "number": "1.10"
+        },
+        {
+          "block": null,
+          "number": "1.11"
+        },
+        {
+          "block": null,
+          "number": "1.12"
+        },
+        {
+          "block": null,
+          "number": "1.13"
+        },
+        {
+          "block": null,
+          "number": "1.14"
+        },
+        {
+          "block": null,
+          "number": "1.15"
+        }
+      ]
+    },
+    "15": {
+      "items": [
+        {
+          "block": null,
+          "number": "1.32"
+        },
+        {
+          "block": null,
+          "number": "1.33"
+        },
+        {
+          "block": null,
+          "number": "1.34"
+        },
+        {
+          "block": null,
+          "number": "1.35"
+        },
+        {
+          "block": null,
+          "number": "1.36"
+        },
+        {
+          "block": null,
+          "number": "1.37"
+        },
+        {
+          "block": null,
+          "number": "1.38"
+        },
+        {
+          "block": null,
+          "number": "1.39"
+        },
+        {
+          "block": null,
+          "number": "1.40"
+        },
+        {
+          "block": null,
+          "number": "1.41"
+        },
+        {
+          "block": null,
+          "number": "1.42"
+        },
+        {
+          "block": null,
+          "number": "1.43"
+        },
+        {
+          "block": null,
+          "number": "1.44"
+        },
+        {
+          "block": null,
+          "number": "1.45"
+        },
+        {
+          "block": null,
+          "number": "1.46"
+        },
+        {
+          "block": null,
+          "number": "1.47"
+        },
+        {
+          "block": null,
+          "number": "1.48"
+        }
+      ]
+    },
+    "16": {
+      "items": [
+        {
+          "block": null,
+          "number": "1.49"
+        },
+        {
+          "block": null,
+          "number": "1.50"
+        },
+        {
+          "block": null,
+          "number": "1.51"
+        },
+        {
+          "block": null,
+          "number": "1.52"
+        }
+      ]
+    },
+    "17": {
+      "items": []
+    },
+    "18": {
+      "items": []
+    },
+    "19": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        }
+      ]
+    },
+    "20": {
+      "items": [
+        {
+          "block": null,
+          "number": "2.1"
+        },
+        {
+          "block": null,
+          "number": "2.2"
+        },
+        {
+          "block": null,
+          "number": "2.3"
+        },
+        {
+          "block": null,
+          "number": "2.4"
+        },
+        {
+          "block": null,
+          "number": "2.5"
+        }
+      ]
+    },
+    "21": {
+      "items": [
+        {
+          "block": null,
+          "number": "2.6"
+        },
+        {
+          "block": null,
+          "number": "2.7"
+        },
+        {
+          "block": null,
+          "number": "2.8"
+        },
+        {
+          "block": null,
+          "number": "2.9"
+        },
+        {
+          "block": null,
+          "number": "2.10"
+        },
+        {
+          "block": null,
+          "number": "2.11"
+        },
+        {
+          "block": null,
+          "number": "2.12"
+        }
+      ]
+    },
+    "22": {
+      "items": [
+        {
+          "block": null,
+          "number": "2.13"
+        },
+        {
+          "block": null,
+          "number": "2.14"
+        },
+        {
+          "block": null,
+          "number": "2.15"
+        },
+        {
+          "block": null,
+          "number": "2.16"
+        },
+        {
+          "block": null,
+          "number": "2.17"
+        },
+        {
+          "block": null,
+          "number": "2.18"
+        },
+        {
+          "block": null,
+          "number": "2.19"
+        },
+        {
+          "block": null,
+          "number": "2.20"
+        },
+        {
+          "block": null,
+          "number": "2.21"
+        },
+        {
+          "block": null,
+          "number": "2.22"
+        },
+        {
+          "block": null,
+          "number": "2.23"
+        },
+        {
+          "block": null,
+          "number": "2.24"
+        },
+        {
+          "block": null,
+          "number": "2.25"
+        },
+        {
+          "block": null,
+          "number": "2.26"
+        }
+      ]
+    },
+    "24": {
+      "items": []
+    },
+    "25": {
+      "items": []
+    },
+    "26": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "3.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "3.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "3.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "3.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "3.5"
+        }
+      ]
+    },
+    "27": {
+      "items": [
+        {
+          "block": null,
+          "number": "3.6"
+        },
+        {
+          "block": null,
+          "number": "3.7"
+        },
+        {
+          "block": null,
+          "number": "3.8"
+        },
+        {
+          "block": null,
+          "number": "3.9"
+        },
+        {
+          "block": null,
+          "number": "3.10"
+        },
+        {
+          "block": null,
+          "number": "3.11"
+        },
+        {
+          "block": null,
+          "number": "3.12"
+        }
+      ]
+    },
+    "28": {
+      "items": [
+        {
+          "block": null,
+          "number": "3.13"
+        },
+        {
+          "block": null,
+          "number": "3.14"
+        },
+        {
+          "block": null,
+          "number": "3.15"
+        },
+        {
+          "block": null,
+          "number": "3.16"
+        },
+        {
+          "block": null,
+          "number": "3.17"
+        },
+        {
+          "block": null,
+          "number": "3.18"
+        },
+        {
+          "block": null,
+          "number": "3.19"
+        },
+        {
+          "block": null,
+          "number": "3.20"
+        },
+        {
+          "block": null,
+          "number": "3.21"
+        },
+        {
+          "block": null,
+          "number": "3.22"
+        },
+        {
+          "block": null,
+          "number": "3.23"
+        },
+        {
+          "block": null,
+          "number": "3.24"
+        },
+        {
+          "block": null,
+          "number": "3.25"
+        },
+        {
+          "block": null,
+          "number": "3.26"
+        },
+        {
+          "block": null,
+          "number": "3.27"
+        },
+        {
+          "block": null,
+          "number": "3.28"
+        },
+        {
+          "block": null,
+          "number": "3.29"
+        },
+        {
+          "block": null,
+          "number": "3.30"
+        },
+        {
+          "block": null,
+          "number": "3.31"
+        }
+      ]
+    },
+    "29": {
+      "items": [
+        {
+          "block": null,
+          "number": "3.32"
+        },
+        {
+          "block": null,
+          "number": "3.33"
+        },
+        {
+          "block": null,
+          "number": "3.34"
+        },
+        {
+          "block": null,
+          "number": "3.35"
+        }
+      ]
+    },
+    "30": {
+      "items": []
+    },
+    "32": {
+      "items": []
+    },
+    "33": {
+      "items": []
+    },
+    "31": {
+      "items": []
+    },
+    "35": {
+      "items": [
+        {
+          "block": null,
+          "number": "4.3"
+        },
+        {
+          "block": null,
+          "number": "4.4"
+        },
+        {
+          "block": null,
+          "number": "4.5"
+        },
+        {
+          "block": null,
+          "number": "4.6"
+        },
+        {
+          "block": null,
+          "number": "4.7"
+        },
+        {
+          "block": null,
+          "number": "4.8"
+        },
+        {
+          "block": null,
+          "number": "4.9"
+        },
+        {
+          "block": null,
+          "number": "4.10"
+        },
+        {
+          "block": null,
+          "number": "4.11"
+        },
+        {
+          "block": null,
+          "number": "4.12"
+        }
+      ]
+    },
+    "36": {
+      "items": [
+        {
+          "block": null,
+          "number": "4.13"
+        },
+        {
+          "block": null,
+          "number": "4.14"
+        },
+        {
+          "block": null,
+          "number": "4.15"
+        },
+        {
+          "block": null,
+          "number": "4.16"
+        },
+        {
+          "block": null,
+          "number": "4.17"
+        },
+        {
+          "block": null,
+          "number": "4.18"
+        },
+        {
+          "block": null,
+          "number": "4.19"
+        }
+      ]
+    },
+    "37": {
+      "items": [
+        {
+          "block": null,
+          "number": "4.20"
+        },
+        {
+          "block": null,
+          "number": "4.21"
+        },
+        {
+          "block": null,
+          "number": "4.22"
+        },
+        {
+          "block": null,
+          "number": "4.23"
+        },
+        {
+          "block": null,
+          "number": "4.24"
+        },
+        {
+          "block": null,
+          "number": "4.25"
+        }
+      ]
+    },
+    "38": {
+      "items": [
+        {
+          "block": null,
+          "number": "4.26"
+        },
+        {
+          "block": null,
+          "number": "4.27"
+        },
+        {
+          "block": null,
+          "number": "4.28"
+        },
+        {
+          "block": null,
+          "number": "4.29"
+        },
+        {
+          "block": null,
+          "number": "4.30"
+        },
+        {
+          "block": null,
+          "number": "4.31"
+        },
+        {
+          "block": null,
+          "number": "4.32"
+        },
+        {
+          "block": null,
+          "number": "4.33"
+        },
+        {
+          "block": null,
+          "number": "4.34"
+        },
+        {
+          "block": null,
+          "number": "4.35"
+        },
+        {
+          "block": null,
+          "number": "4.36"
+        },
+        {
+          "block": null,
+          "number": "4.37"
+        }
+      ]
+    },
+    "39": {
+      "items": [
+        {
+          "block": null,
+          "number": "4.38"
+        },
+        {
+          "block": null,
+          "number": "4.39"
+        },
+        {
+          "block": null,
+          "number": "4.40"
+        },
+        {
+          "block": null,
+          "number": "4.41"
+        },
+        {
+          "block": null,
+          "number": "4.42"
+        },
+        {
+          "block": null,
+          "number": "4.43"
+        },
+        {
+          "block": null,
+          "number": "4.44"
+        },
+        {
+          "block": null,
+          "number": "4.45"
+        }
+      ]
+    },
+    "40": {
+      "items": [
+        {
+          "block": null,
+          "number": "4.46"
+        },
+        {
+          "block": null,
+          "number": "4.47"
+        },
+        {
+          "block": null,
+          "number": "4.48"
+        },
+        {
+          "block": null,
+          "number": "4.49"
+        },
+        {
+          "block": null,
+          "number": "4.50"
+        },
+        {
+          "block": null,
+          "number": "4.51"
+        }
+      ]
+    },
+    "41": {
+      "items": []
+    },
+    "42": {
+      "items": []
+    },
+    "44": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "5.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "5.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "5.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "5.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "5.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "5.6"
+        }
+      ]
+    },
+    "45": {
+      "items": [
+        {
+          "block": null,
+          "number": "5.7"
+        },
+        {
+          "block": null,
+          "number": "5.8"
+        },
+        {
+          "block": null,
+          "number": "5.9"
+        },
+        {
+          "block": null,
+          "number": "5.10"
+        },
+        {
+          "block": null,
+          "number": "5.11"
+        },
+        {
+          "block": null,
+          "number": "5.12"
+        },
+        {
+          "block": null,
+          "number": "5.13"
+        },
+        {
+          "block": null,
+          "number": "5.14"
+        },
+        {
+          "block": null,
+          "number": "5.15"
+        },
+        {
+          "block": null,
+          "number": "5.16"
+        }
+      ]
+    },
+    "46": {
+      "items": [
+        {
+          "block": null,
+          "number": "5.17"
+        },
+        {
+          "block": null,
+          "number": "5.18"
+        },
+        {
+          "block": null,
+          "number": "5.19"
+        },
+        {
+          "block": null,
+          "number": "5.20"
+        },
+        {
+          "block": null,
+          "number": "5.21"
+        },
+        {
+          "block": null,
+          "number": "5.22"
+        },
+        {
+          "block": null,
+          "number": "5.23"
+        },
+        {
+          "block": null,
+          "number": "5.24"
+        },
+        {
+          "block": null,
+          "number": "5.25"
+        },
+        {
+          "block": null,
+          "number": "5.26"
+        },
+        {
+          "block": null,
+          "number": "5.27"
+        },
+        {
+          "block": null,
+          "number": "5.28"
+        }
+      ]
+    },
+    "47": {
+      "items": [
+        {
+          "block": null,
+          "number": "5.29"
+        },
+        {
+          "block": null,
+          "number": "5.30"
+        },
+        {
+          "block": null,
+          "number": "5.31"
+        },
+        {
+          "block": null,
+          "number": "5.32"
+        },
+        {
+          "block": null,
+          "number": "5.33"
+        },
+        {
+          "block": null,
+          "number": "5.34"
+        },
+        {
+          "block": null,
+          "number": "5.35"
+        },
+        {
+          "block": null,
+          "number": "5.36"
+        }
+      ]
+    },
+    "48": {
+      "items": [
+        {
+          "block": null,
+          "number": "5.37"
+        },
+        {
+          "block": null,
+          "number": "5.38"
+        },
+        {
+          "block": null,
+          "number": "5.39"
+        },
+        {
+          "block": null,
+          "number": "5.40"
+        },
+        {
+          "block": null,
+          "number": "5.41"
+        },
+        {
+          "block": null,
+          "number": "5.42"
+        },
+        {
+          "block": null,
+          "number": "5.43"
+        }
+      ]
+    },
+    "49": {
+      "items": []
+    },
+    "51": {
+      "items": [
+        {
+          "block": null,
+          "number": "4"
+        },
+        {
+          "block": null,
+          "number": "5"
+        }
+      ]
+    },
+    "52": {
+      "items": []
+    },
+    "53": {
+      "items": []
+    },
+    "54": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "6.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "6.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "6.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "6.4"
+        }
+      ]
+    },
+    "55": {
+      "items": [
+        {
+          "block": null,
+          "number": "6.5"
+        },
+        {
+          "block": null,
+          "number": "6.6"
+        },
+        {
+          "block": null,
+          "number": "6.7"
+        },
+        {
+          "block": null,
+          "number": "6.8"
+        },
+        {
+          "block": null,
+          "number": "6.9"
+        },
+        {
+          "block": null,
+          "number": "6.10"
+        },
+        {
+          "block": null,
+          "number": "6.11"
+        }
+      ]
+    },
+    "56": {
+      "items": [
+        {
+          "block": null,
+          "number": "6.12"
+        },
+        {
+          "block": null,
+          "number": "6.13"
+        },
+        {
+          "block": null,
+          "number": "6.14"
+        },
+        {
+          "block": null,
+          "number": "6.15"
+        },
+        {
+          "block": null,
+          "number": "6.16"
+        },
+        {
+          "block": null,
+          "number": "6.17"
+        },
+        {
+          "block": null,
+          "number": "6.18"
+        }
+      ]
+    },
+    "57": {
+      "items": [
+        {
+          "block": null,
+          "number": "6.19"
+        },
+        {
+          "block": null,
+          "number": "6.20"
+        },
+        {
+          "block": null,
+          "number": "6.21"
+        },
+        {
+          "block": null,
+          "number": "6.22"
+        },
+        {
+          "block": null,
+          "number": "6.23"
+        },
+        {
+          "block": null,
+          "number": "6.24"
+        }
+      ]
+    },
+    "58": {
+      "items": [
+        {
+          "block": null,
+          "number": "6.25"
+        },
+        {
+          "block": null,
+          "number": "6.26"
+        },
+        {
+          "block": null,
+          "number": "6.27"
+        },
+        {
+          "block": null,
+          "number": "6.28"
+        },
+        {
+          "block": null,
+          "number": "6.29"
+        },
+        {
+          "block": null,
+          "number": "6.30"
+        },
+        {
+          "block": null,
+          "number": "6.31"
+        },
+        {
+          "block": null,
+          "number": "6.32"
+        },
+        {
+          "block": null,
+          "number": "6.33"
+        }
+      ]
+    },
+    "59": {
+      "items": [
+        {
+          "block": null,
+          "number": "6.34"
+        },
+        {
+          "block": null,
+          "number": "6.35"
+        },
+        {
+          "block": null,
+          "number": "6.36"
+        },
+        {
+          "block": null,
+          "number": "6.37"
+        },
+        {
+          "block": null,
+          "number": "6.38"
+        },
+        {
+          "block": null,
+          "number": "6.39"
+        },
+        {
+          "block": null,
+          "number": "6.40"
+        },
+        {
+          "block": null,
+          "number": "6.41"
+        },
+        {
+          "block": null,
+          "number": "6.42"
+        },
+        {
+          "block": null,
+          "number": "6.43"
+        },
+        {
+          "block": null,
+          "number": "6.44"
+        },
+        {
+          "block": null,
+          "number": "6.45"
+        }
+      ]
+    },
+    "61": {
+      "items": []
+    },
+    "62": {
+      "items": []
+    },
+    "63": {
+      "items": [
+        {
+          "block": null,
+          "number": "7.1"
+        }
+      ]
+    },
+    "64": {
+      "items": [
+        {
+          "block": null,
+          "number": "7.2"
+        },
+        {
+          "block": null,
+          "number": "7.3"
+        },
+        {
+          "block": null,
+          "number": "7.4"
+        },
+        {
+          "block": null,
+          "number": "7.5"
+        },
+        {
+          "block": null,
+          "number": "7.6"
+        },
+        {
+          "block": null,
+          "number": "7.7"
+        },
+        {
+          "block": null,
+          "number": "7.8"
+        },
+        {
+          "block": null,
+          "number": "7.9"
+        }
+      ]
+    },
+    "65": {
+      "items": [
+        {
+          "block": null,
+          "number": "7.10"
+        },
+        {
+          "block": null,
+          "number": "7.11"
+        },
+        {
+          "block": null,
+          "number": "7.12"
+        },
+        {
+          "block": null,
+          "number": "7.13"
+        },
+        {
+          "block": null,
+          "number": "7.14"
+        },
+        {
+          "block": null,
+          "number": "7.15"
+        }
+      ]
+    },
+    "66": {
+      "items": [
+        {
+          "block": null,
+          "number": "7.16"
+        },
+        {
+          "block": null,
+          "number": "7.17"
+        },
+        {
+          "block": null,
+          "number": "7.18"
+        },
+        {
+          "block": null,
+          "number": "7.19"
+        },
+        {
+          "block": null,
+          "number": "7.20"
+        },
+        {
+          "block": null,
+          "number": "7.21"
+        },
+        {
+          "block": null,
+          "number": "7.22"
+        },
+        {
+          "block": null,
+          "number": "7.23"
+        }
+      ]
+    },
+    "67": {
+      "items": [
+        {
+          "block": null,
+          "number": "7.24"
+        },
+        {
+          "block": null,
+          "number": "7.25"
+        },
+        {
+          "block": null,
+          "number": "7.26"
+        },
+        {
+          "block": null,
+          "number": "7.27"
+        },
+        {
+          "block": null,
+          "number": "7.28"
+        },
+        {
+          "block": null,
+          "number": "7.29"
+        },
+        {
+          "block": null,
+          "number": "7.30"
+        },
+        {
+          "block": null,
+          "number": "7.31"
+        },
+        {
+          "block": null,
+          "number": "7.32"
+        },
+        {
+          "block": null,
+          "number": "7.33"
+        },
+        {
+          "block": null,
+          "number": "7.34"
+        }
+      ]
+    },
+    "68": {
+      "items": []
+    },
+    "69": {
+      "items": [
+        {
+          "block": null,
+          "number": "Пример 1"
+        }
+      ]
+    },
+    "70": {
+      "items": []
+    },
+    "72": {
+      "items": [
+        {
+          "block": null,
+          "number": "8.2"
+        },
+        {
+          "block": null,
+          "number": "8.3"
+        },
+        {
+          "block": null,
+          "number": "8.4"
+        },
+        {
+          "block": null,
+          "number": "8.5"
+        },
+        {
+          "block": null,
+          "number": "8.6"
+        },
+        {
+          "block": null,
+          "number": "8.7"
+        },
+        {
+          "block": null,
+          "number": "8.8"
+        }
+      ]
+    },
+    "73": {
+      "items": [
+        {
+          "block": null,
+          "number": "8.9"
+        },
+        {
+          "block": null,
+          "number": "8.10"
+        },
+        {
+          "block": null,
+          "number": "8.11"
+        },
+        {
+          "block": null,
+          "number": "8.12"
+        },
+        {
+          "block": null,
+          "number": "8.13"
+        },
+        {
+          "block": null,
+          "number": "8.14"
+        },
+        {
+          "block": null,
+          "number": "8.15"
+        },
+        {
+          "block": null,
+          "number": "8.16"
+        }
+      ]
+    },
+    "74": {
+      "items": [
+        {
+          "block": null,
+          "number": "8.17"
+        },
+        {
+          "block": null,
+          "number": "8.18"
+        },
+        {
+          "block": null,
+          "number": "8.19"
+        },
+        {
+          "block": null,
+          "number": "8.20"
+        },
+        {
+          "block": null,
+          "number": "8.21"
+        }
+      ]
+    },
+    "75": {
+      "items": [
+        {
+          "block": null,
+          "number": "8.22"
+        },
+        {
+          "block": null,
+          "number": "8.23"
+        },
+        {
+          "block": null,
+          "number": "8.24"
+        },
+        {
+          "block": null,
+          "number": "8.25"
+        },
+        {
+          "block": null,
+          "number": "8.26"
+        },
+        {
+          "block": null,
+          "number": "8.27"
+        },
+        {
+          "block": null,
+          "number": "8.28"
+        }
+      ]
+    },
+    "71": {
+      "items": [
+        {
+          "block": null,
+          "number": "4"
+        },
+        {
+          "block": "Вопросы",
+          "number": "1"
+        },
+        {
+          "block": "Вопросы",
+          "number": "2"
+        },
+        {
+          "block": "Вопросы",
+          "number": "3"
+        },
+        {
+          "block": "Вопросы",
+          "number": "4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "8.1"
+        }
+      ]
+    },
+    "77": {
+      "items": []
+    },
+    "78": {
+      "items": []
+    },
+    "79": {
+      "items": []
+    },
+    "80": {
+      "items": []
+    },
+    "81": {
+      "items": [
+        {
+          "block": null,
+          "number": "Теорема 9.1"
+        }
+      ]
+    },
+    "82": {
+      "items": [
+        {
+          "block": null,
+          "number": "Пример 1"
+        }
+      ]
+    },
+    "83": {
+      "items": []
+    },
+    "84": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        },
+        {
+          "block": null,
+          "number": "4"
+        }
+      ]
+    },
+    "85": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "9.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "9.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "9.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "9.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "9.5"
+        }
+      ]
+    },
+    "87": {
+      "items": [
+        {
+          "block": null,
+          "number": "9.12"
+        },
+        {
+          "block": null,
+          "number": "9.13"
+        },
+        {
+          "block": null,
+          "number": "9.14"
+        },
+        {
+          "block": null,
+          "number": "9.15"
+        },
+        {
+          "block": null,
+          "number": "9.16"
+        }
+      ]
+    },
+    "88": {
+      "items": [
+        {
+          "block": null,
+          "number": "9.17"
+        },
+        {
+          "block": null,
+          "number": "9.18"
+        },
+        {
+          "block": null,
+          "number": "9.19"
+        },
+        {
+          "block": null,
+          "number": "9.20"
+        }
+      ]
+    },
+    "89": {
+      "items": []
+    },
+    "90": {
+      "items": []
+    },
+    "91": {
+      "items": [
+        {
+          "block": null,
+          "number": "??"
+        },
+        {
+          "block": "Упражнения",
+          "number": "10.1"
+        }
+      ]
+    },
+    "92": {
+      "items": [
+        {
+          "block": null,
+          "number": "10.2"
+        },
+        {
+          "block": null,
+          "number": "10.3"
+        }
+      ]
+    },
+    "93": {
+      "items": [
+        {
+          "block": null,
+          "number": "10.4"
+        },
+        {
+          "block": null,
+          "number": "10.5"
+        }
+      ]
+    },
+    "94": {
+      "items": [
+        {
+          "block": null,
+          "number": "10.6"
+        },
+        {
+          "block": null,
+          "number": "10.7"
+        },
+        {
+          "block": null,
+          "number": "10.8"
+        },
+        {
+          "block": null,
+          "number": "10.9"
+        }
+      ]
+    },
+    "95": {
+      "items": [
+        {
+          "block": null,
+          "number": "10.10"
+        },
+        {
+          "block": null,
+          "number": "10.11"
+        },
+        {
+          "block": null,
+          "number": "10.12"
+        },
+        {
+          "block": null,
+          "number": "10.13"
+        },
+        {
+          "block": null,
+          "number": "10.14"
+        },
+        {
+          "block": null,
+          "number": "10.15"
+        },
+        {
+          "block": null,
+          "number": "10.16"
+        },
+        {
+          "block": null,
+          "number": "10.17"
+        },
+        {
+          "block": null,
+          "number": "10.18"
+        },
+        {
+          "block": null,
+          "number": "10.19"
+        },
+        {
+          "block": null,
+          "number": "10.20"
+        }
+      ]
+    },
+    "96": {
+      "items": [
+        {
+          "block": null,
+          "number": "10.21"
+        }
+      ]
+    },
+    "98": {
+      "items": []
+    },
+    "99": {
+      "items": []
+    },
+    "100": {
+      "items": []
+    },
+    "101": {
+      "items": []
+    },
+    "102": {
+      "items": [
+        {
+          "block": "Вопросы",
+          "number": "1"
+        },
+        {
+          "block": "Вопросы",
+          "number": "2"
+        },
+        {
+          "block": "Вопросы",
+          "number": "3"
+        },
+        {
+          "block": "Вопросы",
+          "number": "4"
+        },
+        {
+          "block": "Вопросы",
+          "number": "5"
+        }
+      ]
+    },
+    "103": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "11.1"
+        }
+      ]
+    },
+    "104": {
+      "items": [
+        {
+          "block": null,
+          "number": "11.2"
+        },
+        {
+          "block": null,
+          "number": "11.3"
+        }
+      ]
+    },
+    "105": {
+      "items": [
+        {
+          "block": null,
+          "number": "11.4"
+        },
+        {
+          "block": null,
+          "number": "11.5"
+        },
+        {
+          "block": null,
+          "number": "11.6"
+        }
+      ]
+    },
+    "106": {
+      "items": [
+        {
+          "block": null,
+          "number": "11.7"
+        },
+        {
+          "block": null,
+          "number": "11.8"
+        },
+        {
+          "block": null,
+          "number": "11.9"
+        },
+        {
+          "block": null,
+          "number": "11.10"
+        }
+      ]
+    },
+    "107": {
+      "items": [
+        {
+          "block": null,
+          "number": "11.11"
+        },
+        {
+          "block": null,
+          "number": "11.12"
+        },
+        {
+          "block": null,
+          "number": "11.13"
+        },
+        {
+          "block": null,
+          "number": "11.14"
+        },
+        {
+          "block": null,
+          "number": "11.15"
+        },
+        {
+          "block": null,
+          "number": "11.16"
+        },
+        {
+          "block": null,
+          "number": "11.17"
+        }
+      ]
+    },
+    "109": {
+      "items": [
+        {
+          "block": null,
+          "number": "11.24"
+        },
+        {
+          "block": null,
+          "number": "11.25"
+        },
+        {
+          "block": null,
+          "number": "11.26"
+        },
+        {
+          "block": null,
+          "number": "11.27"
+        },
+        {
+          "block": null,
+          "number": "11.28"
+        },
+        {
+          "block": null,
+          "number": "11.29"
+        },
+        {
+          "block": null,
+          "number": "11.30"
+        },
+        {
+          "block": null,
+          "number": "11.31"
+        },
+        {
+          "block": null,
+          "number": "11.32"
+        }
+      ]
+    },
+    "108": {
+      "items": [
+        {
+          "block": null,
+          "number": "11.18"
+        },
+        {
+          "block": null,
+          "number": "11.19"
+        },
+        {
+          "block": null,
+          "number": "11.20"
+        },
+        {
+          "block": null,
+          "number": "11.21"
+        },
+        {
+          "block": null,
+          "number": "11.22"
+        },
+        {
+          "block": null,
+          "number": "11.23"
+        }
+      ]
+    },
+    "111": {
+      "items": []
+    },
+    "112": {
+      "items": []
+    },
+    "113": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "12.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "12.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "12.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "12.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "12.5"
+        }
+      ]
+    },
+    "114": {
+      "items": []
+    },
+    "115": {
+      "items": []
+    },
+    "116": {
+      "items": []
+    },
+    "117": {
+      "items": []
+    },
+    "118": {
+      "items": []
+    },
+    "119": {
+      "items": []
+    },
+    "120": {
+      "items": []
+    },
+    "121": {
+      "items": []
+    },
+    "123": {
+      "items": []
+    },
+    "124": {
+      "items": []
+    },
+    "125": {
+      "items": [
+        {
+          "block": "Вопросы",
+          "number": "1"
+        },
+        {
+          "block": "Вопросы",
+          "number": "2"
+        },
+        {
+          "block": "Вопросы",
+          "number": "3"
+        },
+        {
+          "block": "Вопросы",
+          "number": "4"
+        },
+        {
+          "block": "Вопросы",
+          "number": "5"
+        },
+        {
+          "block": "Вопросы",
+          "number": "6"
+        },
+        {
+          "block": "Упражнения",
+          "number": "13.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "13.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "13.3"
+        }
+      ]
+    },
+    "126": {
+      "items": [
+        {
+          "block": null,
+          "number": "13.4"
+        },
+        {
+          "block": null,
+          "number": "13.5"
+        },
+        {
+          "block": null,
+          "number": "13.6"
+        },
+        {
+          "block": null,
+          "number": "13.7"
+        },
+        {
+          "block": null,
+          "number": "13.8"
+        },
+        {
+          "block": null,
+          "number": "13.9"
+        },
+        {
+          "block": null,
+          "number": "13.10"
+        },
+        {
+          "block": null,
+          "number": "13.11"
+        },
+        {
+          "block": null,
+          "number": "13.12"
+        },
+        {
+          "block": null,
+          "number": "13.13"
+        },
+        {
+          "block": null,
+          "number": "13.14"
+        },
+        {
+          "block": null,
+          "number": "13.15"
+        },
+        {
+          "block": null,
+          "number": "13.16"
+        },
+        {
+          "block": null,
+          "number": "13.17"
+        },
+        {
+          "block": null,
+          "number": "13.18"
+        },
+        {
+          "block": null,
+          "number": "13.19"
+        },
+        {
+          "block": null,
+          "number": "13.20"
+        },
+        {
+          "block": null,
+          "number": "13.21"
+        },
+        {
+          "block": null,
+          "number": "13.22"
+        },
+        {
+          "block": null,
+          "number": "13.23"
+        }
+      ]
+    },
+    "127": {
+      "items": [
+        {
+          "block": null,
+          "number": "13.24"
+        },
+        {
+          "block": null,
+          "number": "13.25"
+        },
+        {
+          "block": null,
+          "number": "13.26"
+        },
+        {
+          "block": null,
+          "number": "13.27"
+        },
+        {
+          "block": null,
+          "number": "13.28"
+        },
+        {
+          "block": null,
+          "number": "13.29"
+        },
+        {
+          "block": null,
+          "number": "13.30"
+        },
+        {
+          "block": null,
+          "number": "13.31"
+        },
+        {
+          "block": null,
+          "number": "13.32"
+        },
+        {
+          "block": null,
+          "number": "13.33"
+        },
+        {
+          "block": null,
+          "number": "13.34"
+        }
+      ]
+    },
+    "128": {
+      "items": [
+        {
+          "block": null,
+          "number": "13.35"
+        },
+        {
+          "block": null,
+          "number": "13.36"
+        },
+        {
+          "block": null,
+          "number": "13.37"
+        },
+        {
+          "block": null,
+          "number": "13.38"
+        },
+        {
+          "block": null,
+          "number": "13.39"
+        },
+        {
+          "block": null,
+          "number": "13.40"
+        },
+        {
+          "block": null,
+          "number": "13.41"
+        },
+        {
+          "block": null,
+          "number": "13.42"
+        },
+        {
+          "block": null,
+          "number": "13.43"
+        },
+        {
+          "block": null,
+          "number": "13.44"
+        },
+        {
+          "block": null,
+          "number": "13.45"
+        }
+      ]
+    },
+    "130": {
+      "items": []
+    },
+    "131": {
+      "items": []
+    },
+    "132": {
+      "items": [
+        {
+          "block": "Вопросы",
+          "number": "1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "14.1"
+        }
+      ]
+    },
+    "133": {
+      "items": [
+        {
+          "block": null,
+          "number": "14.2"
+        },
+        {
+          "block": null,
+          "number": "14.3"
+        },
+        {
+          "block": null,
+          "number": "14.4"
+        },
+        {
+          "block": null,
+          "number": "14.5"
+        },
+        {
+          "block": null,
+          "number": "14.6"
+        },
+        {
+          "block": null,
+          "number": "14.7"
+        },
+        {
+          "block": null,
+          "number": "14.8"
+        },
+        {
+          "block": null,
+          "number": "14.9"
+        },
+        {
+          "block": null,
+          "number": "14.10"
+        }
+      ]
+    },
+    "134": {
+      "items": [
+        {
+          "block": null,
+          "number": "14.11"
+        },
+        {
+          "block": null,
+          "number": "14.12"
+        },
+        {
+          "block": null,
+          "number": "14.13"
+        },
+        {
+          "block": null,
+          "number": "14.14"
+        },
+        {
+          "block": null,
+          "number": "14.15"
+        },
+        {
+          "block": null,
+          "number": "14.16"
+        },
+        {
+          "block": null,
+          "number": "14.17"
+        },
+        {
+          "block": null,
+          "number": "14.18"
+        },
+        {
+          "block": null,
+          "number": "14.19"
+        },
+        {
+          "block": null,
+          "number": "14.20"
+        },
+        {
+          "block": null,
+          "number": "14.21"
+        }
+      ]
+    },
+    "135": {
+      "items": [
+        {
+          "block": null,
+          "number": "14.22"
+        },
+        {
+          "block": null,
+          "number": "14.23"
+        },
+        {
+          "block": null,
+          "number": "14.24"
+        }
+      ]
+    },
+    "136": {
+      "items": []
+    },
+    "137": {
+      "items": []
+    },
+    "138": {
+      "items": []
+    },
+    "140": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.4"
+        }
+      ]
+    },
+    "141": {
+      "items": [
+        {
+          "block": null,
+          "number": "15.5"
+        },
+        {
+          "block": null,
+          "number": "15.6"
+        },
+        {
+          "block": null,
+          "number": "15.7"
+        },
+        {
+          "block": null,
+          "number": "15.8"
+        },
+        {
+          "block": null,
+          "number": "15.9"
+        },
+        {
+          "block": null,
+          "number": "15.10"
+        },
+        {
+          "block": null,
+          "number": "15.11"
+        },
+        {
+          "block": null,
+          "number": "15.12"
+        }
+      ]
+    },
+    "142": {
+      "items": [
+        {
+          "block": null,
+          "number": "15.13"
+        },
+        {
+          "block": null,
+          "number": "15.14"
+        },
+        {
+          "block": null,
+          "number": "15.15"
+        },
+        {
+          "block": null,
+          "number": "15.16"
+        },
+        {
+          "block": null,
+          "number": "15.17"
+        }
+      ]
+    },
+    "143": {
+      "items": []
+    },
+    "139": {
+      "items": []
+    },
+    "145": {
+      "items": []
+    },
+    "144": {
+      "items": []
+    },
+    "147": {
+      "items": [
+        {
+          "block": null,
+          "number": "15.26"
+        },
+        {
+          "block": null,
+          "number": "15.27"
+        },
+        {
+          "block": null,
+          "number": "15.28"
+        },
+        {
+          "block": null,
+          "number": "15.29"
+        },
+        {
+          "block": null,
+          "number": "15.30"
+        },
+        {
+          "block": null,
+          "number": "15.31"
+        }
+      ]
+    },
+    "148": {
+      "items": []
+    },
+    "149": {
+      "items": []
+    },
+    "150": {
+      "items": [
+        {
+          "block": null,
+          "number": "(2)"
+        },
+        {
+          "block": null,
+          "number": "Теорема 16.2"
+        },
+        {
+          "block": null,
+          "number": "(3)"
+        }
+      ]
+    },
+    "151": {
+      "items": [
+        {
+          "block": null,
+          "number": "(4)"
+        },
+        {
+          "block": null,
+          "number": "(5)"
+        },
+        {
+          "block": null,
+          "number": "Пример 3"
+        }
+      ]
+    },
+    "152": {
+      "items": [
+        {
+          "block": null,
+          "number": "?"
+        },
+        {
+          "block": "Упражнения",
+          "number": "16.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "16.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "16.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "16.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "16.5"
+        }
+      ]
+    },
+    "153": {
+      "items": [
+        {
+          "block": null,
+          "number": "16.6"
+        },
+        {
+          "block": null,
+          "number": "16.7"
+        },
+        {
+          "block": null,
+          "number": "16.8"
+        },
+        {
+          "block": null,
+          "number": "16.9"
+        },
+        {
+          "block": null,
+          "number": "16.10"
+        },
+        {
+          "block": null,
+          "number": "16.11"
+        },
+        {
+          "block": null,
+          "number": "16.12"
+        },
+        {
+          "block": null,
+          "number": "16.13"
+        },
+        {
+          "block": null,
+          "number": "16.14"
+        },
+        {
+          "block": null,
+          "number": "16.15"
+        },
+        {
+          "block": null,
+          "number": "16.16"
+        },
+        {
+          "block": null,
+          "number": "16.17"
+        },
+        {
+          "block": null,
+          "number": "16.18"
+        }
+      ]
+    },
+    "154": {
+      "items": [
+        {
+          "block": null,
+          "number": "16.19"
+        },
+        {
+          "block": null,
+          "number": "16.20"
+        },
+        {
+          "block": null,
+          "number": "16.21"
+        },
+        {
+          "block": null,
+          "number": "16.22"
+        },
+        {
+          "block": null,
+          "number": "16.23"
+        },
+        {
+          "block": null,
+          "number": "16.24"
+        },
+        {
+          "block": null,
+          "number": "16.25"
+        }
+      ]
+    },
+    "156": {
+      "items": []
+    },
+    "157": {
+      "items": []
+    },
+    "158": {
+      "items": []
+    },
+    "159": {
+      "items": [
+        {
+          "block": null,
+          "number": "3"
+        }
+      ]
+    },
+    "160": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        },
+        {
+          "block": null,
+          "number": "4"
+        },
+        {
+          "block": null,
+          "number": "5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.6"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.7"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.8"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.9"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.10"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.11"
+        },
+        {
+          "block": "Упражнения",
+          "number": "17.12"
+        }
+      ]
+    },
+    "161": {
+      "items": [
+        {
+          "block": null,
+          "number": "17.13"
+        },
+        {
+          "block": null,
+          "number": "17.14"
+        },
+        {
+          "block": null,
+          "number": "17.15"
+        },
+        {
+          "block": null,
+          "number": "17.16"
+        },
+        {
+          "block": null,
+          "number": "17.17"
+        },
+        {
+          "block": null,
+          "number": "17.18"
+        },
+        {
+          "block": null,
+          "number": "17.19"
+        },
+        {
+          "block": null,
+          "number": "17.20"
+        },
+        {
+          "block": null,
+          "number": "17.21"
+        },
+        {
+          "block": null,
+          "number": "17.22"
+        },
+        {
+          "block": null,
+          "number": "17.23"
+        },
+        {
+          "block": null,
+          "number": "17.24"
+        },
+        {
+          "block": null,
+          "number": "17.25"
+        },
+        {
+          "block": null,
+          "number": "17.26"
+        },
+        {
+          "block": null,
+          "number": "17.27"
+        },
+        {
+          "block": null,
+          "number": "17.28"
+        },
+        {
+          "block": null,
+          "number": "17.29"
+        }
+      ]
+    },
+    "162": {
+      "items": [
+        {
+          "block": null,
+          "number": "17.30"
+        },
+        {
+          "block": null,
+          "number": "17.31"
+        },
+        {
+          "block": null,
+          "number": "17.32"
+        },
+        {
+          "block": null,
+          "number": "17.33"
+        },
+        {
+          "block": null,
+          "number": "17.34"
+        },
+        {
+          "block": null,
+          "number": "17.35"
+        },
+        {
+          "block": null,
+          "number": "17.36"
+        },
+        {
+          "block": null,
+          "number": "17.37"
+        },
+        {
+          "block": null,
+          "number": "17.38"
+        }
+      ]
+    },
+    "164": {
+      "items": []
+    },
+    "165": {
+      "items": []
+    },
+    "166": {
+      "items": []
+    },
+    "167": {
+      "items": []
+    },
+    "168": {
+      "items": []
+    },
+    "169": {
+      "items": [
+        {
+          "block": null,
+          "number": "Утверждение 1"
+        },
+        {
+          "block": null,
+          "number": "Утверждение 2"
+        }
+      ]
+    },
+    "170": {
+      "items": [
+        {
+          "block": null,
+          "number": "Теорема 18.1"
+        }
+      ]
+    },
+    "171": {
+      "items": []
+    },
+    "172": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        },
+        {
+          "block": null,
+          "number": "4"
+        },
+        {
+          "block": null,
+          "number": "5"
+        },
+        {
+          "block": null,
+          "number": "6"
+        },
+        {
+          "block": null,
+          "number": "7"
+        },
+        {
+          "block": null,
+          "number": "8"
+        },
+        {
+          "block": null,
+          "number": "9"
+        },
+        {
+          "block": null,
+          "number": "10"
+        },
+        {
+          "block": null,
+          "number": "11"
+        },
+        {
+          "block": null,
+          "number": "12"
+        },
+        {
+          "block": "Упражнения",
+          "number": "18.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "18.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "18.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "18.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "18.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "18.6"
+        },
+        {
+          "block": "Упражнения",
+          "number": "18.7"
+        }
+      ]
+    },
+    "173": {
+      "items": [
+        {
+          "block": null,
+          "number": "18.8"
+        },
+        {
+          "block": null,
+          "number": "18.9"
+        },
+        {
+          "block": null,
+          "number": "18.10"
+        },
+        {
+          "block": null,
+          "number": "18.11"
+        }
+      ]
+    },
+    "174": {
+      "items": [
+        {
+          "block": null,
+          "number": "18.12"
+        },
+        {
+          "block": null,
+          "number": "18.13"
+        },
+        {
+          "block": null,
+          "number": "18.14"
+        }
+      ]
+    },
+    "176": {
+      "items": [
+        {
+          "block": null,
+          "number": "18.21"
+        },
+        {
+          "block": null,
+          "number": "18.22"
+        },
+        {
+          "block": null,
+          "number": "18.23"
+        },
+        {
+          "block": null,
+          "number": "18.24"
+        },
+        {
+          "block": null,
+          "number": "18.25"
+        },
+        {
+          "block": null,
+          "number": "18.26"
+        },
+        {
+          "block": null,
+          "number": "18.27"
+        },
+        {
+          "block": null,
+          "number": "18.28"
+        }
+      ]
+    },
+    "177": {
+      "items": [
+        {
+          "block": null,
+          "number": "18.29"
+        },
+        {
+          "block": null,
+          "number": "18.30"
+        },
+        {
+          "block": null,
+          "number": "18.31"
+        },
+        {
+          "block": null,
+          "number": "18.32"
+        },
+        {
+          "block": null,
+          "number": "18.33"
+        }
+      ]
+    },
+    "178": {
+      "items": []
+    },
+    "179": {
+      "items": []
+    },
+    "180": {
+      "items": []
+    },
+    "181": {
+      "items": []
+    },
+    "182": {
+      "items": []
+    },
+    "183": {
+      "items": []
+    },
+    "184": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        },
+        {
+          "block": null,
+          "number": "4"
+        },
+        {
+          "block": null,
+          "number": "5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "19.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "19.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "19.3"
+        }
+      ]
+    },
+    "186": {
+      "items": [
+        {
+          "block": null,
+          "number": "19.14"
+        },
+        {
+          "block": null,
+          "number": "19.15"
+        },
+        {
+          "block": null,
+          "number": "19.16"
+        },
+        {
+          "block": null,
+          "number": "19.17"
+        },
+        {
+          "block": null,
+          "number": "19.18"
+        }
+      ]
+    },
+    "187": {
+      "items": [
+        {
+          "block": null,
+          "number": "19.19"
+        },
+        {
+          "block": null,
+          "number": "19.20"
+        },
+        {
+          "block": null,
+          "number": "19.21"
+        },
+        {
+          "block": null,
+          "number": "19.22"
+        },
+        {
+          "block": null,
+          "number": "19.23"
+        }
+      ]
+    },
+    "188": {
+      "items": []
+    },
+    "189": {
+      "items": []
+    },
+    "185": {
+      "items": [
+        {
+          "block": null,
+          "number": "19.4"
+        },
+        {
+          "block": null,
+          "number": "19.5"
+        },
+        {
+          "block": null,
+          "number": "19.6"
+        },
+        {
+          "block": null,
+          "number": "19.7"
+        },
+        {
+          "block": null,
+          "number": "19.8"
+        },
+        {
+          "block": null,
+          "number": "19.9"
+        },
+        {
+          "block": null,
+          "number": "19.10"
+        },
+        {
+          "block": null,
+          "number": "19.11"
+        },
+        {
+          "block": null,
+          "number": "19.12"
+        },
+        {
+          "block": null,
+          "number": "19.13"
+        }
+      ]
+    },
+    "191": {
+      "items": []
+    },
+    "192": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        },
+        {
+          "block": null,
+          "number": "4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.6"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.7"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.8"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.9"
+        },
+        {
+          "block": "Упражнения",
+          "number": "20.10"
+        }
+      ]
+    },
+    "193": {
+      "items": [
+        {
+          "block": null,
+          "number": "20.11"
+        },
+        {
+          "block": null,
+          "number": "20.12"
+        },
+        {
+          "block": null,
+          "number": "20.13"
+        },
+        {
+          "block": null,
+          "number": "20.14"
+        },
+        {
+          "block": null,
+          "number": "20.15"
+        }
+      ]
+    },
+    "194": {
+      "items": [
+        {
+          "block": null,
+          "number": "20.16"
+        },
+        {
+          "block": null,
+          "number": "20.17"
+        },
+        {
+          "block": null,
+          "number": "20.18"
+        },
+        {
+          "block": null,
+          "number": "20.19"
+        }
+      ]
+    },
+    "195": {
+      "items": [
+        {
+          "block": null,
+          "number": "20.20"
+        },
+        {
+          "block": null,
+          "number": "20.21"
+        }
+      ]
+    },
+    "196": {
+      "items": []
+    },
+    "197": {
+      "items": [
+        {
+          "block": null,
+          "number": "Пример 2"
+        }
+      ]
+    },
+    "198": {
+      "items": []
+    },
+    "199": {
+      "items": []
+    },
+    "201": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "21.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "21.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "21.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "21.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "21.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "21.6"
+        }
+      ]
+    },
+    "202": {
+      "items": [
+        {
+          "block": null,
+          "number": "21.7"
+        },
+        {
+          "block": null,
+          "number": "21.8"
+        },
+        {
+          "block": null,
+          "number": "21.9"
+        }
+      ]
+    },
+    "203": {
+      "items": [
+        {
+          "block": null,
+          "number": "21.10"
+        },
+        {
+          "block": null,
+          "number": "21.11"
+        },
+        {
+          "block": null,
+          "number": "21.12"
+        }
+      ]
+    },
+    "204": {
+      "items": [
+        {
+          "block": null,
+          "number": "21.13"
+        },
+        {
+          "block": null,
+          "number": "21.14"
+        },
+        {
+          "block": null,
+          "number": "21.15"
+        },
+        {
+          "block": null,
+          "number": "21.16"
+        },
+        {
+          "block": null,
+          "number": "21.17"
+        },
+        {
+          "block": null,
+          "number": "21.18"
+        },
+        {
+          "block": null,
+          "number": "21.19"
+        },
+        {
+          "block": null,
+          "number": "21.20"
+        },
+        {
+          "block": null,
+          "number": "21.21"
+        },
+        {
+          "block": null,
+          "number": "21.22"
+        }
+      ]
+    },
+    "205": {
+      "items": []
+    },
+    "206": {
+      "items": []
+    },
+    "207": {
+      "items": []
+    },
+    "208": {
+      "items": []
+    },
+    "209": {
+      "items": [
+        {
+          "block": "Вопросы",
+          "number": "1"
+        },
+        {
+          "block": "Вопросы",
+          "number": "2"
+        },
+        {
+          "block": "Вопросы",
+          "number": "3"
+        },
+        {
+          "block": "Вопросы",
+          "number": "4"
+        },
+        {
+          "block": "Вопросы",
+          "number": "5"
+        }
+      ]
+    },
+    "210": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "22.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.6"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.7"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.8"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.9"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.10"
+        },
+        {
+          "block": "Упражнения",
+          "number": "22.11"
+        }
+      ]
+    },
+    "211": {
+      "items": [
+        {
+          "block": null,
+          "number": "22.12"
+        },
+        {
+          "block": null,
+          "number": "22.13"
+        },
+        {
+          "block": null,
+          "number": "22.14"
+        },
+        {
+          "block": null,
+          "number": "22.15"
+        },
+        {
+          "block": null,
+          "number": "22.16"
+        },
+        {
+          "block": null,
+          "number": "22.17"
+        },
+        {
+          "block": null,
+          "number": "22.18"
+        },
+        {
+          "block": null,
+          "number": "22.19"
+        },
+        {
+          "block": null,
+          "number": "22.20"
+        },
+        {
+          "block": null,
+          "number": "22.21"
+        },
+        {
+          "block": null,
+          "number": "22.22"
+        }
+      ]
+    },
+    "213": {
+      "items": []
+    },
+    "214": {
+      "items": []
+    },
+    "215": {
+      "items": []
+    },
+    "216": {
+      "items": []
+    },
+    "217": {
+      "items": []
+    },
+    "218": {
+      "items": [
+        {
+          "block": null,
+          "number": "Пример 3"
+        },
+        {
+          "block": null,
+          "number": "Пример 4"
+        }
+      ]
+    },
+    "219": {
+      "items": [
+        {
+          "block": "Вопросы",
+          "number": "1"
+        },
+        {
+          "block": "Вопросы",
+          "number": "2"
+        },
+        {
+          "block": "Вопросы",
+          "number": "3"
+        },
+        {
+          "block": "Вопросы",
+          "number": "4"
+        },
+        {
+          "block": "Вопросы",
+          "number": "5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "23.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "23.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "23.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "23.4"
+        }
+      ]
+    },
+    "220": {
+      "items": [
+        {
+          "block": null,
+          "number": "23.5"
+        },
+        {
+          "block": null,
+          "number": "23.6"
+        },
+        {
+          "block": null,
+          "number": "23.7"
+        },
+        {
+          "block": null,
+          "number": "23.8"
+        },
+        {
+          "block": null,
+          "number": "23.9"
+        },
+        {
+          "block": null,
+          "number": "23.10"
+        },
+        {
+          "block": null,
+          "number": "23.11"
+        },
+        {
+          "block": null,
+          "number": "23.12"
+        }
+      ]
+    },
+    "221": {
+      "items": [
+        {
+          "block": null,
+          "number": "23.13"
+        },
+        {
+          "block": null,
+          "number": "23.14"
+        },
+        {
+          "block": null,
+          "number": "23.15"
+        }
+      ]
+    },
+    "222": {
+      "items": [
+        {
+          "block": null,
+          "number": "23.16"
+        },
+        {
+          "block": null,
+          "number": "23.17"
+        },
+        {
+          "block": null,
+          "number": "23.18"
+        },
+        {
+          "block": null,
+          "number": "23.19"
+        }
+      ]
+    },
+    "224": {
+      "items": []
+    },
+    "225": {
+      "items": []
+    },
+    "226": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "24.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "24.2"
+        }
+      ]
+    },
+    "227": {
+      "items": [
+        {
+          "block": null,
+          "number": "24.3"
+        },
+        {
+          "block": null,
+          "number": "24.4"
+        },
+        {
+          "block": null,
+          "number": "24.5"
+        },
+        {
+          "block": null,
+          "number": "24.6"
+        },
+        {
+          "block": null,
+          "number": "24.7"
+        },
+        {
+          "block": null,
+          "number": "24.8"
+        },
+        {
+          "block": null,
+          "number": "24.9"
+        },
+        {
+          "block": null,
+          "number": "24.10"
+        },
+        {
+          "block": null,
+          "number": "24.11"
+        }
+      ]
+    },
+    "228": {
+      "items": [
+        {
+          "block": null,
+          "number": "24.12"
+        },
+        {
+          "block": null,
+          "number": "24.13"
+        },
+        {
+          "block": null,
+          "number": "24.14"
+        },
+        {
+          "block": null,
+          "number": "24.15"
+        },
+        {
+          "block": null,
+          "number": "24.16"
+        },
+        {
+          "block": null,
+          "number": "24.17"
+        },
+        {
+          "block": null,
+          "number": "24.18"
+        },
+        {
+          "block": null,
+          "number": "24.19"
+        },
+        {
+          "block": null,
+          "number": "24.20"
+        }
+      ]
+    },
+    "229": {
+      "items": [
+        {
+          "block": null,
+          "number": "24.21"
+        },
+        {
+          "block": null,
+          "number": "24.22"
+        },
+        {
+          "block": null,
+          "number": "24.23"
+        }
+      ]
+    },
+    "230": {
+      "items": []
+    },
+    "231": {
+      "items": []
+    },
+    "232": {
+      "items": []
+    },
+    "233": {
+      "items": []
+    },
+    "235": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "25.1"
+        }
+      ]
+    },
+    "236": {
+      "items": [
+        {
+          "block": null,
+          "number": "25.2"
+        },
+        {
+          "block": null,
+          "number": "25.3"
+        }
+      ]
+    },
+    "234": {
+      "items": []
+    },
+    "238": {
+      "items": [
+        {
+          "block": null,
+          "number": "25.12"
+        },
+        {
+          "block": null,
+          "number": "25.13"
+        },
+        {
+          "block": null,
+          "number": "25.14"
+        },
+        {
+          "block": null,
+          "number": "25.15"
+        },
+        {
+          "block": null,
+          "number": "25.16"
+        },
+        {
+          "block": null,
+          "number": "25.17"
+        },
+        {
+          "block": null,
+          "number": "25.18"
+        },
+        {
+          "block": null,
+          "number": "25.19"
+        },
+        {
+          "block": null,
+          "number": "25.20"
+        },
+        {
+          "block": null,
+          "number": "25.21"
+        },
+        {
+          "block": null,
+          "number": "25.22"
+        },
+        {
+          "block": null,
+          "number": "25.23"
+        }
+      ]
+    },
+    "239": {
+      "items": []
+    },
+    "240": {
+      "items": []
+    },
+    "241": {
+      "items": []
+    },
+    "242": {
+      "items": []
+    },
+    "243": {
+      "items": [
+        {
+          "block": null,
+          "number": "9"
+        },
+        {
+          "block": null,
+          "number": "10"
+        }
+      ]
+    },
+    "244": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "26.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "26.2"
+        }
+      ]
+    },
+    "245": {
+      "items": [
+        {
+          "block": null,
+          "number": "26.3"
+        },
+        {
+          "block": null,
+          "number": "26.4"
+        },
+        {
+          "block": null,
+          "number": "26.5"
+        },
+        {
+          "block": null,
+          "number": "26.6"
+        },
+        {
+          "block": null,
+          "number": "26.7"
+        },
+        {
+          "block": null,
+          "number": "26.8"
+        },
+        {
+          "block": null,
+          "number": "26.9"
+        },
+        {
+          "block": null,
+          "number": "26.10"
+        },
+        {
+          "block": null,
+          "number": "26.11"
+        },
+        {
+          "block": null,
+          "number": "26.12"
+        },
+        {
+          "block": null,
+          "number": "26.13"
+        },
+        {
+          "block": null,
+          "number": "26.14"
+        },
+        {
+          "block": null,
+          "number": "26.15"
+        },
+        {
+          "block": null,
+          "number": "26.16"
+        },
+        {
+          "block": null,
+          "number": "26.17"
+        }
+      ]
+    },
+    "246": {
+      "items": [
+        {
+          "block": null,
+          "number": "26.18"
+        },
+        {
+          "block": null,
+          "number": "26.19"
+        },
+        {
+          "block": null,
+          "number": "26.20"
+        },
+        {
+          "block": null,
+          "number": "26.21"
+        },
+        {
+          "block": null,
+          "number": "26.22"
+        },
+        {
+          "block": null,
+          "number": "26.23"
+        },
+        {
+          "block": null,
+          "number": "26.24"
+        },
+        {
+          "block": null,
+          "number": "26.25"
+        },
+        {
+          "block": null,
+          "number": "26.26"
+        },
+        {
+          "block": null,
+          "number": "26.27"
+        },
+        {
+          "block": null,
+          "number": "26.28"
+        },
+        {
+          "block": null,
+          "number": "26.29"
+        },
+        {
+          "block": null,
+          "number": "26.30"
+        },
+        {
+          "block": null,
+          "number": "26.31"
+        },
+        {
+          "block": null,
+          "number": "26.32"
+        },
+        {
+          "block": null,
+          "number": "26.33"
+        }
+      ]
+    },
+    "248": {
+      "items": []
+    },
+    "249": {
+      "items": []
+    },
+    "250": {
+      "items": []
+    },
+    "251": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "27.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "27.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "27.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "27.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "27.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "27.6"
+        },
+        {
+          "block": "Упражнения",
+          "number": "27.7"
+        }
+      ]
+    },
+    "252": {
+      "items": [
+        {
+          "block": null,
+          "number": "27.8"
+        },
+        {
+          "block": null,
+          "number": "27.9"
+        },
+        {
+          "block": null,
+          "number": "27.10"
+        },
+        {
+          "block": null,
+          "number": "27.11"
+        },
+        {
+          "block": null,
+          "number": "27.12"
+        },
+        {
+          "block": null,
+          "number": "27.13"
+        },
+        {
+          "block": null,
+          "number": "27.14"
+        },
+        {
+          "block": null,
+          "number": "27.15"
+        },
+        {
+          "block": null,
+          "number": "27.16"
+        },
+        {
+          "block": null,
+          "number": "27.17"
+        },
+        {
+          "block": null,
+          "number": "27.18"
+        }
+      ]
+    },
+    "254": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.6"
+        },
+        {
+          "block": null,
+          "number": "28.7"
+        },
+        {
+          "block": null,
+          "number": "28.8"
+        },
+        {
+          "block": null,
+          "number": "28.9"
+        },
+        {
+          "block": null,
+          "number": "28.10"
+        },
+        {
+          "block": null,
+          "number": "28.11"
+        },
+        {
+          "block": null,
+          "number": "28.12"
+        },
+        {
+          "block": null,
+          "number": "28.13"
+        },
+        {
+          "block": null,
+          "number": "28.14"
+        },
+        {
+          "block": null,
+          "number": "28.15"
+        },
+        {
+          "block": null,
+          "number": "28.16"
+        },
+        {
+          "block": null,
+          "number": "28.17"
+        },
+        {
+          "block": null,
+          "number": "28.18"
+        },
+        {
+          "block": null,
+          "number": "28.19"
+        }
+      ]
+    },
+    "255": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.20"
+        },
+        {
+          "block": null,
+          "number": "28.21"
+        },
+        {
+          "block": null,
+          "number": "28.22"
+        },
+        {
+          "block": null,
+          "number": "28.23"
+        },
+        {
+          "block": null,
+          "number": "28.24"
+        },
+        {
+          "block": null,
+          "number": "28.25"
+        },
+        {
+          "block": null,
+          "number": "28.26"
+        },
+        {
+          "block": null,
+          "number": "28.27"
+        },
+        {
+          "block": null,
+          "number": "28.28"
+        },
+        {
+          "block": null,
+          "number": "28.29"
+        },
+        {
+          "block": "2. Рациональные числа и действия с ними",
+          "number": "28.30"
+        },
+        {
+          "block": "2. Рациональные числа и действия с ними",
+          "number": "28.31"
+        },
+        {
+          "block": "2. Рациональные числа и действия с ними",
+          "number": "28.32"
+        },
+        {
+          "block": "2. Рациональные числа и действия с ними",
+          "number": "28.33"
+        },
+        {
+          "block": "2. Рациональные числа и действия с ними",
+          "number": "28.34"
+        },
+        {
+          "block": "2. Рациональные числа и действия с ними",
+          "number": "28.35"
+        }
+      ]
+    },
+    "256": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.36"
+        },
+        {
+          "block": null,
+          "number": "28.37"
+        },
+        {
+          "block": null,
+          "number": "28.38"
+        },
+        {
+          "block": null,
+          "number": "28.39"
+        },
+        {
+          "block": null,
+          "number": "28.40"
+        },
+        {
+          "block": null,
+          "number": "28.41"
+        },
+        {
+          "block": null,
+          "number": "28.42"
+        },
+        {
+          "block": null,
+          "number": "28.43"
+        },
+        {
+          "block": null,
+          "number": "28.44"
+        },
+        {
+          "block": null,
+          "number": "28.45"
+        },
+        {
+          "block": null,
+          "number": "28.46"
+        }
+      ]
+    },
+    "257": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.47"
+        },
+        {
+          "block": null,
+          "number": "28.48"
+        },
+        {
+          "block": null,
+          "number": "28.49"
+        },
+        {
+          "block": null,
+          "number": "28.50"
+        },
+        {
+          "block": null,
+          "number": "28.51"
+        },
+        {
+          "block": null,
+          "number": "28.52"
+        },
+        {
+          "block": null,
+          "number": "28.53"
+        },
+        {
+          "block": null,
+          "number": "28.54"
+        },
+        {
+          "block": null,
+          "number": "28.55"
+        },
+        {
+          "block": null,
+          "number": "28.56"
+        },
+        {
+          "block": null,
+          "number": "28.57"
+        }
+      ]
+    },
+    "259": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.71"
+        },
+        {
+          "block": null,
+          "number": "28.72"
+        },
+        {
+          "block": null,
+          "number": "28.73"
+        },
+        {
+          "block": null,
+          "number": "28.74"
+        },
+        {
+          "block": null,
+          "number": "28.75"
+        },
+        {
+          "block": null,
+          "number": "28.76"
+        },
+        {
+          "block": null,
+          "number": "28.77"
+        },
+        {
+          "block": null,
+          "number": "28.78"
+        },
+        {
+          "block": null,
+          "number": "28.79"
+        },
+        {
+          "block": null,
+          "number": "28.80"
+        },
+        {
+          "block": null,
+          "number": "28.81"
+        },
+        {
+          "block": "5. Элементы статистики",
+          "number": "28.82"
+        }
+      ]
+    },
+    "260": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.83"
+        },
+        {
+          "block": null,
+          "number": "28.84"
+        },
+        {
+          "block": null,
+          "number": "28.85"
+        },
+        {
+          "block": null,
+          "number": "28.86"
+        },
+        {
+          "block": null,
+          "number": "28.87"
+        }
+      ]
+    },
+    "261": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.88"
+        },
+        {
+          "block": null,
+          "number": "28.89"
+        },
+        {
+          "block": null,
+          "number": "28.90"
+        },
+        {
+          "block": null,
+          "number": "28.91"
+        }
+      ]
+    },
+    "262": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.92"
+        },
+        {
+          "block": "6. Рациональные выражения",
+          "number": "28.93"
+        },
+        {
+          "block": "6. Рациональные выражения",
+          "number": "28.94"
+        },
+        {
+          "block": "6. Рациональные выражения",
+          "number": "28.95"
+        },
+        {
+          "block": "6. Рациональные выражения",
+          "number": "28.96"
+        },
+        {
+          "block": "6. Рациональные выражения",
+          "number": "28.97"
+        },
+        {
+          "block": "6. Рациональные выражения",
+          "number": "28.98"
+        }
+      ]
+    },
+    "263": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.99"
+        },
+        {
+          "block": null,
+          "number": "28.100"
+        },
+        {
+          "block": null,
+          "number": "28.101"
+        },
+        {
+          "block": null,
+          "number": "28.102"
+        },
+        {
+          "block": null,
+          "number": "28.103"
+        },
+        {
+          "block": null,
+          "number": "28.104"
+        },
+        {
+          "block": null,
+          "number": "28.105"
+        },
+        {
+          "block": null,
+          "number": "28.106"
+        }
+      ]
+    },
+    "264": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.107"
+        },
+        {
+          "block": null,
+          "number": "28.108"
+        },
+        {
+          "block": null,
+          "number": "28.109"
+        },
+        {
+          "block": null,
+          "number": "28.110"
+        },
+        {
+          "block": null,
+          "number": "28.111"
+        },
+        {
+          "block": null,
+          "number": "28.112"
+        },
+        {
+          "block": null,
+          "number": "28.113"
+        },
+        {
+          "block": null,
+          "number": "28.114"
+        },
+        {
+          "block": null,
+          "number": "28.115"
+        },
+        {
+          "block": null,
+          "number": "28.116"
+        }
+      ]
+    },
+    "266": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.122"
+        },
+        {
+          "block": null,
+          "number": "28.123"
+        },
+        {
+          "block": null,
+          "number": "28.124"
+        },
+        {
+          "block": null,
+          "number": "28.125"
+        },
+        {
+          "block": null,
+          "number": "28.126"
+        },
+        {
+          "block": null,
+          "number": "28.127"
+        },
+        {
+          "block": null,
+          "number": "28.128"
+        },
+        {
+          "block": null,
+          "number": "28.129"
+        },
+        {
+          "block": null,
+          "number": "28.130"
+        },
+        {
+          "block": null,
+          "number": "28.131"
+        },
+        {
+          "block": null,
+          "number": "28.132"
+        },
+        {
+          "block": null,
+          "number": "28.133"
+        },
+        {
+          "block": null,
+          "number": "28.134"
+        }
+      ]
+    },
+    "265": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.117"
+        },
+        {
+          "block": null,
+          "number": "28.118"
+        },
+        {
+          "block": null,
+          "number": "28.119"
+        },
+        {
+          "block": null,
+          "number": "28.120"
+        },
+        {
+          "block": null,
+          "number": "28.121"
+        }
+      ]
+    },
+    "268": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.144"
+        },
+        {
+          "block": null,
+          "number": "28.145"
+        },
+        {
+          "block": null,
+          "number": "28.146"
+        },
+        {
+          "block": null,
+          "number": "28.147"
+        },
+        {
+          "block": null,
+          "number": "28.148"
+        },
+        {
+          "block": null,
+          "number": "28.149"
+        }
+      ]
+    },
+    "269": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.150"
+        },
+        {
+          "block": null,
+          "number": "28.151"
+        },
+        {
+          "block": null,
+          "number": "28.152"
+        },
+        {
+          "block": null,
+          "number": "28.153"
+        },
+        {
+          "block": null,
+          "number": "28.154"
+        },
+        {
+          "block": null,
+          "number": "28.155"
+        },
+        {
+          "block": null,
+          "number": "28.156"
+        },
+        {
+          "block": null,
+          "number": "28.157"
+        },
+        {
+          "block": null,
+          "number": "28.158"
+        },
+        {
+          "block": null,
+          "number": "28.159"
+        },
+        {
+          "block": null,
+          "number": "28.160"
+        },
+        {
+          "block": null,
+          "number": "28.161"
+        },
+        {
+          "block": null,
+          "number": "28.162"
+        }
+      ]
+    },
+    "270": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.163"
+        },
+        {
+          "block": null,
+          "number": "28.164"
+        },
+        {
+          "block": null,
+          "number": "28.165"
+        },
+        {
+          "block": null,
+          "number": "28.166"
+        },
+        {
+          "block": null,
+          "number": "28.167"
+        },
+        {
+          "block": null,
+          "number": "28.168"
+        },
+        {
+          "block": null,
+          "number": "28.169"
+        }
+      ]
+    },
+    "271": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.170"
+        },
+        {
+          "block": null,
+          "number": "28.171"
+        },
+        {
+          "block": null,
+          "number": "28.172"
+        },
+        {
+          "block": null,
+          "number": "28.173"
+        },
+        {
+          "block": null,
+          "number": "28.174"
+        },
+        {
+          "block": null,
+          "number": "28.175"
+        },
+        {
+          "block": null,
+          "number": "28.176"
+        },
+        {
+          "block": null,
+          "number": "28.177"
+        },
+        {
+          "block": null,
+          "number": "28.178"
+        },
+        {
+          "block": null,
+          "number": "28.179"
+        },
+        {
+          "block": null,
+          "number": "28.180"
+        },
+        {
+          "block": null,
+          "number": "28.181"
+        },
+        {
+          "block": null,
+          "number": "28.182"
+        },
+        {
+          "block": null,
+          "number": "28.183"
+        }
+      ]
+    },
+    "272": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.184"
+        },
+        {
+          "block": null,
+          "number": "28.185"
+        },
+        {
+          "block": null,
+          "number": "28.186"
+        },
+        {
+          "block": null,
+          "number": "28.187"
+        },
+        {
+          "block": null,
+          "number": "28.188"
+        },
+        {
+          "block": null,
+          "number": "28.189"
+        },
+        {
+          "block": null,
+          "number": "28.190"
+        }
+      ]
+    },
+    "273": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.191"
+        },
+        {
+          "block": null,
+          "number": "28.192"
+        },
+        {
+          "block": null,
+          "number": "28.193"
+        },
+        {
+          "block": null,
+          "number": "28.194"
+        },
+        {
+          "block": null,
+          "number": "28.195"
+        },
+        {
+          "block": null,
+          "number": "28.196"
+        },
+        {
+          "block": null,
+          "number": "28.197"
+        },
+        {
+          "block": null,
+          "number": "28.198"
+        },
+        {
+          "block": null,
+          "number": "28.199"
+        },
+        {
+          "block": null,
+          "number": "28.200"
+        }
+      ]
+    },
+    "274": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.201"
+        },
+        {
+          "block": null,
+          "number": "28.202"
+        },
+        {
+          "block": null,
+          "number": "28.203"
+        },
+        {
+          "block": null,
+          "number": "28.204"
+        },
+        {
+          "block": null,
+          "number": "28.205"
+        },
+        {
+          "block": null,
+          "number": "28.206"
+        },
+        {
+          "block": null,
+          "number": "28.207"
+        },
+        {
+          "block": null,
+          "number": "28.208"
+        },
+        {
+          "block": null,
+          "number": "28.209"
+        },
+        {
+          "block": null,
+          "number": "28.210"
+        },
+        {
+          "block": null,
+          "number": "28.211"
+        },
+        {
+          "block": null,
+          "number": "28.212"
+        }
+      ]
+    },
+    "276": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.222"
+        },
+        {
+          "block": null,
+          "number": "28.223"
+        },
+        {
+          "block": null,
+          "number": "28.224"
+        },
+        {
+          "block": null,
+          "number": "28.225"
+        },
+        {
+          "block": null,
+          "number": "28.226"
+        },
+        {
+          "block": null,
+          "number": "28.227"
+        },
+        {
+          "block": null,
+          "number": "28.228"
+        },
+        {
+          "block": null,
+          "number": "28.229"
+        }
+      ]
+    },
+    "277": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.230"
+        },
+        {
+          "block": null,
+          "number": "28.231"
+        },
+        {
+          "block": null,
+          "number": "28.232"
+        },
+        {
+          "block": null,
+          "number": "28.233"
+        },
+        {
+          "block": null,
+          "number": "28.234"
+        },
+        {
+          "block": null,
+          "number": "28.235"
+        },
+        {
+          "block": null,
+          "number": "28.236"
+        }
+      ]
+    },
+    "278": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.237"
+        },
+        {
+          "block": null,
+          "number": "28.238"
+        },
+        {
+          "block": null,
+          "number": "28.239"
+        },
+        {
+          "block": null,
+          "number": "28.240"
+        },
+        {
+          "block": null,
+          "number": "28.241"
+        },
+        {
+          "block": null,
+          "number": "28.242"
+        },
+        {
+          "block": null,
+          "number": "28.243"
+        },
+        {
+          "block": null,
+          "number": "28.244"
+        },
+        {
+          "block": null,
+          "number": "28.245"
+        },
+        {
+          "block": null,
+          "number": "28.246"
+        },
+        {
+          "block": null,
+          "number": "28.247"
+        }
+      ]
+    },
+    "279": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.248"
+        },
+        {
+          "block": null,
+          "number": "28.249"
+        },
+        {
+          "block": null,
+          "number": "28.250"
+        },
+        {
+          "block": null,
+          "number": "28.251"
+        },
+        {
+          "block": null,
+          "number": "28.252"
+        },
+        {
+          "block": null,
+          "number": "28.253"
+        },
+        {
+          "block": null,
+          "number": "28.254"
+        },
+        {
+          "block": null,
+          "number": "28.255"
+        }
+      ]
+    },
+    "280": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.256"
+        },
+        {
+          "block": null,
+          "number": "28.257"
+        },
+        {
+          "block": null,
+          "number": "28.258"
+        },
+        {
+          "block": null,
+          "number": "28.259"
+        },
+        {
+          "block": null,
+          "number": "28.260"
+        },
+        {
+          "block": null,
+          "number": "28.261"
+        }
+      ]
+    },
+    "281": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.262"
+        },
+        {
+          "block": null,
+          "number": "28.263"
+        },
+        {
+          "block": null,
+          "number": "28.264"
+        },
+        {
+          "block": null,
+          "number": "28.265"
+        },
+        {
+          "block": null,
+          "number": "28.266"
+        },
+        {
+          "block": null,
+          "number": "28.267"
+        },
+        {
+          "block": null,
+          "number": "28.268"
+        },
+        {
+          "block": null,
+          "number": "28.269"
+        },
+        {
+          "block": "13. Прогрессии",
+          "number": "28.270"
+        },
+        {
+          "block": "13. Прогрессии",
+          "number": "28.271"
+        },
+        {
+          "block": "13. Прогрессии",
+          "number": "28.272"
+        },
+        {
+          "block": "13. Прогрессии",
+          "number": "28.273"
+        },
+        {
+          "block": "13. Прогрессии",
+          "number": "28.274"
+        },
+        {
+          "block": "13. Прогрессии",
+          "number": "28.275"
+        },
+        {
+          "block": "13. Прогрессии",
+          "number": "28.276"
+        }
+      ]
+    },
+    "283": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.294"
+        },
+        {
+          "block": null,
+          "number": "28.295"
+        },
+        {
+          "block": null,
+          "number": "28.296"
+        },
+        {
+          "block": null,
+          "number": "28.297"
+        },
+        {
+          "block": null,
+          "number": "28.298"
+        },
+        {
+          "block": null,
+          "number": "28.299"
+        },
+        {
+          "block": null,
+          "number": "28.300"
+        },
+        {
+          "block": null,
+          "number": "28.301"
+        },
+        {
+          "block": null,
+          "number": "28.302"
+        }
+      ]
+    },
+    "284": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.303"
+        },
+        {
+          "block": null,
+          "number": "28.304"
+        },
+        {
+          "block": null,
+          "number": "28.305"
+        },
+        {
+          "block": null,
+          "number": "28.306"
+        },
+        {
+          "block": null,
+          "number": "28.307"
+        },
+        {
+          "block": null,
+          "number": "28.308"
+        },
+        {
+          "block": null,
+          "number": "28.309"
+        },
+        {
+          "block": null,
+          "number": "28.310"
+        },
+        {
+          "block": null,
+          "number": "28.311"
+        },
+        {
+          "block": null,
+          "number": "28.312"
+        }
+      ]
+    },
+    "285": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.313"
+        },
+        {
+          "block": null,
+          "number": "28.314"
+        },
+        {
+          "block": null,
+          "number": "28.315"
+        },
+        {
+          "block": null,
+          "number": "28.316"
+        },
+        {
+          "block": null,
+          "number": "28.317"
+        },
+        {
+          "block": null,
+          "number": "28.318"
+        },
+        {
+          "block": null,
+          "number": "28.319"
+        },
+        {
+          "block": null,
+          "number": "28.320"
+        },
+        {
+          "block": null,
+          "number": "28.321"
+        },
+        {
+          "block": null,
+          "number": "28.322"
+        }
+      ]
+    },
+    "286": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.323"
+        },
+        {
+          "block": null,
+          "number": "28.324"
+        },
+        {
+          "block": null,
+          "number": "28.325"
+        },
+        {
+          "block": null,
+          "number": "28.326"
+        },
+        {
+          "block": null,
+          "number": "28.327"
+        },
+        {
+          "block": null,
+          "number": "28.328"
+        },
+        {
+          "block": null,
+          "number": "28.329"
+        },
+        {
+          "block": null,
+          "number": "28.330"
+        }
+      ]
+    },
+    "287": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.331"
+        },
+        {
+          "block": null,
+          "number": "28.332"
+        },
+        {
+          "block": null,
+          "number": "28.333"
+        },
+        {
+          "block": null,
+          "number": "28.334"
+        },
+        {
+          "block": null,
+          "number": "28.335"
+        },
+        {
+          "block": null,
+          "number": "28.336"
+        }
+      ]
+    },
+    "288": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.337"
+        },
+        {
+          "block": null,
+          "number": "28.338"
+        },
+        {
+          "block": null,
+          "number": "28.339"
+        },
+        {
+          "block": null,
+          "number": "28.340"
+        },
+        {
+          "block": null,
+          "number": "28.341"
+        },
+        {
+          "block": null,
+          "number": "28.342"
+        },
+        {
+          "block": null,
+          "number": "28.343"
+        },
+        {
+          "block": null,
+          "number": "28.344"
+        }
+      ]
+    },
+    "289": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.345"
+        },
+        {
+          "block": null,
+          "number": "28.346"
+        },
+        {
+          "block": null,
+          "number": "28.347"
+        },
+        {
+          "block": null,
+          "number": "28.348"
+        },
+        {
+          "block": null,
+          "number": "28.349"
+        }
+      ]
+    },
+    "290": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.350"
+        },
+        {
+          "block": null,
+          "number": "28.351"
+        },
+        {
+          "block": null,
+          "number": "28.352"
+        },
+        {
+          "block": null,
+          "number": "28.353"
+        },
+        {
+          "block": null,
+          "number": "28.354"
+        }
+      ]
+    },
+    "292": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.360"
+        },
+        {
+          "block": null,
+          "number": "28.361"
+        },
+        {
+          "block": null,
+          "number": "28.362"
+        },
+        {
+          "block": null,
+          "number": "28.363"
+        },
+        {
+          "block": null,
+          "number": "28.364"
+        },
+        {
+          "block": null,
+          "number": "28.365"
+        }
+      ]
+    },
+    "293": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.366"
+        },
+        {
+          "block": null,
+          "number": "28.367"
+        },
+        {
+          "block": null,
+          "number": "28.368"
+        },
+        {
+          "block": null,
+          "number": "28.369"
+        },
+        {
+          "block": null,
+          "number": "28.370"
+        },
+        {
+          "block": null,
+          "number": "28.371"
+        }
+      ]
+    },
+    "294": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.372"
+        },
+        {
+          "block": null,
+          "number": "28.373"
+        },
+        {
+          "block": null,
+          "number": "28.374"
+        },
+        {
+          "block": null,
+          "number": "28.375"
+        },
+        {
+          "block": null,
+          "number": "28.376"
+        }
+      ]
+    },
+    "295": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.377"
+        },
+        {
+          "block": null,
+          "number": "28.378"
+        },
+        {
+          "block": null,
+          "number": "28.379"
+        },
+        {
+          "block": null,
+          "number": "28.380"
+        },
+        {
+          "block": null,
+          "number": "28.381"
+        },
+        {
+          "block": null,
+          "number": "28.382"
+        },
+        {
+          "block": null,
+          "number": "28.383"
+        },
+        {
+          "block": null,
+          "number": "28.384"
+        }
+      ]
+    },
+    "296": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.385"
+        },
+        {
+          "block": null,
+          "number": "28.386"
+        },
+        {
+          "block": null,
+          "number": "28.387"
+        },
+        {
+          "block": null,
+          "number": "28.388"
+        },
+        {
+          "block": null,
+          "number": "28.389"
+        },
+        {
+          "block": null,
+          "number": "28.390"
+        },
+        {
+          "block": null,
+          "number": "28.391"
+        }
+      ]
+    },
+    "297": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.392"
+        },
+        {
+          "block": null,
+          "number": "28.393"
+        },
+        {
+          "block": null,
+          "number": "28.394"
+        },
+        {
+          "block": null,
+          "number": "28.395"
+        },
+        {
+          "block": null,
+          "number": "28.396"
+        },
+        {
+          "block": null,
+          "number": "28.397"
+        },
+        {
+          "block": null,
+          "number": "28.398"
+        },
+        {
+          "block": null,
+          "number": "28.399"
+        }
+      ]
+    },
+    "299": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.404"
+        },
+        {
+          "block": null,
+          "number": "28.405"
+        }
+      ]
+    },
+    "300": {
+      "items": []
+    },
+    "301": {
+      "items": []
+    },
+    "302": {
+      "items": []
+    },
+    "303": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "29.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "29.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "29.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "29.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "29.5"
+        }
+      ]
+    },
+    "304": {
+      "items": [
+        {
+          "block": null,
+          "number": "29.6"
+        },
+        {
+          "block": null,
+          "number": "29.7"
+        },
+        {
+          "block": null,
+          "number": "29.8"
+        },
+        {
+          "block": null,
+          "number": "29.9"
+        }
+      ]
+    },
+    "306": {
+      "items": []
+    },
+    "307": {
+      "items": []
+    },
+    "305": {
+      "items": []
+    },
+    "309": {
+      "items": [
+        {
+          "block": null,
+          "number": "30.6"
+        },
+        {
+          "block": null,
+          "number": "30.7"
+        },
+        {
+          "block": null,
+          "number": "30.8"
+        },
+        {
+          "block": null,
+          "number": "30.9"
+        }
+      ]
+    },
+    "310": {
+      "items": []
+    },
+    "311": {
+      "items": []
+    },
+    "312": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "31.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "31.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "31.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "31.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "31.5"
+        }
+      ]
+    },
+    "313": {
+      "items": [
+        {
+          "block": null,
+          "number": "31.6"
+        },
+        {
+          "block": null,
+          "number": "31.7"
+        },
+        {
+          "block": "§32 Математическое ожидание произведения и дисперсия суммы независимых случайных величин",
+          "number": "Теорема 32.1"
+        }
+      ]
+    },
+    "314": {
+      "items": [
+        {
+          "block": null,
+          "number": "Теорема 32.2"
+        }
+      ]
+    },
+    "315": {
+      "items": []
+    },
+    "317": {
+      "items": []
+    },
+    "318": {
+      "items": []
+    },
+    "319": {
+      "items": []
+    },
+    "316": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "32.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "32.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "32.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "32.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "32.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "32.6"
+        },
+        {
+          "block": "Упражнения",
+          "number": "32.7"
+        },
+        {
+          "block": "Упражнения",
+          "number": "32.8"
+        }
+      ]
+    },
+    "321": {
+      "items": [
+        {
+          "block": null,
+          "number": "33.10"
+        },
+        {
+          "block": null,
+          "number": "33.11"
+        },
+        {
+          "block": null,
+          "number": "Теорема 34.1"
+        }
+      ]
+    },
+    "322": {
+      "items": []
+    },
+    "323": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "34.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "34.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "34.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "34.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "34.5"
+        }
+      ]
+    },
+    "324": {
+      "items": [
+        {
+          "block": null,
+          "number": "34.6"
+        },
+        {
+          "block": null,
+          "number": "34.7"
+        },
+        {
+          "block": null,
+          "number": "34.8"
+        },
+        {
+          "block": null,
+          "number": "34.9"
+        }
+      ]
+    },
+    "325": {
+      "items": []
+    },
+    "326": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "35.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "35.2"
+        }
+      ]
+    },
+    "327": {
+      "items": [
+        {
+          "block": null,
+          "number": "35.3"
+        },
+        {
+          "block": null,
+          "number": "35.4"
+        },
+        {
+          "block": null,
+          "number": "35.5"
+        },
+        {
+          "block": null,
+          "number": "35.6"
+        }
+      ]
+    },
+    "328": {
+      "items": []
+    },
+    "330": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "36.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "36.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "36.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "36.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "36.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "36.6"
+        }
+      ]
+    },
+    "331": {
+      "items": []
+    },
+    "332": {
+      "items": []
+    },
+    "333": {
+      "items": []
+    },
+    "334": {
+      "items": []
+    },
+    "329": {
+      "items": []
+    },
+    "336": {
+      "items": [
+        {
+          "block": null,
+          "number": "37.4"
+        },
+        {
+          "block": null,
+          "number": "37.5"
+        },
+        {
+          "block": null,
+          "number": "37.6"
+        },
+        {
+          "block": null,
+          "number": "37.7"
+        },
+        {
+          "block": null,
+          "number": "37.8"
+        },
+        {
+          "block": null,
+          "number": "37.9"
+        },
+        {
+          "block": null,
+          "number": "37.10"
+        }
+      ]
+    },
+    "337": {
+      "items": []
+    },
+    "338": {
+      "items": [
+        {
+          "block": "§38 Упражнения",
+          "number": "38.1"
+        },
+        {
+          "block": "§38 Упражнения",
+          "number": "38.2"
+        },
+        {
+          "block": "§38 Упражнения",
+          "number": "38.3"
+        },
+        {
+          "block": "§38 Упражнения",
+          "number": "38.4"
+        }
+      ]
+    },
+    "339": {
+      "items": []
+    },
+    "340": {
+      "items": []
+    },
+    "341": {
+      "items": []
+    },
+    "342": {
+      "items": []
+    },
+    "343": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "40.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "40.2"
+        }
+      ]
+    },
+    "344": {
+      "items": []
+    },
+    "345": {
+      "items": []
+    },
+    "347": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "41.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "41.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "41.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "41.4"
+        }
+      ]
+    },
+    "348": {
+      "items": [
+        {
+          "block": null,
+          "number": "41.5"
+        },
+        {
+          "block": null,
+          "number": "41.6"
+        },
+        {
+          "block": null,
+          "number": "41.7"
+        },
+        {
+          "block": null,
+          "number": "41.8"
+        },
+        {
+          "block": null,
+          "number": "41.9"
+        },
+        {
+          "block": null,
+          "number": "41.10"
+        },
+        {
+          "block": null,
+          "number": "41.11"
+        }
+      ]
+    },
+    "349": {
+      "items": [
+        {
+          "block": null,
+          "number": "41.12"
+        },
+        {
+          "block": null,
+          "number": "41.13"
+        }
+      ]
+    },
+    "350": {
+      "items": []
+    },
+    "351": {
+      "items": []
+    },
+    "352": {
+      "items": []
+    },
+    "353": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "42.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "42.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "42.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "42.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "42.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "42.6"
+        },
+        {
+          "block": "Упражнения",
+          "number": "42.7"
+        },
+        {
+          "block": "Упражнения",
+          "number": "42.8"
+        }
+      ]
+    },
+    "354": {
+      "items": []
+    },
+    "355": {
+      "items": []
+    },
+    "357": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "43.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "43.2"
+        }
+      ]
+    },
+    "358": {
+      "items": [
+        {
+          "block": null,
+          "number": "43.3"
+        },
+        {
+          "block": null,
+          "number": "43.4"
+        },
+        {
+          "block": null,
+          "number": "43.5"
+        },
+        {
+          "block": null,
+          "number": "43.6"
+        },
+        {
+          "block": null,
+          "number": "43.7"
+        },
+        {
+          "block": null,
+          "number": "43.8"
+        }
+      ]
+    },
+    "359": {
+      "items": []
+    },
+    "360": {
+      "items": []
+    },
+    "356": {
+      "items": []
+    },
+    "362": {
+      "items": [
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        },
+        {
+          "block": null,
+          "number": "4"
+        },
+        {
+          "block": null,
+          "number": "5"
+        },
+        {
+          "block": null,
+          "number": "6"
+        }
+      ]
+    },
+    "363": {
+      "items": [
+        {
+          "block": null,
+          "number": "7"
+        },
+        {
+          "block": null,
+          "number": "8"
+        },
+        {
+          "block": null,
+          "number": "9"
+        }
+      ]
+    },
+    "364": {
+      "items": [
+        {
+          "block": null,
+          "number": "10"
+        },
+        {
+          "block": null,
+          "number": "11"
+        }
+      ]
+    },
+    "365": {
+      "items": [
+        {
+          "block": null,
+          "number": "12"
+        },
+        {
+          "block": null,
+          "number": "13"
+        },
+        {
+          "block": null,
+          "number": "14"
+        }
+      ]
+    },
+    "366": {
+      "items": []
+    },
+    "367": {
+      "items": [
+        {
+          "block": "Задания курса алгебры и начало анализа 11 класса для выполнения с помощью компьютера",
+          "number": "§ 1"
+        },
+        {
+          "block": "Задания курса алгебры и начало анализа 11 класса для выполнения с помощью компьютера",
+          "number": "1.1"
+        },
+        {
+          "block": "Задания курса алгебры и начало анализа 11 класса для выполнения с помощью компьютера",
+          "number": "1.2"
+        },
+        {
+          "block": "Задания курса алгебры и начало анализа 11 класса для выполнения с помощью компьютера",
+          "number": "§ 2"
+        },
+        {
+          "block": "Задания курса алгебры и начало анализа 11 класса для выполнения с помощью компьютера",
+          "number": "2.1.*"
+        }
+      ]
+    },
+    "368": {
+      "items": [
+        {
+          "block": "§3 \"Показательные неравенства\"",
+          "number": "3.1"
+        },
+        {
+          "block": "§4 \"Логарифмы и его свойства\"",
+          "number": "4.1"
+        },
+        {
+          "block": "§5 \"Логарифмическая функция и её свойства\"",
+          "number": "5.1"
+        },
+        {
+          "block": "§8 \"Производные показательной и логарифмической функций\"",
+          "number": "8.1"
+        },
+        {
+          "block": "§11 \"Площадь криволинейной трапеции.\nОпределённый интеграл\"",
+          "number": "11.1"
+        },
+        {
+          "block": "§11 \"Площадь криволинейной трапеции.\nОпределённый интеграл\"",
+          "number": "11.2"
+        }
+      ]
+    },
+    "369": {
+      "items": [
+        {
+          "block": null,
+          "number": "12.1"
+        },
+        {
+          "block": null,
+          "number": "13.1"
+        },
+        {
+          "block": null,
+          "number": "14.1"
+        },
+        {
+          "block": null,
+          "number": "15.1"
+        },
+        {
+          "block": null,
+          "number": "16.1"
+        },
+        {
+          "block": null,
+          "number": "16.2"
+        },
+        {
+          "block": null,
+          "number": "17.1"
+        }
+      ]
+    },
+    "370": {
+      "items": [
+        {
+          "block": null,
+          "number": "18.1"
+        },
+        {
+          "block": null,
+          "number": "18.2"
+        },
+        {
+          "block": null,
+          "number": "19.1"
+        },
+        {
+          "block": null,
+          "number": "19.2"
+        },
+        {
+          "block": null,
+          "number": "21.1"
+        },
+        {
+          "block": null,
+          "number": "22.1"
+        },
+        {
+          "block": null,
+          "number": "23.1"
+        }
+      ]
+    },
+    "372": {
+      "items": [
+        {
+          "block": null,
+          "number": "2.16"
+        },
+        {
+          "block": null,
+          "number": "2.17"
+        },
+        {
+          "block": null,
+          "number": "2.18"
+        },
+        {
+          "block": null,
+          "number": "2.19"
+        },
+        {
+          "block": null,
+          "number": "2.20"
+        },
+        {
+          "block": null,
+          "number": "2.21"
+        },
+        {
+          "block": null,
+          "number": "2.22"
+        },
+        {
+          "block": null,
+          "number": "2.23"
+        },
+        {
+          "block": null,
+          "number": "2.24"
+        },
+        {
+          "block": null,
+          "number": "2.25"
+        },
+        {
+          "block": null,
+          "number": "2.26"
+        },
+        {
+          "block": null,
+          "number": "2.27"
+        },
+        {
+          "block": null,
+          "number": "2.28"
+        },
+        {
+          "block": null,
+          "number": "2.29"
+        },
+        {
+          "block": null,
+          "number": "2.30"
+        },
+        {
+          "block": null,
+          "number": "2.31"
+        },
+        {
+          "block": null,
+          "number": "2.32"
+        },
+        {
+          "block": null,
+          "number": "2.33"
+        },
+        {
+          "block": null,
+          "number": "2.34"
+        },
+        {
+          "block": null,
+          "number": "2.35"
+        },
+        {
+          "block": null,
+          "number": "2.36"
+        },
+        {
+          "block": null,
+          "number": "2.37"
+        },
+        {
+          "block": null,
+          "number": "2.38"
+        },
+        {
+          "block": null,
+          "number": "2.39"
+        },
+        {
+          "block": null,
+          "number": "2.40"
+        },
+        {
+          "block": null,
+          "number": "3.4"
+        },
+        {
+          "block": null,
+          "number": "3.5"
+        },
+        {
+          "block": null,
+          "number": "3.6"
+        },
+        {
+          "block": null,
+          "number": "3.7"
+        },
+        {
+          "block": null,
+          "number": "3.8"
+        },
+        {
+          "block": null,
+          "number": "3.9"
+        },
+        {
+          "block": null,
+          "number": "3.10"
+        },
+        {
+          "block": null,
+          "number": "3.11"
+        },
+        {
+          "block": null,
+          "number": "3.12"
+        },
+        {
+          "block": null,
+          "number": "3.13"
+        },
+        {
+          "block": null,
+          "number": "3.14"
+        },
+        {
+          "block": null,
+          "number": "3.15"
+        },
+        {
+          "block": null,
+          "number": "3.16"
+        },
+        {
+          "block": null,
+          "number": "3.17"
+        },
+        {
+          "block": null,
+          "number": "3.18"
+        },
+        {
+          "block": null,
+          "number": "3.19"
+        },
+        {
+          "block": null,
+          "number": "3.20"
+        },
+        {
+          "block": null,
+          "number": "3.21"
+        },
+        {
+          "block": null,
+          "number": "3.22"
+        },
+        {
+          "block": null,
+          "number": "3.23"
+        },
+        {
+          "block": null,
+          "number": "3.24"
+        },
+        {
+          "block": null,
+          "number": "3.25"
+        },
+        {
+          "block": null,
+          "number": "3.26"
+        },
+        {
+          "block": null,
+          "number": "3.27"
+        },
+        {
+          "block": null,
+          "number": "3.28"
+        }
+      ]
+    },
+    "373": {
+      "items": [
+        {
+          "block": null,
+          "number": "4.46"
+        },
+        {
+          "block": null,
+          "number": "4.47"
+        },
+        {
+          "block": null,
+          "number": "4.48"
+        },
+        {
+          "block": null,
+          "number": "4.49"
+        },
+        {
+          "block": null,
+          "number": "4.50"
+        },
+        {
+          "block": null,
+          "number": "4.51"
+        },
+        {
+          "block": null,
+          "number": "5.19"
+        },
+        {
+          "block": null,
+          "number": "5.20"
+        },
+        {
+          "block": null,
+          "number": "5.23"
+        },
+        {
+          "block": null,
+          "number": "5.24"
+        },
+        {
+          "block": null,
+          "number": "5.27"
+        },
+        {
+          "block": null,
+          "number": "5.28"
+        },
+        {
+          "block": null,
+          "number": "5.29"
+        },
+        {
+          "block": null,
+          "number": "5.30"
+        },
+        {
+          "block": null,
+          "number": "5.31"
+        },
+        {
+          "block": null,
+          "number": "5.33"
+        },
+        {
+          "block": null,
+          "number": "5.34"
+        }
+      ]
+    },
+    "374": {
+      "items": [
+        {
+          "block": null,
+          "number": "5.35"
+        },
+        {
+          "block": null,
+          "number": "5.36"
+        },
+        {
+          "block": null,
+          "number": "5.37"
+        },
+        {
+          "block": null,
+          "number": "5.38"
+        },
+        {
+          "block": null,
+          "number": "5.39"
+        },
+        {
+          "block": null,
+          "number": "5.41"
+        },
+        {
+          "block": null,
+          "number": "5.42"
+        },
+        {
+          "block": null,
+          "number": "5.43"
+        },
+        {
+          "block": null,
+          "number": "6.6"
+        },
+        {
+          "block": null,
+          "number": "6.7"
+        },
+        {
+          "block": null,
+          "number": "6.9"
+        },
+        {
+          "block": null,
+          "number": "6.11"
+        },
+        {
+          "block": null,
+          "number": "6.12"
+        },
+        {
+          "block": null,
+          "number": "6.13"
+        },
+        {
+          "block": null,
+          "number": "6.14"
+        },
+        {
+          "block": null,
+          "number": "6.15"
+        },
+        {
+          "block": null,
+          "number": "6.16"
+        },
+        {
+          "block": null,
+          "number": "6.17"
+        },
+        {
+          "block": null,
+          "number": "6.18"
+        },
+        {
+          "block": null,
+          "number": "6.19"
+        },
+        {
+          "block": null,
+          "number": "6.20"
+        },
+        {
+          "block": null,
+          "number": "6.21"
+        },
+        {
+          "block": null,
+          "number": "6.22"
+        },
+        {
+          "block": null,
+          "number": "6.23"
+        },
+        {
+          "block": null,
+          "number": "6.24"
+        },
+        {
+          "block": null,
+          "number": "6.25"
+        },
+        {
+          "block": null,
+          "number": "6.26"
+        },
+        {
+          "block": null,
+          "number": "6.27"
+        },
+        {
+          "block": null,
+          "number": "6.28"
+        },
+        {
+          "block": null,
+          "number": "6.29"
+        },
+        {
+          "block": null,
+          "number": "6.30"
+        }
+      ]
+    },
+    "376": {
+      "items": [
+        {
+          "block": null,
+          "number": "7.13"
+        },
+        {
+          "block": null,
+          "number": "7.14"
+        },
+        {
+          "block": null,
+          "number": "7.15"
+        },
+        {
+          "block": null,
+          "number": "7.16"
+        },
+        {
+          "block": null,
+          "number": "7.17"
+        },
+        {
+          "block": null,
+          "number": "7.18"
+        },
+        {
+          "block": null,
+          "number": "7.19"
+        },
+        {
+          "block": null,
+          "number": "7.20"
+        },
+        {
+          "block": null,
+          "number": "7.21"
+        },
+        {
+          "block": null,
+          "number": "7.22"
+        },
+        {
+          "block": null,
+          "number": "7.23"
+        },
+        {
+          "block": null,
+          "number": "7.24"
+        },
+        {
+          "block": null,
+          "number": "7.25"
+        },
+        {
+          "block": null,
+          "number": "7.26"
+        },
+        {
+          "block": null,
+          "number": "7.27"
+        },
+        {
+          "block": null,
+          "number": "7.28"
+        },
+        {
+          "block": null,
+          "number": "7.29"
+        },
+        {
+          "block": null,
+          "number": "7.30"
+        },
+        {
+          "block": null,
+          "number": "7.31"
+        },
+        {
+          "block": null,
+          "number": "7.32"
+        },
+        {
+          "block": null,
+          "number": "7.33"
+        }
+      ]
+    },
+    "377": {
+      "items": [
+        {
+          "block": null,
+          "number": "8.14"
+        },
+        {
+          "block": null,
+          "number": "8.15"
+        },
+        {
+          "block": null,
+          "number": "8.16"
+        },
+        {
+          "block": null,
+          "number": "8.17"
+        },
+        {
+          "block": null,
+          "number": "8.18"
+        }
+      ]
+    },
+    "378": {
+      "items": []
+    },
+    "379": {
+      "items": [
+        {
+          "block": null,
+          "number": "9.8"
+        },
+        {
+          "block": null,
+          "number": "9.9"
+        },
+        {
+          "block": null,
+          "number": "9.10"
+        },
+        {
+          "block": null,
+          "number": "9.11"
+        },
+        {
+          "block": null,
+          "number": "9.15"
+        },
+        {
+          "block": null,
+          "number": "9.16"
+        },
+        {
+          "block": null,
+          "number": "9.17"
+        },
+        {
+          "block": null,
+          "number": "9.19"
+        },
+        {
+          "block": null,
+          "number": "10.5"
+        },
+        {
+          "block": null,
+          "number": "10.6"
+        },
+        {
+          "block": null,
+          "number": "10.7"
+        },
+        {
+          "block": null,
+          "number": "10.8"
+        },
+        {
+          "block": null,
+          "number": "10.9"
+        },
+        {
+          "block": null,
+          "number": "10.10"
+        },
+        {
+          "block": null,
+          "number": "10.11"
+        }
+      ]
+    },
+    "381": {
+      "items": [
+        {
+          "block": null,
+          "number": "11.28"
+        },
+        {
+          "block": null,
+          "number": "11.29"
+        },
+        {
+          "block": null,
+          "number": "11.30"
+        },
+        {
+          "block": null,
+          "number": "11.31"
+        },
+        {
+          "block": null,
+          "number": "11.32"
+        },
+        {
+          "block": null,
+          "number": "11.33"
+        },
+        {
+          "block": null,
+          "number": "12.1"
+        },
+        {
+          "block": null,
+          "number": "12.2"
+        },
+        {
+          "block": null,
+          "number": "12.3"
+        },
+        {
+          "block": null,
+          "number": "13.29"
+        },
+        {
+          "block": null,
+          "number": "13.30"
+        },
+        {
+          "block": null,
+          "number": "13.31"
+        },
+        {
+          "block": null,
+          "number": "13.32"
+        },
+        {
+          "block": null,
+          "number": "13.33"
+        },
+        {
+          "block": null,
+          "number": "13.34"
+        },
+        {
+          "block": null,
+          "number": "13.42"
+        },
+        {
+          "block": null,
+          "number": "13.43"
+        },
+        {
+          "block": null,
+          "number": "13.44"
+        },
+        {
+          "block": null,
+          "number": "14.2"
+        },
+        {
+          "block": null,
+          "number": "14.3"
+        },
+        {
+          "block": null,
+          "number": "14.5"
+        },
+        {
+          "block": null,
+          "number": "14.7"
+        },
+        {
+          "block": null,
+          "number": "14.8"
+        },
+        {
+          "block": null,
+          "number": "14.10"
+        }
+      ]
+    },
+    "382": {
+      "items": [
+        {
+          "block": null,
+          "number": "14.11"
+        },
+        {
+          "block": null,
+          "number": "14.12"
+        },
+        {
+          "block": null,
+          "number": "14.13"
+        },
+        {
+          "block": null,
+          "number": "14.19"
+        },
+        {
+          "block": null,
+          "number": "14.21"
+        },
+        {
+          "block": null,
+          "number": "14.22"
+        },
+        {
+          "block": null,
+          "number": "14.23"
+        },
+        {
+          "block": null,
+          "number": "14.24"
+        },
+        {
+          "block": null,
+          "number": "15.1"
+        }
+      ]
+    },
+    "383": {
+      "items": [
+        {
+          "block": null,
+          "number": "15.2"
+        },
+        {
+          "block": null,
+          "number": "15.3"
+        },
+        {
+          "block": null,
+          "number": "15.4"
+        },
+        {
+          "block": null,
+          "number": "15.5"
+        },
+        {
+          "block": null,
+          "number": "15.7"
+        },
+        {
+          "block": null,
+          "number": "15.8"
+        },
+        {
+          "block": null,
+          "number": "15.9"
+        },
+        {
+          "block": null,
+          "number": "15.11"
+        },
+        {
+          "block": null,
+          "number": "15.12"
+        }
+      ]
+    },
+    "384": {
+      "items": [
+        {
+          "block": null,
+          "number": "15.19"
+        },
+        {
+          "block": null,
+          "number": "15.20"
+        },
+        {
+          "block": null,
+          "number": "15.22"
+        },
+        {
+          "block": null,
+          "number": "15.23"
+        },
+        {
+          "block": null,
+          "number": "15.24"
+        },
+        {
+          "block": null,
+          "number": "15.29"
+        },
+        {
+          "block": null,
+          "number": "16.1"
+        },
+        {
+          "block": null,
+          "number": "16.2"
+        },
+        {
+          "block": null,
+          "number": "16.3"
+        },
+        {
+          "block": null,
+          "number": "16.4"
+        },
+        {
+          "block": null,
+          "number": "16.5"
+        },
+        {
+          "block": null,
+          "number": "16.6"
+        },
+        {
+          "block": null,
+          "number": "16.8"
+        },
+        {
+          "block": null,
+          "number": "16.9"
+        },
+        {
+          "block": null,
+          "number": "16.10"
+        },
+        {
+          "block": null,
+          "number": "16.11"
+        },
+        {
+          "block": null,
+          "number": "16.12"
+        },
+        {
+          "block": null,
+          "number": "16.13"
+        },
+        {
+          "block": null,
+          "number": "16.14"
+        }
+      ]
+    },
+    "385": {
+      "items": [
+        {
+          "block": null,
+          "number": "16.16"
+        },
+        {
+          "block": null,
+          "number": "16.17"
+        },
+        {
+          "block": null,
+          "number": "16.18"
+        },
+        {
+          "block": null,
+          "number": "16.19"
+        },
+        {
+          "block": null,
+          "number": "16.20"
+        },
+        {
+          "block": null,
+          "number": "16.21"
+        },
+        {
+          "block": null,
+          "number": "16.22"
+        },
+        {
+          "block": null,
+          "number": "16.23"
+        },
+        {
+          "block": null,
+          "number": "16.24"
+        },
+        {
+          "block": null,
+          "number": "16.25"
+        }
+      ]
+    },
+    "387": {
+      "items": [
+        {
+          "block": null,
+          "number": "17.40"
+        },
+        {
+          "block": null,
+          "number": "17.42"
+        },
+        {
+          "block": null,
+          "number": "17.43"
+        },
+        {
+          "block": null,
+          "number": "17.44"
+        },
+        {
+          "block": null,
+          "number": "17.45"
+        },
+        {
+          "block": null,
+          "number": "17.46"
+        },
+        {
+          "block": null,
+          "number": "17.47"
+        },
+        {
+          "block": null,
+          "number": "18.3"
+        },
+        {
+          "block": null,
+          "number": "18.4"
+        },
+        {
+          "block": null,
+          "number": "18.5"
+        },
+        {
+          "block": null,
+          "number": "18.6"
+        },
+        {
+          "block": null,
+          "number": "18.9"
+        },
+        {
+          "block": null,
+          "number": "18.14"
+        },
+        {
+          "block": null,
+          "number": "18.17"
+        },
+        {
+          "block": null,
+          "number": "18.18"
+        },
+        {
+          "block": null,
+          "number": "18.19"
+        },
+        {
+          "block": null,
+          "number": "18.21"
+        },
+        {
+          "block": null,
+          "number": "18.24"
+        },
+        {
+          "block": null,
+          "number": "18.25"
+        },
+        {
+          "block": null,
+          "number": "18.26"
+        },
+        {
+          "block": null,
+          "number": "18.28"
+        }
+      ]
+    },
+    "388": {
+      "items": [
+        {
+          "block": null,
+          "number": "18.29"
+        },
+        {
+          "block": null,
+          "number": "18.30"
+        },
+        {
+          "block": null,
+          "number": "18.31"
+        },
+        {
+          "block": null,
+          "number": "18.32"
+        },
+        {
+          "block": null,
+          "number": "18.33"
+        },
+        {
+          "block": null,
+          "number": "19.3"
+        },
+        {
+          "block": null,
+          "number": "19.4"
+        },
+        {
+          "block": null,
+          "number": "19.8"
+        },
+        {
+          "block": null,
+          "number": "19.9"
+        },
+        {
+          "block": null,
+          "number": "19.12"
+        },
+        {
+          "block": null,
+          "number": "19.13"
+        },
+        {
+          "block": null,
+          "number": "19.14"
+        },
+        {
+          "block": null,
+          "number": "19.15"
+        },
+        {
+          "block": null,
+          "number": "19.16"
+        },
+        {
+          "block": null,
+          "number": "19.17"
+        },
+        {
+          "block": null,
+          "number": "19.18"
+        },
+        {
+          "block": null,
+          "number": "19.19"
+        },
+        {
+          "block": null,
+          "number": "19.20"
+        },
+        {
+          "block": null,
+          "number": "19.21"
+        },
+        {
+          "block": null,
+          "number": "19.22"
+        },
+        {
+          "block": null,
+          "number": "19.23"
+        },
+        {
+          "block": null,
+          "number": "20.3"
+        },
+        {
+          "block": null,
+          "number": "20.5"
+        },
+        {
+          "block": null,
+          "number": "20.7"
+        },
+        {
+          "block": null,
+          "number": "20.9"
+        },
+        {
+          "block": null,
+          "number": "20.11"
+        },
+        {
+          "block": null,
+          "number": "20.12"
+        },
+        {
+          "block": null,
+          "number": "20.13"
+        },
+        {
+          "block": null,
+          "number": "20.14"
+        },
+        {
+          "block": null,
+          "number": "20.15"
+        },
+        {
+          "block": null,
+          "number": "20.16"
+        },
+        {
+          "block": null,
+          "number": "20.17"
+        },
+        {
+          "block": null,
+          "number": "20.18"
+        },
+        {
+          "block": null,
+          "number": "20.19"
+        },
+        {
+          "block": null,
+          "number": "20.20"
+        }
+      ]
+    },
+    "389": {
+      "items": [
+        {
+          "block": null,
+          "number": "20.21"
+        },
+        {
+          "block": null,
+          "number": "21.1"
+        },
+        {
+          "block": null,
+          "number": "21.7"
+        },
+        {
+          "block": null,
+          "number": "21.8"
+        },
+        {
+          "block": null,
+          "number": "21.9"
+        },
+        {
+          "block": null,
+          "number": "21.10"
+        },
+        {
+          "block": null,
+          "number": "21.11"
+        },
+        {
+          "block": null,
+          "number": "21.12"
+        },
+        {
+          "block": null,
+          "number": "21.13"
+        },
+        {
+          "block": null,
+          "number": "21.14"
+        },
+        {
+          "block": null,
+          "number": "21.16"
+        }
+      ]
+    },
+    "390": {
+      "items": [
+        {
+          "block": null,
+          "number": "21.17"
+        },
+        {
+          "block": null,
+          "number": "21.18"
+        },
+        {
+          "block": null,
+          "number": "21.20"
+        },
+        {
+          "block": null,
+          "number": "21.21"
+        },
+        {
+          "block": null,
+          "number": "21.22"
+        },
+        {
+          "block": null,
+          "number": "22.8"
+        },
+        {
+          "block": null,
+          "number": "22.9"
+        },
+        {
+          "block": null,
+          "number": "22.10"
+        },
+        {
+          "block": null,
+          "number": "22.11"
+        },
+        {
+          "block": null,
+          "number": "22.12"
+        },
+        {
+          "block": null,
+          "number": "22.13"
+        },
+        {
+          "block": null,
+          "number": "22.14"
+        },
+        {
+          "block": null,
+          "number": "22.15"
+        }
+      ]
+    },
+    "391": {
+      "items": [
+        {
+          "block": null,
+          "number": "22.16"
+        },
+        {
+          "block": null,
+          "number": "22.17"
+        },
+        {
+          "block": null,
+          "number": "22.18"
+        },
+        {
+          "block": null,
+          "number": "22.19"
+        },
+        {
+          "block": null,
+          "number": "22.20"
+        },
+        {
+          "block": null,
+          "number": "22.21"
+        },
+        {
+          "block": null,
+          "number": "22.22"
+        },
+        {
+          "block": null,
+          "number": "22.23"
+        },
+        {
+          "block": null,
+          "number": "22.24"
+        },
+        {
+          "block": null,
+          "number": "22.25"
+        },
+        {
+          "block": null,
+          "number": "23.1"
+        },
+        {
+          "block": null,
+          "number": "23.2"
+        },
+        {
+          "block": null,
+          "number": "23.3"
+        },
+        {
+          "block": null,
+          "number": "23.4"
+        },
+        {
+          "block": null,
+          "number": "23.5"
+        },
+        {
+          "block": null,
+          "number": "23.6"
+        },
+        {
+          "block": null,
+          "number": "23.7"
+        },
+        {
+          "block": null,
+          "number": "23.8"
+        },
+        {
+          "block": null,
+          "number": "23.9"
+        },
+        {
+          "block": null,
+          "number": "23.10"
+        },
+        {
+          "block": null,
+          "number": "23.11"
+        },
+        {
+          "block": null,
+          "number": "23.12"
+        },
+        {
+          "block": null,
+          "number": "23.13"
+        },
+        {
+          "block": null,
+          "number": "23.14"
+        },
+        {
+          "block": null,
+          "number": "23.15"
+        },
+        {
+          "block": null,
+          "number": "23.16"
+        },
+        {
+          "block": null,
+          "number": "23.17"
+        },
+        {
+          "block": null,
+          "number": "23.18"
+        },
+        {
+          "block": null,
+          "number": "23.19"
+        },
+        {
+          "block": null,
+          "number": "23.20"
+        },
+        {
+          "block": null,
+          "number": "23.21"
+        },
+        {
+          "block": null,
+          "number": "23.22"
+        },
+        {
+          "block": null,
+          "number": "23.23"
+        },
+        {
+          "block": null,
+          "number": "24.1"
+        },
+        {
+          "block": null,
+          "number": "24.2"
+        },
+        {
+          "block": null,
+          "number": "24.3"
+        },
+        {
+          "block": null,
+          "number": "24.4"
+        },
+        {
+          "block": null,
+          "number": "24.5"
+        },
+        {
+          "block": null,
+          "number": "24.6"
+        },
+        {
+          "block": null,
+          "number": "24.7"
+        },
+        {
+          "block": null,
+          "number": "24.8"
+        },
+        {
+          "block": null,
+          "number": "24.9"
+        },
+        {
+          "block": null,
+          "number": "24.10"
+        },
+        {
+          "block": null,
+          "number": "24.11"
+        },
+        {
+          "block": null,
+          "number": "24.12"
+        },
+        {
+          "block": null,
+          "number": "24.13"
+        },
+        {
+          "block": null,
+          "number": "24.14"
+        },
+        {
+          "block": null,
+          "number": "24.15"
+        },
+        {
+          "block": null,
+          "number": "24.16"
+        },
+        {
+          "block": null,
+          "number": "24.17"
+        },
+        {
+          "block": null,
+          "number": "24.18"
+        },
+        {
+          "block": null,
+          "number": "24.19"
+        },
+        {
+          "block": null,
+          "number": "24.20"
+        },
+        {
+          "block": null,
+          "number": "24.21"
+        },
+        {
+          "block": null,
+          "number": "24.22"
+        }
+      ]
+    },
+    "393": {
+      "items": []
+    },
+    "394": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.13"
+        },
+        {
+          "block": null,
+          "number": "28.14"
+        },
+        {
+          "block": null,
+          "number": "28.15"
+        },
+        {
+          "block": null,
+          "number": "28.16"
+        },
+        {
+          "block": null,
+          "number": "28.17"
+        },
+        {
+          "block": null,
+          "number": "28.18"
+        }
+      ]
+    },
+    "395": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.23"
+        },
+        {
+          "block": null,
+          "number": "28.24"
+        },
+        {
+          "block": null,
+          "number": "28.25"
+        },
+        {
+          "block": null,
+          "number": "28.26"
+        },
+        {
+          "block": null,
+          "number": "28.27"
+        },
+        {
+          "block": null,
+          "number": "28.28"
+        },
+        {
+          "block": null,
+          "number": "28.29"
+        },
+        {
+          "block": null,
+          "number": "28.30"
+        },
+        {
+          "block": null,
+          "number": "28.31"
+        },
+        {
+          "block": null,
+          "number": "28.32"
+        },
+        {
+          "block": null,
+          "number": "28.33"
+        },
+        {
+          "block": null,
+          "number": "28.34"
+        },
+        {
+          "block": null,
+          "number": "28.35"
+        },
+        {
+          "block": null,
+          "number": "28.36"
+        },
+        {
+          "block": null,
+          "number": "28.37"
+        },
+        {
+          "block": null,
+          "number": "28.38"
+        },
+        {
+          "block": null,
+          "number": "28.39"
+        },
+        {
+          "block": null,
+          "number": "28.40"
+        },
+        {
+          "block": null,
+          "number": "28.41"
+        },
+        {
+          "block": null,
+          "number": "28.42"
+        },
+        {
+          "block": null,
+          "number": "28.43"
+        },
+        {
+          "block": null,
+          "number": "28.44"
+        },
+        {
+          "block": null,
+          "number": "28.45"
+        },
+        {
+          "block": null,
+          "number": "28.46"
+        },
+        {
+          "block": null,
+          "number": "28.47"
+        },
+        {
+          "block": null,
+          "number": "28.48"
+        },
+        {
+          "block": null,
+          "number": "28.49"
+        },
+        {
+          "block": null,
+          "number": "28.50"
+        },
+        {
+          "block": null,
+          "number": "28.51"
+        },
+        {
+          "block": null,
+          "number": "28.52"
+        },
+        {
+          "block": null,
+          "number": "28.53"
+        },
+        {
+          "block": null,
+          "number": "28.54"
+        },
+        {
+          "block": null,
+          "number": "28.55"
+        },
+        {
+          "block": null,
+          "number": "28.56"
+        },
+        {
+          "block": null,
+          "number": "28.57"
+        },
+        {
+          "block": null,
+          "number": "28.58"
+        },
+        {
+          "block": null,
+          "number": "28.59"
+        },
+        {
+          "block": null,
+          "number": "28.60"
+        },
+        {
+          "block": null,
+          "number": "28.61"
+        },
+        {
+          "block": null,
+          "number": "28.62"
+        },
+        {
+          "block": null,
+          "number": "28.63"
+        },
+        {
+          "block": null,
+          "number": "28.64"
+        },
+        {
+          "block": null,
+          "number": "28.65"
+        },
+        {
+          "block": null,
+          "number": "28.66"
+        },
+        {
+          "block": null,
+          "number": "28.67"
+        },
+        {
+          "block": null,
+          "number": "28.68"
+        },
+        {
+          "block": null,
+          "number": "28.69"
+        },
+        {
+          "block": null,
+          "number": "28.70"
+        },
+        {
+          "block": null,
+          "number": "28.71"
+        },
+        {
+          "block": null,
+          "number": "28.72"
+        },
+        {
+          "block": null,
+          "number": "28.73"
+        },
+        {
+          "block": null,
+          "number": "28.74"
+        },
+        {
+          "block": null,
+          "number": "28.75"
+        },
+        {
+          "block": null,
+          "number": "28.76"
+        },
+        {
+          "block": null,
+          "number": "28.77"
+        },
+        {
+          "block": null,
+          "number": "28.78"
+        },
+        {
+          "block": null,
+          "number": "28.79"
+        },
+        {
+          "block": null,
+          "number": "28.80"
+        },
+        {
+          "block": null,
+          "number": "28.81"
+        },
+        {
+          "block": null,
+          "number": "28.82"
+        },
+        {
+          "block": null,
+          "number": "28.83"
+        },
+        {
+          "block": null,
+          "number": "28.84"
+        },
+        {
+          "block": null,
+          "number": "28.85"
+        },
+        {
+          "block": null,
+          "number": "28.86"
+        },
+        {
+          "block": null,
+          "number": "28.87"
+        },
+        {
+          "block": null,
+          "number": "28.88"
+        },
+        {
+          "block": null,
+          "number": "28.89"
+        },
+        {
+          "block": null,
+          "number": "28.90"
+        },
+        {
+          "block": null,
+          "number": "28.91"
+        },
+        {
+          "block": null,
+          "number": "28.92"
+        },
+        {
+          "block": null,
+          "number": "28.93"
+        },
+        {
+          "block": null,
+          "number": "28.94"
+        },
+        {
+          "block": null,
+          "number": "28.95"
+        },
+        {
+          "block": null,
+          "number": "28.96"
+        },
+        {
+          "block": null,
+          "number": "28.97"
+        },
+        {
+          "block": null,
+          "number": "28.98"
+        },
+        {
+          "block": null,
+          "number": "28.99"
+        },
+        {
+          "block": null,
+          "number": "28.100"
+        },
+        {
+          "block": null,
+          "number": "28.101"
+        },
+        {
+          "block": null,
+          "number": "28.102"
+        },
+        {
+          "block": null,
+          "number": "28.103"
+        },
+        {
+          "block": null,
+          "number": "28.104"
+        },
+        {
+          "block": null,
+          "number": "28.105"
+        },
+        {
+          "block": null,
+          "number": "28.106"
+        },
+        {
+          "block": null,
+          "number": "28.107"
+        },
+        {
+          "block": null,
+          "number": "28.108"
+        },
+        {
+          "block": null,
+          "number": "28.109"
+        },
+        {
+          "block": null,
+          "number": "28.110"
+        },
+        {
+          "block": null,
+          "number": "28.111"
+        },
+        {
+          "block": null,
+          "number": "28.112"
+        },
+        {
+          "block": null,
+          "number": "28.113"
+        },
+        {
+          "block": null,
+          "number": "28.114"
+        },
+        {
+          "block": null,
+          "number": "28.115"
+        },
+        {
+          "block": null,
+          "number": "28.116"
+        },
+        {
+          "block": null,
+          "number": "28.117"
+        },
+        {
+          "block": null,
+          "number": "28.118"
+        },
+        {
+          "block": null,
+          "number": "28.119"
+        },
+        {
+          "block": null,
+          "number": "28.120"
+        }
+      ]
+    },
+    "397": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.168"
+        },
+        {
+          "block": null,
+          "number": "28.169"
+        },
+        {
+          "block": null,
+          "number": "28.170"
+        },
+        {
+          "block": null,
+          "number": "28.171"
+        },
+        {
+          "block": null,
+          "number": "28.172"
+        },
+        {
+          "block": null,
+          "number": "28.173"
+        },
+        {
+          "block": null,
+          "number": "28.174"
+        },
+        {
+          "block": null,
+          "number": "28.175"
+        },
+        {
+          "block": null,
+          "number": "28.176"
+        },
+        {
+          "block": null,
+          "number": "28.177"
+        },
+        {
+          "block": null,
+          "number": "28.178"
+        },
+        {
+          "block": null,
+          "number": "28.179"
+        },
+        {
+          "block": null,
+          "number": "28.185"
+        },
+        {
+          "block": null,
+          "number": "28.187"
+        },
+        {
+          "block": null,
+          "number": "28.188"
+        },
+        {
+          "block": null,
+          "number": "28.190"
+        },
+        {
+          "block": null,
+          "number": "28.191"
+        },
+        {
+          "block": null,
+          "number": "28.192"
+        },
+        {
+          "block": null,
+          "number": "28.193"
+        },
+        {
+          "block": null,
+          "number": "28.194"
+        },
+        {
+          "block": null,
+          "number": "28.197"
+        },
+        {
+          "block": null,
+          "number": "28.198"
+        },
+        {
+          "block": null,
+          "number": "28.200"
+        },
+        {
+          "block": null,
+          "number": "28.202"
+        },
+        {
+          "block": null,
+          "number": "28.203"
+        },
+        {
+          "block": null,
+          "number": "28.204"
+        },
+        {
+          "block": null,
+          "number": "28.205"
+        },
+        {
+          "block": null,
+          "number": "28.206"
+        },
+        {
+          "block": null,
+          "number": "28.207"
+        },
+        {
+          "block": null,
+          "number": "28.208"
+        },
+        {
+          "block": null,
+          "number": "28.209"
+        },
+        {
+          "block": null,
+          "number": "28.210"
+        },
+        {
+          "block": null,
+          "number": "28.211"
+        },
+        {
+          "block": null,
+          "number": "28.212"
+        },
+        {
+          "block": null,
+          "number": "28.213"
+        },
+        {
+          "block": null,
+          "number": "28.214"
+        },
+        {
+          "block": null,
+          "number": "28.215"
+        },
+        {
+          "block": null,
+          "number": "28.216"
+        },
+        {
+          "block": null,
+          "number": "28.217"
+        },
+        {
+          "block": null,
+          "number": "28.218"
+        },
+        {
+          "block": null,
+          "number": "28.219"
+        },
+        {
+          "block": null,
+          "number": "28.220"
+        },
+        {
+          "block": null,
+          "number": "28.221"
+        },
+        {
+          "block": null,
+          "number": "28.222"
+        },
+        {
+          "block": null,
+          "number": "28.223"
+        },
+        {
+          "block": null,
+          "number": "28.224"
+        },
+        {
+          "block": null,
+          "number": "28.225"
+        }
+      ]
+    },
+    "398": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.226"
+        },
+        {
+          "block": null,
+          "number": "28.227"
+        },
+        {
+          "block": null,
+          "number": "28.228"
+        },
+        {
+          "block": null,
+          "number": "28.229"
+        },
+        {
+          "block": null,
+          "number": "28.230"
+        },
+        {
+          "block": null,
+          "number": "28.231"
+        },
+        {
+          "block": null,
+          "number": "28.233"
+        }
+      ]
+    },
+    "399": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.235"
+        },
+        {
+          "block": null,
+          "number": "28.242"
+        },
+        {
+          "block": null,
+          "number": "28.243"
+        },
+        {
+          "block": null,
+          "number": "28.246"
+        },
+        {
+          "block": null,
+          "number": "28.249"
+        },
+        {
+          "block": null,
+          "number": "28.250"
+        },
+        {
+          "block": null,
+          "number": "28.251"
+        },
+        {
+          "block": null,
+          "number": "28.252"
+        }
+      ]
+    },
+    "401": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.309"
+        },
+        {
+          "block": null,
+          "number": "28.310"
+        },
+        {
+          "block": null,
+          "number": "28.311"
+        },
+        {
+          "block": null,
+          "number": "28.312"
+        },
+        {
+          "block": null,
+          "number": "28.314"
+        },
+        {
+          "block": null,
+          "number": "28.315"
+        },
+        {
+          "block": null,
+          "number": "28.316"
+        },
+        {
+          "block": null,
+          "number": "28.317"
+        },
+        {
+          "block": null,
+          "number": "28.318"
+        },
+        {
+          "block": null,
+          "number": "28.320"
+        },
+        {
+          "block": null,
+          "number": "28.321"
+        },
+        {
+          "block": null,
+          "number": "28.322"
+        },
+        {
+          "block": null,
+          "number": "28.323"
+        },
+        {
+          "block": null,
+          "number": "28.324"
+        },
+        {
+          "block": null,
+          "number": "28.325"
+        },
+        {
+          "block": null,
+          "number": "28.329"
+        },
+        {
+          "block": null,
+          "number": "28.330"
+        },
+        {
+          "block": null,
+          "number": "28.332"
+        },
+        {
+          "block": null,
+          "number": "28.337"
+        },
+        {
+          "block": null,
+          "number": "28.340"
+        },
+        {
+          "block": null,
+          "number": "28.341"
+        },
+        {
+          "block": null,
+          "number": "28.342"
+        },
+        {
+          "block": null,
+          "number": "28.345"
+        },
+        {
+          "block": null,
+          "number": "28.346"
+        },
+        {
+          "block": null,
+          "number": "28.352"
+        },
+        {
+          "block": null,
+          "number": "28.353"
+        },
+        {
+          "block": null,
+          "number": "28.354"
+        },
+        {
+          "block": null,
+          "number": "28.355"
+        }
+      ]
+    },
+    "402": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.356"
+        },
+        {
+          "block": null,
+          "number": "28.357"
+        },
+        {
+          "block": null,
+          "number": "28.359"
+        },
+        {
+          "block": null,
+          "number": "28.361"
+        },
+        {
+          "block": null,
+          "number": "28.363"
+        },
+        {
+          "block": null,
+          "number": "28.364"
+        },
+        {
+          "block": null,
+          "number": "28.365"
+        },
+        {
+          "block": null,
+          "number": "28.366"
+        },
+        {
+          "block": null,
+          "number": "28.367"
+        },
+        {
+          "block": null,
+          "number": "28.368"
+        },
+        {
+          "block": null,
+          "number": "28.369"
+        },
+        {
+          "block": null,
+          "number": "28.370"
+        },
+        {
+          "block": null,
+          "number": "28.371"
+        },
+        {
+          "block": null,
+          "number": "28.372"
+        },
+        {
+          "block": null,
+          "number": "28.377"
+        },
+        {
+          "block": null,
+          "number": "28.379"
+        },
+        {
+          "block": null,
+          "number": "28.380"
+        },
+        {
+          "block": null,
+          "number": "28.381"
+        },
+        {
+          "block": null,
+          "number": "28.382"
+        },
+        {
+          "block": null,
+          "number": "28.383"
+        },
+        {
+          "block": null,
+          "number": "28.391"
+        }
+      ]
+    },
+    "403": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.392"
+        },
+        {
+          "block": null,
+          "number": "28.393"
+        },
+        {
+          "block": null,
+          "number": "28.394"
+        },
+        {
+          "block": null,
+          "number": "28.395"
+        },
+        {
+          "block": null,
+          "number": "28.396"
+        },
+        {
+          "block": null,
+          "number": "28.397"
+        },
+        {
+          "block": null,
+          "number": "28.398"
+        }
+      ]
+    },
+    "404": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.400"
+        },
+        {
+          "block": null,
+          "number": "28.401"
+        },
+        {
+          "block": null,
+          "number": "28.402"
+        },
+        {
+          "block": null,
+          "number": "28.403"
+        },
+        {
+          "block": null,
+          "number": "28.404"
+        },
+        {
+          "block": null,
+          "number": "28.405"
+        }
+      ]
+    },
+    "405": {
+      "items": [
+        {
+          "block": null,
+          "number": "29.1"
+        },
+        {
+          "block": null,
+          "number": "29.2"
+        },
+        {
+          "block": null,
+          "number": "29.3"
+        },
+        {
+          "block": null,
+          "number": "29.4"
+        },
+        {
+          "block": null,
+          "number": "29.5"
+        },
+        {
+          "block": null,
+          "number": "29.6"
+        },
+        {
+          "block": null,
+          "number": "29.7"
+        },
+        {
+          "block": null,
+          "number": "29.8"
+        },
+        {
+          "block": null,
+          "number": "29.9"
+        },
+        {
+          "block": null,
+          "number": "30.1"
+        },
+        {
+          "block": null,
+          "number": "30.2"
+        },
+        {
+          "block": null,
+          "number": "30.3"
+        },
+        {
+          "block": null,
+          "number": "30.4"
+        },
+        {
+          "block": null,
+          "number": "30.5"
+        },
+        {
+          "block": null,
+          "number": "30.6"
+        },
+        {
+          "block": null,
+          "number": "30.7"
+        },
+        {
+          "block": null,
+          "number": "30.8"
+        },
+        {
+          "block": null,
+          "number": "30.9"
+        },
+        {
+          "block": null,
+          "number": "31.1"
+        },
+        {
+          "block": null,
+          "number": "31.2"
+        },
+        {
+          "block": null,
+          "number": "31.3"
+        },
+        {
+          "block": null,
+          "number": "31.4"
+        },
+        {
+          "block": null,
+          "number": "31.5"
+        }
+      ]
+    },
+    "407": {
+      "items": [
+        {
+          "block": null,
+          "number": "34.3"
+        },
+        {
+          "block": null,
+          "number": "34.4"
+        },
+        {
+          "block": null,
+          "number": "34.6"
+        },
+        {
+          "block": null,
+          "number": "34.7"
+        },
+        {
+          "block": null,
+          "number": "34.9"
+        },
+        {
+          "block": null,
+          "number": "35.3"
+        },
+        {
+          "block": null,
+          "number": "35.4"
+        },
+        {
+          "block": null,
+          "number": "35.5"
+        },
+        {
+          "block": null,
+          "number": "35.6"
+        },
+        {
+          "block": null,
+          "number": "36.1"
+        },
+        {
+          "block": null,
+          "number": "36.3"
+        },
+        {
+          "block": null,
+          "number": "36.4"
+        },
+        {
+          "block": null,
+          "number": "36.5"
+        },
+        {
+          "block": null,
+          "number": "36.6"
+        },
+        {
+          "block": null,
+          "number": "37.1"
+        },
+        {
+          "block": null,
+          "number": "37.2"
+        },
+        {
+          "block": null,
+          "number": "37.3"
+        },
+        {
+          "block": null,
+          "number": "37.4"
+        },
+        {
+          "block": null,
+          "number": "37.5"
+        },
+        {
+          "block": null,
+          "number": "37.6"
+        },
+        {
+          "block": null,
+          "number": "37.7"
+        },
+        {
+          "block": null,
+          "number": "37.8"
+        },
+        {
+          "block": null,
+          "number": "37.9"
+        },
+        {
+          "block": null,
+          "number": "37.10"
+        },
+        {
+          "block": null,
+          "number": "38.1"
+        },
+        {
+          "block": null,
+          "number": "38.2"
+        },
+        {
+          "block": null,
+          "number": "38.4"
+        },
+        {
+          "block": null,
+          "number": "40.1"
+        },
+        {
+          "block": null,
+          "number": "40.2"
+        },
+        {
+          "block": null,
+          "number": "41.1"
+        },
+        {
+          "block": null,
+          "number": "41.2"
+        },
+        {
+          "block": null,
+          "number": "41.4"
+        },
+        {
+          "block": null,
+          "number": "41.5"
+        },
+        {
+          "block": null,
+          "number": "41.6"
+        },
+        {
+          "block": null,
+          "number": "41.7"
+        },
+        {
+          "block": null,
+          "number": "41.8"
+        },
+        {
+          "block": null,
+          "number": "41.9"
+        },
+        {
+          "block": null,
+          "number": "41.11"
+        },
+        {
+          "block": null,
+          "number": "41.12"
+        }
+      ]
+    },
+    "408": {
+      "items": [
+        {
+          "block": null,
+          "number": "42.13"
+        },
+        {
+          "block": null,
+          "number": "42.1"
+        },
+        {
+          "block": null,
+          "number": "42.2"
+        },
+        {
+          "block": null,
+          "number": "42.3"
+        },
+        {
+          "block": null,
+          "number": "42.4"
+        },
+        {
+          "block": null,
+          "number": "42.5"
+        },
+        {
+          "block": null,
+          "number": "42.6"
+        },
+        {
+          "block": null,
+          "number": "42.7"
+        },
+        {
+          "block": null,
+          "number": "42.8"
+        },
+        {
+          "block": null,
+          "number": "43.1"
+        },
+        {
+          "block": null,
+          "number": "43.2"
+        },
+        {
+          "block": null,
+          "number": "43.3"
+        },
+        {
+          "block": null,
+          "number": "43.4"
+        },
+        {
+          "block": null,
+          "number": "43.5"
+        },
+        {
+          "block": null,
+          "number": "43.6"
+        }
+      ]
+    },
+    "409": {
+      "items": [
+        {
+          "block": null,
+          "number": "43.7"
+        },
+        {
+          "block": null,
+          "number": "43.8"
+        }
+      ]
+    },
+    "410": {
+      "items": []
+    },
+    "411": {
+      "items": []
+    },
+    "413": {
+      "items": []
+    },
+    "414": {
+      "items": []
+    },
+    "415": {
+      "items": []
+    },
+    "412": {
+      "items": []
+    },
+    "14": {
+      "items": [
+        {
+          "block": null,
+          "number": "1.26"
+        },
+        {
+          "block": null,
+          "number": "1.27"
+        },
+        {
+          "block": null,
+          "number": "1.28"
+        },
+        {
+          "block": null,
+          "number": "1.29"
+        },
+        {
+          "block": null,
+          "number": "1.30"
+        },
+        {
+          "block": null,
+          "number": "1.31"
+        }
+      ]
+    },
+    "23": {
+      "items": [
+        {
+          "block": null,
+          "number": "2.27"
+        },
+        {
+          "block": null,
+          "number": "2.28"
+        },
+        {
+          "block": null,
+          "number": "2.29"
+        },
+        {
+          "block": null,
+          "number": "2.30"
+        },
+        {
+          "block": null,
+          "number": "2.31"
+        },
+        {
+          "block": null,
+          "number": "2.32"
+        },
+        {
+          "block": null,
+          "number": "2.33"
+        },
+        {
+          "block": null,
+          "number": "2.34"
+        },
+        {
+          "block": null,
+          "number": "2.35"
+        },
+        {
+          "block": null,
+          "number": "2.36"
+        },
+        {
+          "block": null,
+          "number": "2.37"
+        },
+        {
+          "block": null,
+          "number": "2.38"
+        },
+        {
+          "block": null,
+          "number": "2.39"
+        },
+        {
+          "block": null,
+          "number": "2.40"
+        }
+      ]
+    },
+    "34": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "4.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "4.2"
+        }
+      ]
+    },
+    "43": {
+      "items": []
+    },
+    "50": {
+      "items": []
+    },
+    "60": {
+      "items": [
+        {
+          "block": null,
+          "number": "6.46"
+        },
+        {
+          "block": null,
+          "number": "6.47"
+        },
+        {
+          "block": null,
+          "number": "6.48"
+        },
+        {
+          "block": null,
+          "number": "6.49"
+        },
+        {
+          "block": null,
+          "number": "6.50"
+        },
+        {
+          "block": null,
+          "number": "6.51"
+        },
+        {
+          "block": null,
+          "number": "6.52"
+        }
+      ]
+    },
+    "76": {
+      "items": []
+    },
+    "86": {
+      "items": [
+        {
+          "block": null,
+          "number": "9.6"
+        },
+        {
+          "block": null,
+          "number": "9.7"
+        },
+        {
+          "block": null,
+          "number": "9.8"
+        },
+        {
+          "block": null,
+          "number": "9.9"
+        },
+        {
+          "block": null,
+          "number": "9.10"
+        },
+        {
+          "block": null,
+          "number": "9.11"
+        }
+      ]
+    },
+    "97": {
+      "items": []
+    },
+    "110": {
+      "items": [
+        {
+          "block": null,
+          "number": "11.33"
+        }
+      ]
+    },
+    "129": {
+      "items": []
+    },
+    "146": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "15.18"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.19"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.20"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.21"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.22"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.23"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.24"
+        },
+        {
+          "block": "Упражнения",
+          "number": "15.25"
+        }
+      ]
+    },
+    "155": {
+      "items": []
+    },
+    "163": {
+      "items": [
+        {
+          "block": null,
+          "number": "17.39"
+        },
+        {
+          "block": null,
+          "number": "17.40"
+        },
+        {
+          "block": null,
+          "number": "17.41"
+        },
+        {
+          "block": null,
+          "number": "17.42"
+        },
+        {
+          "block": null,
+          "number": "17.43"
+        },
+        {
+          "block": null,
+          "number": "17.44"
+        },
+        {
+          "block": null,
+          "number": "17.45"
+        },
+        {
+          "block": null,
+          "number": "17.46"
+        },
+        {
+          "block": null,
+          "number": "17.47"
+        }
+      ]
+    },
+    "175": {
+      "items": [
+        {
+          "block": null,
+          "number": "18.15"
+        },
+        {
+          "block": null,
+          "number": "18.16"
+        },
+        {
+          "block": null,
+          "number": "18.17"
+        },
+        {
+          "block": null,
+          "number": "18.18"
+        },
+        {
+          "block": null,
+          "number": "18.19"
+        },
+        {
+          "block": null,
+          "number": "18.20"
+        }
+      ]
+    },
+    "190": {
+      "items": []
+    },
+    "200": {
+      "items": [
+        {
+          "block": null,
+          "number": "1"
+        },
+        {
+          "block": null,
+          "number": "2"
+        },
+        {
+          "block": null,
+          "number": "3"
+        }
+      ]
+    },
+    "212": {
+      "items": [
+        {
+          "block": null,
+          "number": "22.23"
+        },
+        {
+          "block": null,
+          "number": "22.24"
+        },
+        {
+          "block": null,
+          "number": "22.25"
+        }
+      ]
+    },
+    "223": {
+      "items": [
+        {
+          "block": null,
+          "number": "23.20"
+        },
+        {
+          "block": null,
+          "number": "23.21"
+        },
+        {
+          "block": null,
+          "number": "23.22"
+        },
+        {
+          "block": null,
+          "number": "23.23"
+        }
+      ]
+    },
+    "247": {
+      "items": []
+    },
+    "253": {
+      "items": [
+        {
+          "block": null,
+          "number": "27.19"
+        },
+        {
+          "block": null,
+          "number": "27.20"
+        },
+        {
+          "block": null,
+          "number": "27.21"
+        },
+        {
+          "block": null,
+          "number": "27.22"
+        },
+        {
+          "block": "§ 28 Упражнения для повторения курсов математики, алгебры, алгебры и начала анализа",
+          "number": "28.1"
+        },
+        {
+          "block": "§ 28 Упражнения для повторения курсов математики, алгебры, алгебры и начала анализа",
+          "number": "28.2"
+        },
+        {
+          "block": "§ 28 Упражнения для повторения курсов математики, алгебры, алгебры и начала анализа",
+          "number": "28.3"
+        },
+        {
+          "block": "§ 28 Упражнения для повторения курсов математики, алгебры, алгебры и начала анализа",
+          "number": "28.4"
+        },
+        {
+          "block": "§ 28 Упражнения для повторения курсов математики, алгебры, алгебры и начала анализа",
+          "number": "28.5"
+        }
+      ]
+    },
+    "258": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.58"
+        },
+        {
+          "block": null,
+          "number": "28.59"
+        },
+        {
+          "block": null,
+          "number": "28.60"
+        },
+        {
+          "block": null,
+          "number": "28.61"
+        },
+        {
+          "block": null,
+          "number": "28.62"
+        },
+        {
+          "block": null,
+          "number": "28.63"
+        },
+        {
+          "block": null,
+          "number": "28.64"
+        },
+        {
+          "block": null,
+          "number": "28.65"
+        },
+        {
+          "block": null,
+          "number": "28.66"
+        },
+        {
+          "block": null,
+          "number": "28.67"
+        },
+        {
+          "block": null,
+          "number": "28.68"
+        },
+        {
+          "block": null,
+          "number": "28.69"
+        },
+        {
+          "block": null,
+          "number": "28.70"
+        }
+      ]
+    },
+    "267": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.135"
+        },
+        {
+          "block": null,
+          "number": "28.136"
+        },
+        {
+          "block": null,
+          "number": "28.137"
+        },
+        {
+          "block": null,
+          "number": "28.138"
+        },
+        {
+          "block": null,
+          "number": "28.139"
+        },
+        {
+          "block": null,
+          "number": "28.140"
+        },
+        {
+          "block": null,
+          "number": "28.141"
+        },
+        {
+          "block": null,
+          "number": "28.142"
+        },
+        {
+          "block": null,
+          "number": "28.143"
+        }
+      ]
+    },
+    "275": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.213"
+        },
+        {
+          "block": null,
+          "number": "28.214"
+        },
+        {
+          "block": null,
+          "number": "28.215"
+        },
+        {
+          "block": null,
+          "number": "28.216"
+        },
+        {
+          "block": null,
+          "number": "28.217"
+        },
+        {
+          "block": null,
+          "number": "28.218"
+        },
+        {
+          "block": null,
+          "number": "28.219"
+        },
+        {
+          "block": null,
+          "number": "28.220"
+        },
+        {
+          "block": null,
+          "number": "28.221"
+        }
+      ]
+    },
+    "282": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.277"
+        },
+        {
+          "block": null,
+          "number": "28.278"
+        },
+        {
+          "block": null,
+          "number": "28.279"
+        },
+        {
+          "block": null,
+          "number": "28.280"
+        },
+        {
+          "block": null,
+          "number": "28.281"
+        },
+        {
+          "block": null,
+          "number": "28.282"
+        },
+        {
+          "block": null,
+          "number": "28.283"
+        },
+        {
+          "block": null,
+          "number": "28.284"
+        },
+        {
+          "block": null,
+          "number": "28.285"
+        },
+        {
+          "block": null,
+          "number": "28.286"
+        },
+        {
+          "block": null,
+          "number": "28.287"
+        },
+        {
+          "block": null,
+          "number": "28.288"
+        },
+        {
+          "block": null,
+          "number": "28.289"
+        },
+        {
+          "block": null,
+          "number": "28.290"
+        },
+        {
+          "block": null,
+          "number": "28.291"
+        },
+        {
+          "block": null,
+          "number": "28.292"
+        },
+        {
+          "block": null,
+          "number": "28.293"
+        }
+      ]
+    },
+    "291": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.355"
+        },
+        {
+          "block": null,
+          "number": "28.356"
+        },
+        {
+          "block": null,
+          "number": "28.357"
+        },
+        {
+          "block": null,
+          "number": "28.358"
+        },
+        {
+          "block": null,
+          "number": "28.359"
+        }
+      ]
+    },
+    "308": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "30.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "30.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "30.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "30.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "30.5"
+        }
+      ]
+    },
+    "320": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "33.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "33.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "33.3"
+        },
+        {
+          "block": "Упражнения",
+          "number": "33.4"
+        },
+        {
+          "block": "Упражнения",
+          "number": "33.5"
+        },
+        {
+          "block": "Упражнения",
+          "number": "33.6"
+        },
+        {
+          "block": "Упражнения",
+          "number": "33.7"
+        },
+        {
+          "block": "Упражнения",
+          "number": "33.8"
+        },
+        {
+          "block": "Упражнения",
+          "number": "33.9"
+        }
+      ]
+    },
+    "335": {
+      "items": [
+        {
+          "block": "Упражнения",
+          "number": "37.1"
+        },
+        {
+          "block": "Упражнения",
+          "number": "37.2"
+        },
+        {
+          "block": "Упражнения",
+          "number": "37.3"
+        }
+      ]
+    },
+    "346": {
+      "items": [
+        {
+          "block": null,
+          "number": "Пример 3"
+        }
+      ]
+    },
+    "361": {
+      "items": []
+    },
+    "371": {
+      "items": []
+    },
+    "375": {
+      "items": []
+    },
+    "380": {
+      "items": [
+        {
+          "block": null,
+          "number": "10.12"
+        },
+        {
+          "block": null,
+          "number": "10.13"
+        },
+        {
+          "block": null,
+          "number": "10.14"
+        },
+        {
+          "block": null,
+          "number": "10.15"
+        },
+        {
+          "block": null,
+          "number": "10.16"
+        },
+        {
+          "block": null,
+          "number": "10.17"
+        },
+        {
+          "block": null,
+          "number": "10.18"
+        },
+        {
+          "block": null,
+          "number": "10.19"
+        },
+        {
+          "block": null,
+          "number": "10.20"
+        },
+        {
+          "block": null,
+          "number": "11.5"
+        },
+        {
+          "block": null,
+          "number": "11.6"
+        },
+        {
+          "block": null,
+          "number": "11.8"
+        },
+        {
+          "block": null,
+          "number": "11.9"
+        },
+        {
+          "block": null,
+          "number": "11.10"
+        },
+        {
+          "block": null,
+          "number": "11.11"
+        },
+        {
+          "block": null,
+          "number": "11.12"
+        },
+        {
+          "block": null,
+          "number": "11.13"
+        },
+        {
+          "block": null,
+          "number": "11.14"
+        },
+        {
+          "block": null,
+          "number": "11.15"
+        },
+        {
+          "block": null,
+          "number": "11.16"
+        },
+        {
+          "block": null,
+          "number": "11.17"
+        },
+        {
+          "block": null,
+          "number": "11.18"
+        },
+        {
+          "block": null,
+          "number": "11.19"
+        },
+        {
+          "block": null,
+          "number": "11.20"
+        },
+        {
+          "block": null,
+          "number": "11.21"
+        },
+        {
+          "block": null,
+          "number": "11.22"
+        },
+        {
+          "block": null,
+          "number": "11.23"
+        },
+        {
+          "block": null,
+          "number": "11.24"
+        },
+        {
+          "block": null,
+          "number": "11.25"
+        },
+        {
+          "block": null,
+          "number": "11.26"
+        },
+        {
+          "block": null,
+          "number": "11.27"
+        }
+      ]
+    },
+    "386": {
+      "items": [
+        {
+          "block": null,
+          "number": "17.34"
+        },
+        {
+          "block": null,
+          "number": "17.35"
+        },
+        {
+          "block": null,
+          "number": "17.36"
+        },
+        {
+          "block": null,
+          "number": "17.37"
+        },
+        {
+          "block": null,
+          "number": "17.38"
+        }
+      ]
+    },
+    "396": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.140"
+        },
+        {
+          "block": null,
+          "number": "28.142"
+        },
+        {
+          "block": null,
+          "number": "28.144"
+        },
+        {
+          "block": null,
+          "number": "28.145"
+        },
+        {
+          "block": null,
+          "number": "28.156"
+        },
+        {
+          "block": null,
+          "number": "28.158"
+        },
+        {
+          "block": null,
+          "number": "28.159"
+        },
+        {
+          "block": null,
+          "number": "28.160"
+        },
+        {
+          "block": null,
+          "number": "28.161"
+        },
+        {
+          "block": null,
+          "number": "28.165"
+        },
+        {
+          "block": null,
+          "number": "28.166"
+        },
+        {
+          "block": null,
+          "number": "28.167"
+        }
+      ]
+    },
+    "400": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.253"
+        },
+        {
+          "block": null,
+          "number": "28.254"
+        },
+        {
+          "block": null,
+          "number": "28.255"
+        },
+        {
+          "block": null,
+          "number": "28.256"
+        },
+        {
+          "block": null,
+          "number": "28.257"
+        },
+        {
+          "block": null,
+          "number": "28.258"
+        },
+        {
+          "block": null,
+          "number": "28.263"
+        },
+        {
+          "block": null,
+          "number": "28.264"
+        },
+        {
+          "block": null,
+          "number": "28.265"
+        },
+        {
+          "block": null,
+          "number": "28.266"
+        },
+        {
+          "block": null,
+          "number": "28.267"
+        },
+        {
+          "block": null,
+          "number": "28.268"
+        },
+        {
+          "block": null,
+          "number": "28.269"
+        },
+        {
+          "block": null,
+          "number": "28.276"
+        },
+        {
+          "block": null,
+          "number": "28.280"
+        },
+        {
+          "block": null,
+          "number": "28.282"
+        },
+        {
+          "block": null,
+          "number": "28.283"
+        },
+        {
+          "block": null,
+          "number": "28.284"
+        },
+        {
+          "block": null,
+          "number": "28.285"
+        },
+        {
+          "block": null,
+          "number": "28.286"
+        },
+        {
+          "block": null,
+          "number": "28.291"
+        },
+        {
+          "block": null,
+          "number": "28.294"
+        },
+        {
+          "block": null,
+          "number": "28.296"
+        },
+        {
+          "block": null,
+          "number": "28.297"
+        },
+        {
+          "block": null,
+          "number": "28.301"
+        },
+        {
+          "block": null,
+          "number": "28.304"
+        },
+        {
+          "block": null,
+          "number": "28.305"
+        },
+        {
+          "block": null,
+          "number": "28.308"
+        }
+      ]
+    },
+    "406": {
+      "items": [
+        {
+          "block": null,
+          "number": "31.7"
+        },
+        {
+          "block": null,
+          "number": "32.1"
+        },
+        {
+          "block": null,
+          "number": "32.3"
+        },
+        {
+          "block": null,
+          "number": "32.4"
+        },
+        {
+          "block": null,
+          "number": "32.6"
+        },
+        {
+          "block": null,
+          "number": "32.7"
+        },
+        {
+          "block": null,
+          "number": "33.1"
+        },
+        {
+          "block": null,
+          "number": "33.2"
+        },
+        {
+          "block": null,
+          "number": "33.3"
+        },
+        {
+          "block": null,
+          "number": "33.4"
+        },
+        {
+          "block": null,
+          "number": "33.5"
+        },
+        {
+          "block": null,
+          "number": "33.6"
+        },
+        {
+          "block": null,
+          "number": "33.7"
+        },
+        {
+          "block": null,
+          "number": "33.8"
+        },
+        {
+          "block": null,
+          "number": "33.9"
+        },
+        {
+          "block": null,
+          "number": "33.10"
+        },
+        {
+          "block": null,
+          "number": "33.11"
+        },
+        {
+          "block": null,
+          "number": "34.2"
+        }
+      ]
+    },
+    "2": {
+      "items": []
+    },
+    "122": {
+      "items": []
+    },
+    "237": {
+      "items": [
+        {
+          "block": null,
+          "number": "25.4"
+        },
+        {
+          "block": null,
+          "number": "25.5"
+        },
+        {
+          "block": null,
+          "number": "25.6"
+        },
+        {
+          "block": null,
+          "number": "25.7"
+        },
+        {
+          "block": null,
+          "number": "25.8"
+        },
+        {
+          "block": null,
+          "number": "25.9"
+        },
+        {
+          "block": null,
+          "number": "25.10"
+        },
+        {
+          "block": null,
+          "number": "25.11"
+        }
+      ]
+    },
+    "298": {
+      "items": [
+        {
+          "block": null,
+          "number": "28.400"
+        },
+        {
+          "block": null,
+          "number": "28.401"
+        },
+        {
+          "block": null,
+          "number": "28.402"
+        },
+        {
+          "block": null,
+          "number": "28.403"
+        }
+      ]
+    },
+    "392": {
+      "items": [
+        {
+          "block": null,
+          "number": "25.5"
+        },
+        {
+          "block": null,
+          "number": "25.6"
+        },
+        {
+          "block": null,
+          "number": "25.7"
+        },
+        {
+          "block": null,
+          "number": "25.8"
+        },
+        {
+          "block": null,
+          "number": "25.9"
+        },
+        {
+          "block": null,
+          "number": "25.10"
+        },
+        {
+          "block": null,
+          "number": "25.11"
+        },
+        {
+          "block": null,
+          "number": "25.12"
+        },
+        {
+          "block": null,
+          "number": "25.13"
+        },
+        {
+          "block": null,
+          "number": "25.14"
+        },
+        {
+          "block": null,
+          "number": "25.15"
+        },
+        {
+          "block": null,
+          "number": "25.16"
+        },
+        {
+          "block": null,
+          "number": "25.17"
+        },
+        {
+          "block": null,
+          "number": "25.18"
+        },
+        {
+          "block": null,
+          "number": "25.19"
+        },
+        {
+          "block": null,
+          "number": "25.20"
+        }
+      ]
+    }
+  }
+}

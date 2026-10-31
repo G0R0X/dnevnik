@@ -1,0 +1,24 @@
+# Секреты и локальные файлы
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Вложения и учебники.
+# files/homework — скачивается воркером из дневника заново, в git не нужен.
+# PDF-учебники — 244 МБ бинарников; в git их держат только через LFS,
+# иначе репозиторий раздувается навсегда. Переносятся на сервер отдельно
+# (scp/rsync), см. AGENTS.md.
+# structure.json и exercises.json (0.9 МБ) — наоборот, в git: exercises.json
+# получается долгим сканом через ИИ, повторять его на сервере дорого.
+files/homework/
+files/books/**/*.pdf
+
+# Служебное
+.idea/
+.vscode/*
+!.vscode/settings.json
