@@ -270,15 +270,13 @@ def generate_InlineKeyboardMarkup_for_day(schedule, homs_files_links, year, week
 
 def generate_InlineKeyboardMarkup_for_lesson(files, links, year, week, day, subject_id, tasks):
     lst = []
-    for file in files:
-        f = file[0]
+    for f in files:
         lst.append([
             InlineKeyboardButton(
                 text=f.title,
                 callback_data=f"file:{f.id}")
         ])
-    for link in links:
-        l = link[0]
+    for l in links:
         lst.append([
             InlineKeyboardButton(
                 text=l.title,
@@ -496,19 +494,19 @@ async def lesson(callback: CallbackQuery):
     day = int(day)
     subject_id = int(subject_id)
     async with SessionLocal() as session:
-        homeworks_list, files, links, _ = await get_homework_for_lesson(session, date.fromisocalendar(year, week, day), subject_id)
+        homeworks_list, files, links = await get_homework_for_lesson(session, date.fromisocalendar(year, week, day), subject_id)
         tasks = []
-        for homework_id, *_ in homeworks_list:
-            tasks.extend(await get_solvable_homework_tasks(session, homework_id))
+        for homework in homeworks_list:
+            tasks.extend(await get_solvable_homework_tasks(session, homework.id))
     answer = []
     day_date = date.fromisocalendar(year, week, day)
-    for _homework_id, homework_text, check_at, _lesson_date in homeworks_list:
-        if homework_text.strip():
-            answer.append(homework_text)
-        if check_at and check_at != day_date:
+    for homework in homeworks_list:
+        if homework.text.strip():
+            answer.append(homework.text)
+        if homework.check_at and homework.check_at != day_date:
             # У задания может быть другой срок сдачи, чем день урока.
             answer.append(
-                f"Сдать к {check_at.day} {int_to_month[check_at.month]}")
+                f"Сдать к {homework.check_at.day} {int_to_month[homework.check_at.month]}")
     if not answer:
         answer = ["Нет задания"]
     keyboard = generate_InlineKeyboardMarkup_for_lesson(

@@ -200,7 +200,13 @@ async def prepare_homework(homework_id: int, force: bool = False) -> list[Homewo
     Если задачи у ДЗ уже есть — возвращает их и ничего не делает: повторный
     разбор тратил бы ИИ и перезаписывал сохранённые решения. `force=True`
     перечитывает ДЗ заново (нужно, если страницы были определены неверно).
+
+    Если разбор не дал ни одной задачи (ИИ не ответил за три попытки или
+    вернул мусор), БД не трогаем и отдаём то, что там уже лежит: иначе
+    прогон с `force=True` стёр бы старые задачи, не сохранив новых.
     """
+    # Сессию не держим, пока работает ИИ (это минуты): вычитываем всё нужное
+    # и закрываем, а на сохранение открываем новую.
     async with SessionLocal() as session:
         homework = await get_homework(session, homework_id)
         if homework is None:
@@ -212,6 +218,13 @@ async def prepare_homework(homework_id: int, force: bool = False) -> list[Homewo
         subject = await get_subject(session, homework.subject_id)
         files, links = await get_materials(session, homework_id)
 
+        homework_text = homework.text
+        subject_name = (subject.name_ru or subject.name) if subject else ""
+        # Дальше работаем с простыми значениями: ORM-объекты вне сессии
+        # трогать нельзя.
+        textbook_path = subject.textbook_path if subject else None
+        has_files = bool(files)
+
         materials = []
         for f in files:
             materials.append({"kind": "file", "title": f.title, "url": f.url})
@@ -219,22 +232,26 @@ async def prepare_homework(homework_id: int, force: bool = False) -> list[Homewo
             materials.append(
                 {"kind": "link", "title": link.title, "url": link.url})
 
-        subject_name = (subject.name_ru or subject.name) if subject else ""
+    if not homework_text.strip():
+        return []
 
-        if not homework.text.strip():
-            return []
+    tasks_data = await analyse(homework_text, subject_name, materials)
 
-        tasks_data = await analyse(homework.text, subject_name, materials)
+    result_tasks: list[HomeworkTask] = []
+    for item in tasks_data:
+        result = await _resolve_task(item, textbook_path, has_files)
+        if result is not None:
+            result_tasks.append(result)
 
-        result_tasks: list[HomeworkTask] = []
-        for item in tasks_data:
-            result = await _resolve_task(item, homework, subject, bool(files))
-            if result is not None:
-                result_tasks.append(result)
+    if not result_tasks:
+        print(f"ДЗ {homework_id}: разбор не дал задач, оставляю как было",
+              flush=True)
+        return existing
 
+    async with SessionLocal() as session:
         await rewrite_homework_tasks(session, homework_id, result_tasks,
                                      force=force)
-        return result_tasks
+    return result_tasks
 
 
 def _parse_page_numbers(raw: list) -> list[int]:
@@ -245,37 +262,37 @@ def _parse_page_numbers(raw: list) -> list[int]:
     return pages
 
 
-def _pages_to_pdf(pages: list[int], subject) -> list[int]:
+def _pages_to_pdf(pages: list[int], textbook_path: str | None) -> list[int]:
     """Страницы из текста ДЗ — напечатанные номера, а рендер ждёт PDF-страницы."""
-    if not pages or subject is None or not subject.textbook_path:
+    if not pages or not textbook_path:
         return pages
-    return [printed_to_pdf(subject.textbook_path, page) for page in pages]
+    return [printed_to_pdf(textbook_path, page) for page in pages]
 
 
-async def _resolve_task(item: dict, homework, subject, has_files: bool = False) -> HomeworkTask | None:
+async def _resolve_task(item: dict, textbook_path: str | None, has_files: bool = False) -> HomeworkTask | None:
     instruction = (item.get("instruction") or "").strip()
     if not instruction:
         return None
     status = (item.get("status") or "").strip().lower()
     pages = _pages_to_pdf(
-        _parse_page_numbers(item.get("textbook_pages") or []), subject)
+        _parse_page_numbers(item.get("textbook_pages") or []), textbook_path)
     raw_paragraphs = item.get("textbook_paragraphs") or []
     paragraphs = [int(p) for p in raw_paragraphs if str(p).strip().isdigit()]
     unit = _unit_from_text(instruction, *(str(p) for p in raw_paragraphs))
-    if unit is None and pages and subject and subject.textbook_path:
+    if unit is None and pages and textbook_path:
         # Страницы из текста ДЗ могут быть словарём/приложением: заголовок
         # Unit'а на них подскажет, в каком Unit'е искать номера заданий.
-        unit = get_page_unit_from_index(subject.textbook_path, pages)
+        unit = get_page_unit_from_index(textbook_path, pages)
     targets = [t for t in (_clean_target(x)
                            for x in (item.get("targets") or [])) if t]
     if not paragraphs and targets:
         paragraphs = _paragraphs_from_targets(targets)
 
-    if status in ("ready", "needs_materials") and targets and subject and subject.textbook_path:
+    if status in ("ready", "needs_materials") and targets and textbook_path:
         # Индекс знает, где номера напечатаны, — он точнее страниц из текста
         # ДЗ (там могут быть страницы словаря или приложения).
         found, missing = find_pages_by_targets(
-            subject.textbook_path, targets, unit)
+            textbook_path, targets, unit)
         if found and not missing:
             # Страницы из текста ДЗ не выбрасываем: в английском задание
             # «Упр.22-27. Стр.238-239» ссылается и на упражнения, и на
@@ -283,7 +300,7 @@ async def _resolve_task(item: dict, homework, subject, has_files: bool = False) 
             pages = sorted(
                 set(pages)
                 | set(_add_continuation_pages(
-                    found, _total_pages(subject.textbook_path))))
+                    found, _total_pages(textbook_path))))
 
     if status == "ready":
         return HomeworkTask(
@@ -313,10 +330,10 @@ async def _resolve_task(item: dict, homework, subject, has_files: bool = False) 
                 textbook_pages=sorted(set(pages)) or None,
                 targets=targets or None,
             )
-        if paragraphs and subject and subject.textbook_path:
+        if paragraphs and textbook_path:
             try:
                 final_pages = await search_task_pages(
-                    instruction, targets, subject.textbook_path, paragraphs, unit)
+                    instruction, targets, textbook_path, paragraphs, unit)
             except Exception:
                 final_pages = []
             if final_pages:

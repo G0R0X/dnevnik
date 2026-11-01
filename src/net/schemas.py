@@ -10,7 +10,7 @@ class HomeworkLink(BaseModel):
 class Homework(BaseModel):
     id: int
     lesson_date: datetime.date
-    check_at: datetime.date | None
+    check_at: datetime.date
     text: str
     files: list[HomeworkLink]
     links: list[HomeworkLink]

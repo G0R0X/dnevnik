@@ -3,6 +3,7 @@ import asyncio
 from sqlalchemy.ext.asyncio import AsyncSession
 from db.models import homeworks, homework_files, homework_links, homework_tasks, schedule, subjects
 from sqlalchemy import select, and_, delete, or_
+from sqlalchemy.orm import selectinload
 from datetime import date
 from aiohttp import ClientSession
 
@@ -55,44 +56,46 @@ def _homework_days(day: date):
     )
 
 
-async def get_homework_for_day(session: AsyncSession, day: date):
-    result = await session.execute(select(homeworks.Homework.id, homeworks.Homework.text, homeworks.Homework.subject_id).where(_homework_days(day)))
+async def get_homework_for_day(session: AsyncSession, day: date) -> dict[int, dict[str, bool]]:
+    """Что показать по предметам в дне: есть ли текст, файлы, ссылки.
+
+    Вложения подгружаются заранее (`selectinload`), иначе на каждое ДЗ
+    уходило по два лишних запроса.
+    """
+    result = await session.execute(
+        select(homeworks.Homework).options(
+            selectinload(homeworks.Homework.homework_files),
+            selectinload(homeworks.Homework.homework_links),
+        ).where(_homework_days(day))
+    )
     homs = defaultdict(dict)
-    for homework in result:
-        if homework[1].strip():
-            homs[homework[2]]["text"] = True
-        current_files, current_links = await asyncio.gather(session.execute(select(homework_files.HomeworkFile).where(homework_files.HomeworkFile.homework_id == homework[0])), session.execute(select(homework_links.HomeworkLink).where(homework_links.HomeworkLink.homework_id == homework[0])))
-        if current_files.all():
-            homs[homework[2]]["files"] = True
-        if current_links.all():
-            homs[homework[2]]["links"] = True
+    for homework in result.scalars().all():
+        if homework.text.strip():
+            homs[homework.subject_id]["text"] = True
+        if homework.homework_files:
+            homs[homework.subject_id]["files"] = True
+        if homework.homework_links:
+            homs[homework.subject_id]["links"] = True
     return homs
 
 
-async def get_homework_for_lesson(session: AsyncSession, day: date, subject_id: int):
+async def get_homework_for_lesson(session: AsyncSession, day: date, subject_id: int) -> tuple[list[homeworks.Homework], list[homework_files.HomeworkFile], list[homework_links.HomeworkLink]]:
+    """ДЗ предмета за день вместе с вложениями — для экрана урока."""
     result = await session.execute(
-        select(
-            homeworks.Homework.id,
-            homeworks.Homework.text,
-            homeworks.Homework.check_at,
-            homeworks.Homework.lesson_date,
+        select(homeworks.Homework).options(
+            selectinload(homeworks.Homework.homework_files),
+            selectinload(homeworks.Homework.homework_links),
         ).where(and_(
             homeworks.Homework.subject_id == subject_id,
             _homework_days(day),
         ))
     )
-    homeworks_lst = []
-    files = []
-    links = []
-    homework_id = None
-    for homework in result:
-        homeworks_lst.append(homework)
-        current_files, current_links = await asyncio.gather(session.execute(select(homework_files.HomeworkFile).where(homework_files.HomeworkFile.homework_id == homework[0])), session.execute(select(homework_links.HomeworkLink).where(homework_links.HomeworkLink.homework_id == homework[0])))
-        files.extend(current_files.all())
-        links.extend(current_links.all())
-        if not homework_id:
-            homework_id = homework[0]
-    return (homeworks_lst, files, links, homework_id)
+    homeworks_lst = list(result.scalars().all())
+    files = [file for homework in homeworks_lst
+             for file in homework.homework_files]
+    links = [link for homework in homeworks_lst
+             for link in homework.homework_links]
+    return homeworks_lst, files, links
 
 
 async def write_homework_tasks(session: AsyncSession, task: homework_tasks.HomeworkTask):
@@ -130,7 +133,7 @@ async def get_subject_names(session: AsyncSession) -> dict[int, str]:
 async def get_subject_ids_by_name(session: AsyncSession) -> dict[str, int]:
     """Русское название предмета -> id (по нему дневник отдаёт предмет в ДЗ)."""
     result = await session.execute(
-        select(subjects.Subject.id, subjects.Subject.name_.u)
+        select(subjects.Subject.id, subjects.Subject.name_ru)
     )
     return {name_ru: subject_id
             for subject_id, name_ru in result if name_ru}

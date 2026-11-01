@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import date, timedelta
 from ai.prepare import prepare_homework
 from file_handling.main import HOMEWORK_DIR, PROJECT_ROOT
+import re
 load_dotenv()
 
 
@@ -167,19 +168,46 @@ async def write_new_data(year: int, week: int, token: Token, http_session: Clien
 
 async def save_file(file: homework_files.HomeworkFile, session: ClientSession):
 
-    # Путь от корня проекта: синк запускают и из src, и из корня.
-    folder_path = HOMEWORK_DIR / str(file.id)
+    def sanitize_filename(filename: str) -> str:
+        filename = Path(filename).name
+
+        filename = re.sub(r"[^a-zA-Z0-9а-яА-ЯёЁ._-]", "_", filename)
+
+        if filename in {"", ".", ".."}:
+            raise ValueError("Invalid filename")
+
+        return filename
+
+    folder_path = Path("files") / str(file.id)
     folder_path.mkdir(parents=True, exist_ok=True)
-    file_path = folder_path / file.title
 
+    safe_name = sanitize_filename(file.title)
+
+    file_path = (folder_path / safe_name).resolve()
+    base_path = folder_path.resolve()
+
+    if not file_path.is_relative_to(base_path):
+        raise ValueError("Invalid file path")
+
+    max_size = 20 * 1024 * 1024
+    total_size = 0
     file_url = "https://diaryapi.kiasuo.ru" + file.url
-    async with session.get(file_url) as response:
-        response.raise_for_status()
 
-        content = await response.read()
+    try:
+        async with session.get(file_url) as response:
+            response.raise_for_status()
 
-    with open(file_path, "wb") as f:
-        f.write(content)
+            with open(file_path, "wb") as f:
+                async for chunk in response.content.iter_chunked(64*1024):
+                    total_size += len(chunk)
+
+                    if total_size > max_size:
+                        raise ValueError("File is too large")
+
+                    f.write(chunk)
+    except Exception:
+        file_path.unlink(missing_ok=True)
+        raise
 
 
 def default_weeks() -> list[tuple[int, int]]:
