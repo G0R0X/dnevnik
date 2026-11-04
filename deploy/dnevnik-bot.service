@@ -1,0 +1,22 @@
+[Unit]
+Description=dnevnik: Telegram-бот (long polling)
+# Ждём сеть и Postgres: без БД бот падает на старте и уходит в перезапуск.
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dnevnik
+Group=dnevnik
+# python -m tg.main ищет пакеты в src, поэтому рабочая папка — src.
+WorkingDirectory=/opt/dnevnik/src
+# Часовой пояс: worker и default_weeks() считают даты от локального «сейчас».
+Environment=TZ=Europe/Moscow
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONIOENCODING=utf-8
+ExecStart=/opt/dnevnik/.venv/bin/python -m tg.main
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

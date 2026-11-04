@@ -23,5 +23,8 @@ files/books/**/*.pdf
 .vscode/*
 !.vscode/settings.json
 
+# Личные черновики (test.py когда-то светил токены — в git ему нельзя)
+/test.py
+
 # Логи: пишутся в logs/<процесс>.log с ротацией по 5 МБ
 logs/

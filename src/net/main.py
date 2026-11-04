@@ -23,9 +23,14 @@ url_refresh = "https://diaryapi.kiasuo.ru/diary/refresh"
 
 
 def update_env(updates: dict[str, str], path: Path | None = None) -> None:
-    """Перезаписывает значения в .env по ключам, остальные строки не трогает."""
+    """Перезаписывает значения в .env по ключам, остальные строки не трогает.
+
+    Если файла нет (контейнер, где секреты приходят переменными окружения),
+    он создаётся: иначе обновление токенов падало бы на чтении.
+    """
     env_path = Path(path) if path else PROJECT_ROOT / ".env"
-    lines = env_path.read_text(encoding="utf-8").splitlines()
+    lines = (env_path.read_text(encoding="utf-8").splitlines()
+             if env_path.exists() else [])
     result = []
     replaced = set()
     for line in lines:
@@ -58,7 +63,17 @@ class Token():
             self.access_token = acc
             self.refresh_token = ref
 
-            update_env({"ACCESS_TOKEN": acc, "REFRESH_TOKEN": ref})
+            # os.environ обновляем вместе с файлом: синк создаёт новый Token()
+            # на каждый прогон, и без этого через 20 минут он прочитал бы
+            # стартовые (уже недействительные) токены из окружения.
+            os.environ["ACCESS_TOKEN"] = acc
+            os.environ["REFRESH_TOKEN"] = ref
+            try:
+                update_env({"ACCESS_TOKEN": acc, "REFRESH_TOKEN": ref})
+            except OSError as error:
+                # Файл только для чтения (контейнер): в этом процессе токены
+                # уже обновлены, но после перезапуска понадобится свежий .env.
+                logger.warning("не удалось записать токены в .env: %s", error)
 
 
 def week_of(day: date) -> tuple[int, int]:
@@ -182,7 +197,9 @@ async def save_file(file: homework_files.HomeworkFile, session: ClientSession):
 
         return filename
 
-    folder_path = Path("files") / str(file.id)
+    # Путь от корня проекта: синк запускают и из src, и из корня,
+    # а get_attachment_path ищет вложение в files/homework/<id>.
+    folder_path = HOMEWORK_DIR / str(file.id)
     folder_path.mkdir(parents=True, exist_ok=True)
 
     safe_name = sanitize_filename(file.title)

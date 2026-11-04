@@ -9,8 +9,8 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from dotenv import load_dotenv
 
-# важная деталь: .env лежит в корне проекта, а env.py — в src/migrations
-load_dotenv(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+# .env лежит в корне проекта, env.py — в alembic/
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 import db.models.homeworks        # noqa: F401  — эти импорты регистрируют таблицы
 import db.models.homework_files   # noqa: F401
@@ -20,7 +20,11 @@ import db.models.schedule         # noqa: F401
 import db.models.subjects         # noqa: F401
 
 config = context.config
-config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL", ""))
+
+database_url = os.getenv("DATABASE_URL")
+if not database_url:
+    raise RuntimeError("DATABASE_URL не задан — заполни .env в корне проекта")
+config.set_main_option("sqlalchemy.url", database_url)
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)

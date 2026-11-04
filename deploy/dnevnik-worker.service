@@ -1,0 +1,21 @@
+[Unit]
+Description=dnevnik: воркер (синк дневника и подготовка ДЗ)
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dnevnik
+Group=dnevnik
+WorkingDirectory=/opt/dnevnik/src
+Environment=TZ=Europe/Moscow
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONIOENCODING=utf-8
+# Воркер должен быть один: второй экземпляр выйдет по advisory-локе,
+# но systemd всё равно не даёт запускать больше одного (Type=simple + один юнит).
+ExecStart=/opt/dnevnik/.venv/bin/python -m worker.main
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

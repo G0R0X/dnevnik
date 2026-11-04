@@ -100,15 +100,76 @@ Get-Content logs\bot.log -Tail 50 -Encoding utf8      # последние 50 с
 
 ## Развёртывание на новой машине
 
-1. `pip install -r requirements.txt`
+1. `pip install -r requirements.txt` (нужен Python **3.11+**: `logging_setup` использует `logging.getLevelNamesMapping()`, появившийся в 3.11).
 2. Скопировать `.env.example` → `.env`, заполнить (DIARY_ID — число из URL дневника).
-3. Создать пустую БД и выполнить `alembic upgrade head`: baseline-миграция
-   создаёт схему, следующая вставляет 16 предметов (с русскими названиями)
-   и недельное расписание. Отдельный сид-скрипт не нужен.
+3. Создать пустую БД и выполнить `alembic upgrade head` из корня проекта: `prepend_sys_path = %(here)s/src` в `alembic.ini`, поэтому `PYTHONPATH=src` не нужен. Baseline-миграция создаёт схему, следующая вставляет 16 предметов (с русскими названиями) и недельное расписание. Отдельный сид-скрипт не нужен.
 4. Перенести учебники: PDF в git не лежат (244 МБ бинарников), копируются один раз —
    `scp -r files\books user@server:/opt/dnevnik/files/` (или WinSCP/rsync).
    `structure.json` и `exercises.json` приезжают вместе с репозиторием.
 5. `python -m worker.main` и `python src\tg\main.py`.
+
+## Запуск на сервере (Linux, systemd)
+
+Проверено на Ubuntu/Debian; на Windows-сервере — те же шаги, но вместо systemd нужен планировщик/служба. Бери **Ubuntu 24.04** (в ней Python 3.12): в 22.04 по умолчанию 3.10, а проекту нужен 3.11+ — там придётся ставить 3.11 из deadsnakes PPA.
+
+```bash
+# 1. Код и окружение
+git clone https://github.com/G0R0X/dnevnik.git /opt/dnevnik
+cd /opt/dnevnik
+python3.11 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+
+# 2. Секреты: .env только на сервере, в git его нет
+scp .env user@server:/opt/dnevnik/.env
+chown dnevnik:dnevnik /opt/dnevnik/.env
+chmod 600 /opt/dnevnik/.env
+```
+
+`.env` **обязан быть записываемым** для сервисного пользователя: `Token.refresh()` перезаписывает в нём `ACCESS_TOKEN`/`REFRESH_TOKEN` через `update_env`. Права `600` и владелец `dnevnik` (не root) — иначе воркер упадёт на первом обновлении токена.
+
+`Token.refresh()` обновляет и `os.environ`, и `.env`: воркер создаёт новый `Token()` на каждый синк (раз в 20 минут), и без обновления окружения следующий прогон прочитал бы стартовые токены. Если `.env` нет (контейнер, где секреты приходят переменными окружения), `update_env` создаёт его; если файл только для чтения — пишется `WARNING`, процесс продолжает работать на обновлённых токенах до перезапуска. Поэтому на PaaS секреты надо либо монтировать файлом на volume, либо после каждого рестарта обновлять `ACCESS_TOKEN`/`REFRESH_TOKEN` в настройках сервиса.
+
+```bash
+# 3. PostgreSQL: отдельный пользователь и база
+sudo apt update && sudo apt install -y postgresql
+sudo -u postgres createuser dnevnik --pwprompt
+sudo -u postgres createdb dnevnik -O dnevnik
+# DATABASE_URL=postgresql+asyncpg://dnevnik:пароль@localhost:5432/dnevnik
+
+# 4. Схема (из корня проекта, PYTHONPATH не нужен)
+cd /opt/dnevnik && .venv/bin/alembic upgrade head
+
+# 5. Учебники (единственное, чего нет в git)
+rsync -av files/books/ user@server:/opt/dnevnik/files/books/
+
+# 6. Сервисы
+sudo cp deploy/dnevnik-bot.service deploy/dnevnik-worker.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now dnevnik-worker dnevnik-bot
+```
+
+Юниты лежат в `deploy/`: `WorkingDirectory=/opt/dnevnik/src` (нужно для `python -m`), `TZ=Europe/Moscow`, `Restart=always`. Воркер должен быть **один** — второй экземпляр выходит по advisory-локе, но два юнита на одном хосте всё равно не нужны.
+
+Часовой пояс — не косметика: сервер обычно в UTC, а `worker` считает «сегодня» и `default_weeks()` от локальной даты, cron настроен на 7–22. Без `TZ=Europe/Moscow` синк ходил бы в 4–19 по Москве, а ночью «сегодня» было бы вчерашним.
+
+Порты открывать не нужно: бот работает на long polling, наружу нужны только исходящие HTTPS к `api.telegram.org`, `diaryapi.kiasuo.ru`, RouterAI и GigaChat.
+
+Проверка после запуска:
+
+```bash
+systemctl status dnevnik-bot dnevnik-worker
+journalctl -u dnevnik-worker -n 50 --no-pager
+tail -f /opt/dnevnik/logs/worker.log
+cd /opt/dnevnik/src && ../.venv/bin/python -m net.main --week 44 --no-prepare   # одна неделя, без ИИ
+```
+
+Бэкап: `pg_dump` по cron. ДЗ восстановятся синком, а сохранённые `homework_tasks.solution` — нет.
+
+```bash
+pg_dump -U dnevnik dnevnik | gzip > /var/backups/dnevnik-$(date +%F).sql.gz
+```
+
+Секреты в git не попадают (`.env` в `.gitignore`, в истории его нет). Если понадобится CI — ключи кладутся в GitHub Actions Secrets, а не в workflow-файлы, тем более в публичном репозитории.
 
 ## Ключевые модели и данные
 
