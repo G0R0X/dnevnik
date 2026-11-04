@@ -1,4 +1,5 @@
 import json
+import logging
 import re
 
 from db.models.homework_tasks import HomeworkTask, TaskStatus
@@ -24,6 +25,8 @@ from file_handling.main import (
     printed_to_pdf,
 )
 
+logger = logging.getLogger(__name__)
+
 
 def build_analyse_prompt(homework_text: str, subject_name: str, materials: list[dict]) -> list[dict]:
     input_data = {
@@ -41,13 +44,14 @@ def build_analyse_prompt(homework_text: str, subject_name: str, materials: list[
 async def analyse(homework_text: str, subject_name: str, materials: list[dict]) -> list[dict]:
     """Вызов ИИ №1 — разбиение ДЗ на задачи."""
     prompt = build_analyse_prompt(homework_text, subject_name, materials)
-    for _ in range(3):
+    for attempt in range(1, 4):
         try:
             response = await aiclient.generate(prompt)
             data = extract_json(response)
             return data.get("tasks", [])
-        except Exception as e:
-            print(f"{homework_text} {subject_name} error {type(e).__name__}: {e}")
+        except Exception as error:
+            logger.warning("разбор ДЗ (%s): попытка %d/3 не удалась: %s: %s",
+                           subject_name, attempt, type(error).__name__, error)
     return []
 
 
@@ -103,7 +107,7 @@ async def find_targets_on_page(client: AIClient, instruction: str, targets: list
         {"role": "system", "content": promts.FIND_TARGETS_ON_PAGE_PROMT},
         {"role": "user", "content": json.dumps(user_data, ensure_ascii=False)},
     ]
-    for _ in range(3):
+    for attempt in range(1, 4):
         try:
             response = await client.generate_with_images(
                 prompt, {f"page_{page}.png": images[page]})
@@ -111,8 +115,10 @@ async def find_targets_on_page(client: AIClient, instruction: str, targets: list
             found_raw = data.get("found", [])
             found_norm = {_normalize(x) for x in found_raw}
             return [t for t in targets if _normalize(t) in found_norm]
-        except Exception as e:
-            print(f"{instruction} {targets} error {type(e).__name__}: {e}")
+        except Exception as error:
+            logger.warning("стр. %d, номера %s: попытка %d/3 не удалась: %s: %s",
+                           page, ", ".join(targets), attempt,
+                           type(error).__name__, error)
 
 
 async def _search_pages(client: AIClient, instruction: str, targets: list[str],
@@ -149,7 +155,8 @@ async def search_task_pages(instruction: str, targets: list[str], textbook_path:
 
     index_pages, missing = ([], [str(t) for t in targets])
     if targets:
-        index_pages, missing = find_pages_by_targets(textbook_path, targets, unit)
+        index_pages, missing = find_pages_by_targets(
+            textbook_path, targets, unit)
         if index_pages and not missing:
             return _add_continuation_pages(index_pages, total_pages)
 
@@ -213,7 +220,7 @@ async def prepare_homework(homework_id: int, force: bool = False) -> list[Homewo
             return []
         existing = await get_homework_tasks(session, homework_id)
         if existing and not force:
-            print(f"ДЗ {homework_id}: задачи уже есть, разбор пропущен", flush=True)
+            logger.info("ДЗ %d: задачи уже есть, разбор пропущен", homework_id)
             return existing
         subject = await get_subject(session, homework.subject_id)
         files, links = await get_materials(session, homework_id)
@@ -233,8 +240,11 @@ async def prepare_homework(homework_id: int, force: bool = False) -> list[Homewo
                 {"kind": "link", "title": link.title, "url": link.url})
 
     if not homework_text.strip():
+        logger.info("ДЗ %d: пустой текст, разбирать нечего", homework_id)
         return []
 
+    logger.debug("ДЗ %d (%s): разбор через ИИ, материалов %d, символов %d",
+                 homework_id, subject_name, len(materials), len(homework_text))
     tasks_data = await analyse(homework_text, subject_name, materials)
 
     result_tasks: list[HomeworkTask] = []
@@ -244,13 +254,17 @@ async def prepare_homework(homework_id: int, force: bool = False) -> list[Homewo
             result_tasks.append(result)
 
     if not result_tasks:
-        print(f"ДЗ {homework_id}: разбор не дал задач, оставляю как было",
-              flush=True)
+        # Пустой результат — почти всегда сбой ИИ, а не «в ДЗ нет заданий»:
+        # старые задачи не трогаем, иначе force-прогон сотрёт их впустую.
+        logger.warning("ДЗ %d: разбор не дал задач, оставляю как было",
+                       homework_id)
         return existing
 
     async with SessionLocal() as session:
         await rewrite_homework_tasks(session, homework_id, result_tasks,
                                      force=force)
+    logger.info("ДЗ %d (%s): подготовлено задач %d",
+                homework_id, subject_name, len(result_tasks))
     return result_tasks
 
 
@@ -374,10 +388,13 @@ if __name__ == "__main__":
     import argparse
     import asyncio
 
+    from logging_setup import setup_logging
+
     parser = argparse.ArgumentParser(description="Разбор одного ДЗ на задачи")
     parser.add_argument("homework_id", type=int, help="id ДЗ в БД")
     parser.add_argument(
         "--force", action="store_true",
         help="перечитать ДЗ даже если задачи уже есть")
     args = parser.parse_args()
+    setup_logging()
     asyncio.run(prepare_homework(args.homework_id, force=args.force))

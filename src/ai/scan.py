@@ -18,6 +18,7 @@
 import argparse
 import asyncio
 import json
+import logging
 import os
 import re
 import time
@@ -30,6 +31,9 @@ from ai import promts
 from ai.client import build_client
 from ai.utils import extract_json
 from file_handling.main import BOOKS_DIR, get_textbook_pages
+from logging_setup import setup_logging
+
+logger = logging.getLogger(__name__)
 
 # Текстовый слой страницы читаем, только если он содержательный:
 # отдельные подписи под картинкой заданий не описывают.
@@ -179,11 +183,12 @@ async def scan_book(textbook_path: str, page_from: int = 1, page_to: int | None 
         if force or str(page) not in data["pages"]
     ]
     if not pages:
-        print(f"{textbook_path}: всё уже просканировано ({len(data['pages'])} стр.)")
+        logger.info("%s: всё уже просканировано (%d стр.)",
+                    textbook_path, len(data["pages"]))
         return data
 
-    print(f"{textbook_path}: страниц к скану {len(pages)} "
-          f"(уже готово {len(data['pages'])}, всего {total_pages})")
+    logger.info("%s: страниц к скану %d (уже готово %d, всего %d)",
+                textbook_path, len(pages), len(data["pages"]), total_pages)
 
     semaphore = asyncio.Semaphore(max(1, concurrency))
     write_lock = asyncio.Lock()
@@ -203,15 +208,15 @@ async def scan_book(textbook_path: str, page_from: int = 1, page_to: int | None 
             done += 1
             elapsed = time.monotonic() - started
             eta = elapsed / done * (len(pages) - done)
-            print(f"  [{done}/{len(pages)}] стр. {page}: заданий {len(items)} "
-                  f"(осталось ~{eta / 60:.0f} мин)", flush=True)
+            logger.info("[%d/%d] стр. %d: заданий %d (осталось ~%d мин)",
+                        done, len(pages), page, len(items), eta / 60)
 
     results = await asyncio.gather(
         *(worker(page) for page in pages), return_exceptions=True)
     errors = [r for r in results if isinstance(r, Exception)]
     for error in errors:
-        print(f"  ошибка: {error}")
-    print(f"{textbook_path}: готово, ошибок {len(errors)}")
+        logger.warning("ошибка: %s", error)
+    logger.info("%s: готово, ошибок %d", textbook_path, len(errors))
     return data
 
 
@@ -245,9 +250,10 @@ def main() -> None:
     if not args.all and not args.textbook:
         parser.error("укажи учебник или --all")
 
+    setup_logging()
     textbooks = all_textbooks() if args.all else [args.textbook]
     for textbook in textbooks:
-        print(f"=== {textbook} ===", flush=True)
+        logger.info("=== %s ===", textbook)
         asyncio.run(scan_book(
             textbook,
             page_from=args.page_from,

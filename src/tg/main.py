@@ -8,6 +8,7 @@ from datetime import date, timedelta
 
 import asyncio
 import html
+import logging
 import re
 from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, BufferedInputFile, InputMediaPhoto
@@ -15,10 +16,13 @@ from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command
 from dotenv import load_dotenv
 import os
+from logging_setup import setup_logging
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_API_KEY")
 bot = Bot(BOT_TOKEN)
 dp = Dispatcher()
+
+logger = logging.getLogger(__name__)
 
 # Русские названия предметов (id -> название), загружаются из БД при старте.
 subject_names: dict[int, str] = {}
@@ -621,11 +625,10 @@ async def show_answer(callback: CallbackQuery):
         year, week, day, subject_id, task_id)
     try:
         answer = await solve_task(task_id)
-    except Exception as error:
+    except Exception:
         # Обрыв сети, лимит токенов, кривой ответ модели: без перехвата
         # экран навсегда остаётся с «Решаю задание…».
-        print(f"задание {task_id}: решить не удалось: "
-              f"{type(error).__name__}: {error}", flush=True)
+        logger.exception("задание %d: решить не удалось", task_id)
         await _show_text(message, "Не получилось решить задание. "
                                   "Попробуй ещё раз.", keyboard)
         return
@@ -651,9 +654,11 @@ async def show_answer(callback: CallbackQuery):
 
 
 async def main():
+    setup_logging("bot")
     # Названия предметов кэшируем один раз: экраны рисуются из памяти,
     # без запроса в БД на каждое нажатие.
     await load_subject_names()
+    logger.info("бот запущен")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":

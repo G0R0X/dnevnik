@@ -6,13 +6,17 @@ import asyncio
 from aiohttp import ClientSession
 from db.session import SessionLocal
 from db.models import homeworks, homework_files, homework_links, schedule, subjects, homework_tasks
+import logging
 import os
 from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import date, timedelta
 from ai.prepare import prepare_homework
 from file_handling.main import HOMEWORK_DIR, PROJECT_ROOT
 import re
+import time
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 
 url_refresh = "https://diaryapi.kiasuo.ru/diary/refresh"
@@ -192,6 +196,7 @@ async def save_file(file: homework_files.HomeworkFile, session: ClientSession):
     max_size = 20 * 1024 * 1024
     total_size = 0
     file_url = "https://diaryapi.kiasuo.ru" + file.url
+    logger.debug("скачиваю вложение %s -> %s", file.title, file_path)
 
     try:
         async with session.get(file_url) as response:
@@ -209,6 +214,8 @@ async def save_file(file: homework_files.HomeworkFile, session: ClientSession):
         file_path.unlink(missing_ok=True)
         raise
 
+    logger.info("вложение %s сохранено: %d КБ", file.title, total_size // 1024)
+
 
 def default_weeks() -> list[tuple[int, int]]:
     """Недели по умолчанию: прошлая, текущая и следующая."""
@@ -225,6 +232,10 @@ async def sync_weeks(weeks: list[tuple[int, int]] | None = None, prepare: bool =
     Возвращает только новые ДЗ — их же и готовит.
     """
     weeks = weeks or default_weeks()
+    names = ", ".join(f"{year}-W{week:02d}" for year, week in weeks)
+    logger.info("синк недель: %s", names)
+    started = time.monotonic()
+
     tkn = Token()
     homs = []
     async with ClientSession() as http_session:
@@ -232,20 +243,25 @@ async def sync_weeks(weeks: list[tuple[int, int]] | None = None, prepare: bool =
             for year, week in weeks:
                 homs.extend(await write_new_data(
                     year, week, tkn, http_session, db_session))
-    print(f"новых ДЗ: {len(homs)}", flush=True)
+
+    logger.info("синк недель %s: новых ДЗ %d, %.1f с",
+                names, len(homs), time.monotonic() - started)
+
     if prepare:
         for homework in homs:
             try:
-                print(homework.id, await prepare_homework(homework.id), flush=True)
-            except Exception as error:
+                await prepare_homework(homework.id)
+            except Exception:
                 # Одно сломанное ДЗ не должно оставлять без задач остальные.
-                print(f"ДЗ {homework.id}: подготовка не удалась: "
-                      f"{type(error).__name__}: {error}", flush=True)
+                # exception() пишет и трейсбек — по нему видно, где упало.
+                logger.exception("ДЗ %d: подготовка не удалась", homework.id)
     return homs
 
 
 if __name__ == "__main__":
     import argparse
+
+    from logging_setup import setup_logging
 
     parser = argparse.ArgumentParser(description="Загрузка ДЗ из дневника")
     parser.add_argument(
@@ -263,4 +279,5 @@ if __name__ == "__main__":
         weeks = [(year, week) for week in args.week]
     else:
         weeks = None
+    setup_logging()
     asyncio.run(sync_weeks(weeks, prepare=not args.no_prepare))

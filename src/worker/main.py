@@ -7,6 +7,7 @@
 
 import argparse
 import asyncio
+import logging
 from datetime import datetime
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -14,7 +15,10 @@ from apscheduler.triggers.cron import CronTrigger
 from sqlalchemy import text
 
 from db.session import engine
+from logging_setup import setup_logging
 from net.main import sync_weeks
+
+logger = logging.getLogger(__name__)
 
 SYNC_INTERVAL_MINUTES = 20
 WORKING_START_HOUR = 7
@@ -71,26 +75,31 @@ def build_scheduler() -> AsyncIOScheduler:
 
 
 async def main(once: bool = False) -> None:
+    setup_logging("worker")
     lock = await acquire_worker_lock()
     if lock is None:
+        # Второй экземпляр затёр бы токены в .env — это не ошибка, но
+        # в логе должно быть видно, почему процесс сразу вышел.
+        logger.warning("воркер уже запущен: второй экземпляр не нужен")
         return
 
     scheduler = None
     try:
         if once:
+            logger.info("разовый синк (--once)")
             await sync_weeks()
             return
 
         scheduler = build_scheduler()
         scheduler.start()
-        print(f"воркер запущен: синк каждые {SYNC_INTERVAL_MINUTES} мин, "
-              f"часы {WORKING_START_HOUR}-{WORKING_END_HOUR}", flush=True)
+        logger.info("воркер запущен: синк каждые %d мин, часы %d-%d",
+                    SYNC_INTERVAL_MINUTES, WORKING_START_HOUR, WORKING_END_HOUR)
         # start() не блокирует: держим цикл живым, пока процесс не остановят.
         await asyncio.Event().wait()
     finally:
         if scheduler is not None:
             scheduler.shutdown()
-            print("воркер остановлен", flush=True)
+            logger.info("воркер остановлен")
         await lock.close()
 
 

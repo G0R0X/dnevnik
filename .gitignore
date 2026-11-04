@@ -22,3 +22,6 @@ files/books/**/*.pdf
 .idea/
 .vscode/*
 !.vscode/settings.json
+
+# Логи: пишутся в logs/<процесс>.log с ротацией по 5 МБ
+logs/

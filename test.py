@@ -1,19 +1,28 @@
-from db.session import SessionLocal
-import asyncio
-from db.models import homework_files, homework_links, homework_tasks, homeworks, subjects, schedule
-from sqlalchemy import select
-from sqlalchemy.orm import selectinload
+import logging
 
-
-async def main():
-    async with SessionLocal() as session:
-        query = select(homeworks.Homework).options(selectinload(homeworks.Homework.homework_files), selectinload(
-            homeworks.Homework.homework_links)).where(homeworks.Homework.id == 36)
-        result = await session.execute(query)
-        a = result.scalars().one()
-
-        print(a.id, a.text, a.homework_files[0].url)
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+LOGGING_CONFIG = {
+    "version": 1,
+    "formatters": {
+        "simple": {
+            "format": "%(levelname)s | %(name)s | %(message)s"
+        }
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "simple"
+        },
+        "file": {
+            "class": "logging.FileHandler",
+            "level": "WARNING",
+            "formatter": "simple",
+            "filename": "app.log",
+            "encoding": "utf-8"
+        }
+    },
+    "root": {
+        "level": "DEBUG",
+        "handlers": ["console", "file"]
+    }
+}
