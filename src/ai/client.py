@@ -84,7 +84,9 @@ class RouterAIClient(AIClient):
             "messages": _as_messages(messages),
             "temperature": self.temperature,
         }
-        if self.reasoning_effort and self.reasoning_effort != "none":
+        if self.reasoning_effort:
+            # «none» надо отправлять явно: если параметр не передать, RouterAI
+            # включает reasoning по умолчанию, и OCR-страница дорожает вдвое.
             payload["reasoning"] = {"effort": self.reasoning_effort}
         return payload
 
@@ -147,14 +149,18 @@ class GigaChatClient(AIClient):
         })
         return response.messages[0].content[0].text
 
-    async def generate_with_images(self, messages, images: dict[str, bytes]) -> str:
-        """Изображения загружаются в GigaChat через files API."""
-        client = self._get_client()
-        file_ids = []
-        for name, data in images.items():
-            uploaded = await client.aupload_file(file=(name, data))
-            file_ids.append(uploaded.id_)
+    async def upload_image(self, name: str, data: bytes) -> str:
+        """Загружает картинку в files API и возвращает её id.
 
+        Загрузка — отдельный вызов: на бесплатном тарифе GigaChat режет залп
+        загрузок (`429` на `/v1/files`), поэтому их делают по одной, а уже
+        потом распознают страницы параллельно.
+        """
+        uploaded = await self._get_client().aupload_file(file=(name, data))
+        return uploaded.id_
+
+    async def generate_with_image_ids(self, messages, file_ids: list[str]) -> str:
+        """Ответ по уже загруженным картинкам (id из files API)."""
         messages = _as_messages(messages)
         last = dict(messages[-1])
         if isinstance(last.get("content"), str):
@@ -166,15 +172,25 @@ class GigaChatClient(AIClient):
         last["content"] = parts
         messages[-1] = last
 
-        response = await client.achat.create({
+        response = await self._get_client().achat.create({
             "messages": messages,
             "model": self.model,
         })
         return response.messages[0].content[0].text
 
+    async def generate_with_images(self, messages, images: dict[str, bytes]) -> str:
+        """Изображения загружаются в GigaChat через files API."""
+        file_ids = [await self.upload_image(name, data)
+                    for name, data in images.items()]
+        return await self.generate_with_image_ids(messages, file_ids)
 
-def build_client(provider: str, model: str | None = None) -> AIClient:
-    """Собирает клиент по имени провайдера. `model` переопределяет AI_MODEL."""
+
+def build_client(provider: str, model: str | None = None,
+                 reasoning_effort: str | None = None) -> AIClient:
+    """Собирает клиент по имени провайдера.
+
+    `model` переопределяет AI_MODEL, `reasoning_effort` — AI_REASONING_EFFORT.
+    """
     chosen = model or os.getenv("AI_MODEL")
     if provider == "gigachat":
         return GigaChatClient(
@@ -185,7 +201,7 @@ def build_client(provider: str, model: str | None = None) -> AIClient:
     return RouterAIClient(
         api_key=os.getenv("ROUTERAI_API_KEY"),
         model=chosen or DEFAULT_ROUTERAI_MODEL,
-        reasoning_effort=os.getenv("AI_REASONING_EFFORT") or "medium",
+        reasoning_effort=reasoning_effort or os.getenv("AI_REASONING_EFFORT") or "medium",
         temperature=float(os.getenv("AI_TEMPERATURE") or 0),
     )
 

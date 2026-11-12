@@ -251,7 +251,7 @@ async def prepare_homework(homework_id: int, force: bool = False) -> list[Homewo
     for item in tasks_data:
         result = await _resolve_task(item, textbook_path, has_files)
         if result is not None:
-            result_tasks.append(result)
+            result_tasks.extend(_split_retell_task(result, textbook_path))
 
     if not result_tasks:
         # Пустой результат — почти всегда сбой ИИ, а не «в ДЗ нет заданий»:
@@ -266,6 +266,78 @@ async def prepare_homework(homework_id: int, force: bool = False) -> list[Homewo
     logger.info("ДЗ %d (%s): подготовлено задач %d",
                 homework_id, subject_name, len(result_tasks))
     return result_tasks
+
+
+# «§27.28», «§5–6», «§5 и 6» — группа номеров параграфов в тексте задания.
+_PARAGRAPH_GROUP = re.compile(
+    r"§\s*\d+(?:\s*(?:[.,;:]|[-–—]|и)\s*§?\s*\d+)*")
+
+
+def _single_paragraph_instruction(instruction: str, paragraph: int) -> str:
+    """«Прочитать и изучить §27 и §28» → «Прочитать и изучить §27»."""
+    replaced, count = _PARAGRAPH_GROUP.subn(f"§{paragraph}", instruction, count=1)
+    return replaced if count else f"{instruction} (§{paragraph})"
+
+
+def _group_instruction(instruction: str, paragraphs: list[int]) -> str:
+    """Задание под группу параграфов с общим диапазоном страниц."""
+    if len(paragraphs) == 1:
+        return _single_paragraph_instruction(instruction, paragraphs[0])
+    label = "§" + ", ".join(str(p) for p in paragraphs)
+    replaced, count = _PARAGRAPH_GROUP.subn(label, instruction, count=1)
+    return replaced if count else f"{instruction} ({label})"
+
+
+def _split_retell_task(task: HomeworkTask,
+                       textbook_path: str | None) -> list[HomeworkTask]:
+    """Пересказ нескольких параграфов делит на задачи по параграфу.
+
+    «§27.28» — это два параграфа, и ученик учит их отдельно: у каждой задачи
+    свои страницы и свой пересказ. Параграфы, которые в `structure.json`
+    начинаются на одной странице (в истории §5–6 — один раздел), остаются
+    одной задачей: иначе получились бы две одинаковые.
+
+    Если хотя бы один параграф не находится в `structure.json`, задачу
+    не трогаем: задача без страниц хуже общей.
+    """
+    paragraphs = list(task.textbook_paragraphs or [])
+    if task.status != TaskStatus.RETELL or len(paragraphs) < 2:
+        return [task]
+    if not textbook_path:
+        return [task]
+
+    page_sets = [
+        get_pages_for_paragraphs(textbook_path, [paragraph],
+                                 include_boundary=False)
+        for paragraph in paragraphs
+    ]
+    if not all(page_sets):
+        logger.warning("пересказ §%s: не у всех параграфов есть страницы, "
+                       "оставляю одной задачей",
+                       ", ".join(str(p) for p in paragraphs))
+        return [task]
+
+    # Параграфы с одинаковым диапазоном страниц — один раздел учебника.
+    groups: list[tuple[list[int], list[int]]] = []
+    for paragraph, pages in zip(paragraphs, page_sets):
+        if groups and groups[-1][0] == pages:
+            groups[-1][1].append(paragraph)
+        else:
+            groups.append((pages, [paragraph]))
+
+    if len(groups) == 1:
+        return [task]
+
+    return [
+        HomeworkTask(
+            instruction=_group_instruction(task.instruction, group),
+            status=TaskStatus.RETELL,
+            textbook_paragraphs=group,
+            textbook_pages=pages,
+            targets=None,
+        )
+        for pages, group in groups
+    ]
 
 
 def _parse_page_numbers(raw: list) -> list[int]:
@@ -301,6 +373,38 @@ async def _resolve_task(item: dict, textbook_path: str | None, has_files: bool =
                            for x in (item.get("targets") or [])) if t]
     if not paragraphs and targets:
         paragraphs = _paragraphs_from_targets(targets)
+
+    if status == "retell":
+        # Для пересказа нужен именно текст параграфа, поэтому берём весь
+        # диапазон страниц, но без первой страницы следующего параграфа:
+        # она уже относится к другой теме. Страницы из текста ДЗ — только
+        # запасной вариант: там часто соседние задания («§5–6, стр. 84 №1»),
+        # которые к пересказу не относятся.
+        retell_pages: list[int] = []
+        if textbook_path and paragraphs:
+            retell_pages = get_pages_for_paragraphs(
+                textbook_path, paragraphs, include_boundary=False)
+        if not retell_pages:
+            retell_pages = pages
+        if retell_pages:
+            logger.debug("ДЗ: пересказ §%s, страниц %d",
+                         ", ".join(str(p) for p in paragraphs), len(retell_pages))
+            return HomeworkTask(
+                instruction=instruction,
+                status=TaskStatus.RETELL,
+                textbook_paragraphs=paragraphs or None,
+                textbook_pages=retell_pages,
+                targets=None,
+            )
+        # Учебника нет или параграф не нашёлся в structure.json — пересказать
+        # нечего, честно оставляем задачу нерешаемой.
+        return HomeworkTask(
+            instruction=instruction,
+            status=TaskStatus.NOT_SOLVABLE,
+            textbook_paragraphs=paragraphs or None,
+            textbook_pages=None,
+            targets=None,
+        )
 
     if status in ("ready", "needs_materials") and targets and textbook_path:
         # Индекс знает, где номера напечатаны, — он точнее страниц из текста

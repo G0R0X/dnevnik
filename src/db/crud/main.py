@@ -2,7 +2,8 @@ from collections import defaultdict
 import asyncio
 from sqlalchemy.ext.asyncio import AsyncSession
 from db.models import homeworks, homework_files, homework_links, homework_tasks, schedule, subjects
-from sqlalchemy import select, and_, delete, or_
+from db.models.homework_tasks import TaskStatus
+from sqlalchemy import select, and_, delete
 from sqlalchemy.orm import selectinload
 from datetime import date
 from aiohttp import ClientSession
@@ -44,16 +45,12 @@ async def get_schedule_for_day(session: AsyncSession, weekday: int):
 
 
 def _homework_days(day: date):
-    """ДЗ относится ко дню, если это день урока или день, к которому сдать.
+    """ДЗ относится ко дню, если его надо сдать в этот день.
 
-    В дневнике ДЗ висит на уроке, где его задали (`lesson_date`), а «сдать к»
-    может быть позже (`check_at`). Показываем в оба дня: иначе задания,
-    выданные раньше, пропадают из дня сдачи.
+    `lesson_date` — урок, на котором задали, — в дневнике не показываем:
+    ученику нужно видеть задание в день сдачи, а не в день, когда его выдали.
     """
-    return or_(
-        homeworks.Homework.lesson_date == day,
-        homeworks.Homework.check_at == day,
-    )
+    return homeworks.Homework.check_at == day
 
 
 async def get_homework_for_day(session: AsyncSession, day: date) -> dict[int, dict[str, bool]]:
@@ -182,10 +179,14 @@ async def get_homework_tasks(session: AsyncSession, homework_id: int) -> list[ho
     return result.scalars().all()
 
 
-async def get_solvable_homework_tasks(session: AsyncSession, homework_id: int) -> list[homework_tasks.HomeworkTask]:
+async def get_actionable_homework_tasks(session: AsyncSession, homework_id: int) -> list[homework_tasks.HomeworkTask]:
+    """Задачи, с которыми бот что-то делает: решает или готовит пересказ."""
     result = await session.execute(
         select(homework_tasks.HomeworkTask).where(and_(
-            homework_tasks.HomeworkTask.homework_id == homework_id, homework_tasks.HomeworkTask.status == "ready"))
+            homework_tasks.HomeworkTask.homework_id == homework_id,
+            homework_tasks.HomeworkTask.status.in_(
+                (TaskStatus.READY, TaskStatus.RETELL)),
+        ))
     )
     return result.scalars().all()
 

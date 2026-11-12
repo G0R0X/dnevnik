@@ -1,4 +1,4 @@
-from db.crud.main import get_solvable_homework_tasks
+from db.crud.main import get_actionable_homework_tasks
 from ai.solve import solve_task
 from file_handling.main import BOOKS_DIR, get_attachment_path, get_page_count, get_textbook_pages, pdf_to_printed
 from db.crud.main import get_schedule_for_day, get_homework_for_lesson, get_homework_for_day, get_homework, get_homework_task, get_subject, get_subject_names
@@ -10,16 +10,102 @@ import asyncio
 import html
 import logging
 import re
+import socket
+from aiohttp import ClientTimeout
 from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, BufferedInputFile, InputMediaPhoto
-from aiogram.exceptions import TelegramBadRequest
+from aiogram.exceptions import TelegramBadRequest, TelegramNetworkError
 from aiogram.filters import Command
+from aiogram.client.session.aiohttp import AiohttpSession
+from aiogram.methods.base import TelegramMethod, TelegramType
 from dotenv import load_dotenv
 import os
 from logging_setup import setup_logging
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_API_KEY")
-bot = Bot(BOT_TOKEN)
+# Прокси для Bot API: нужен там, где telegram недоступен напрямую — в РФ
+# провайдеры режут 149.154.160.0/20 и 91.108.4.0/22. Пусто — работаем без прокси.
+BOT_PROXY = os.getenv("BOT_PROXY") or None
+
+# Таймауты запроса к Telegram. Общий — как DEFAULT_TIMEOUT в aiogram, а вот
+# sock_connect важен отдельно: по умолчанию его нет, и неудачный коннект висит
+# до системного таймаута ОС (~21 с на Windows), потому что SYN просто дропается.
+REQUEST_TIMEOUT = 40
+CONNECT_TIMEOUT = 5
+
+# Сколько живёт простаивающее соединение в пуле и через сколько молчания его
+# пингуем. aiohttp по умолчанию закрывает соединение через 15 с, а решение
+# задачи идёт дольше — единственное рабочее соединение умирало, и ответ уходил
+# по новому, которое провайдер режет.
+KEEPALIVE_TIMEOUT = 300
+KEEPALIVE_IDLE = 20
+
+
+class BotSession(AiohttpSession):
+    """Сессия к Telegram: IPv4, прокси из `BOT_PROXY` и быстрый обрыв коннекта.
+
+    На Windows у api.telegram.org бывает недоступен IPv6-адрес, и соединение
+    висит до таймаута: старт падает с OSError 121 «Превышен таймаут семафора».
+    Явный family=AF_INET убирает гонку адресов (happy eyeballs).
+
+    Отдельно ограничен sock_connect: там, где провайдер режет Telegram по IP,
+    попытка соединения должна падать за CONNECT_TIMEOUT, а не ждать ОС.
+    Иначе проверка доступности занимает полминуты вместо пяти секунд.
+    """
+
+    def __init__(self) -> None:
+        super().__init__(proxy=BOT_PROXY, timeout=REQUEST_TIMEOUT)
+        self._connector_init["family"] = socket.AF_INET
+        self._connector_init["keepalive_timeout"] = KEEPALIVE_TIMEOUT
+        self._in_flight = 0
+        self._last_request_at = 0.0
+
+    async def make_request(
+        self,
+        bot: Bot,
+        method: TelegramMethod[TelegramType],
+        timeout: int | None = None,
+    ) -> TelegramType:
+        """Ограничивает установку соединения, а не только запрос целиком.
+
+        aiogram передаёт сюда число (для getUpdates — свой длинный таймаут),
+        а aiohttp нужен ClientTimeout, чтобы задать sock_connect отдельно.
+        """
+        self._in_flight += 1
+        try:
+            return await super().make_request(
+                bot,
+                method,
+                timeout=ClientTimeout(
+                    total=timeout or self.timeout, sock_connect=CONNECT_TIMEOUT),
+            )
+        finally:
+            self._in_flight -= 1
+            self._last_request_at = asyncio.get_running_loop().time()
+
+    async def keep_alive(self, bot: Bot) -> None:
+        """Пингует Telegram, пока бот занят своими делами — например, решает.
+
+        Пока идёт решение, в пуле простаивает единственное рабочее соединение.
+        Сервер закрывает то, которое молчит, и ответ уходит уже по новому —
+        а новое на такой сети почти не открывается. Пинг идёт по тому же
+        соединению из пула, поэтому коннекта не требует, и держит его живым.
+        """
+        while True:
+            await asyncio.sleep(KEEPALIVE_IDLE / 2)
+            idle = asyncio.get_running_loop().time() - self._last_request_at
+            # Пока идёт long polling, соединение занято и так: пинг не нужен,
+            # а второй коннект только помешал бы.
+            if self._in_flight or idle < KEEPALIVE_IDLE:
+                continue
+            try:
+                await bot.get_me()
+                logger.debug("keep-alive: соединение живо")
+            except TelegramNetworkError as error:
+                logger.debug("keep-alive не прошёл: %s", error)
+
+
+bot = Bot(BOT_TOKEN, session=BotSession())
 dp = Dispatcher()
 
 logger = logging.getLogger(__name__)
@@ -147,6 +233,24 @@ def shorten_button_text(text: str, limit: int = 60) -> str:
     if len(text) <= limit:
         return text
     return text[:limit - 1].rstrip() + "…"
+
+
+def format_pages(pages: list[int]) -> str:
+    """«9, 10, 11, 13» → «9–11, 13»: у параграфа страниц много."""
+    if not pages:
+        return ""
+    ranges = []
+    start = previous = pages[0]
+    for page in pages[1:]:
+        if page == previous + 1:
+            previous = page
+            continue
+        ranges.append(str(start) if start == previous
+                      else f"{start}–{previous}")
+        start = previous = page
+    ranges.append(str(start) if start == previous
+                  else f"{start}–{previous}")
+    return ", ".join(ranges)
 
 
 def get_first_last_weekdays(year: int, week: int) -> str:
@@ -288,9 +392,10 @@ def generate_InlineKeyboardMarkup_for_lesson(files, links, year, week, day, subj
             )
         ])
     for task in tasks:
+        icon = "📖 " if task.status == TaskStatus.RETELL else "📝 "
         lst.append([
             InlineKeyboardButton(
-                text="📝 " + shorten_button_text(task.instruction),
+                text=icon + shorten_button_text(task.instruction),
                 callback_data=f"task:{year}:{week}:{day}:{subject_id}:{task.id}")
         ])
     lst.append(
@@ -313,6 +418,12 @@ def generate_InlineKeyboardMarkup_for_card(year, week, day, subject_id, task, te
                 text="🧠 Решить с ИИ",
                 callback_data=f"ai:{year}:{week}:{day}:{subject_id}:{task.homework_id}:{task.id}")
         ])
+    elif task.status == TaskStatus.RETELL:
+        lst.append([
+            InlineKeyboardButton(
+                text="🧠 Пересказ с ИИ",
+                callback_data=f"ai:{year}:{week}:{day}:{subject_id}:{task.homework_id}:{task.id}")
+        ])
     if task.textbook_pages:
         pages = list(task.textbook_pages)
         prefix = f"pg:{year}:{week}:{day}:{subject_id}:{task.id}"
@@ -321,18 +432,22 @@ def generate_InlineKeyboardMarkup_for_card(year, week, day, subject_id, task, te
                 text=f"📖 Страницы учебника ({len(pages)})",
                 callback_data=f"{prefix}:{pages[0]}")
         ])
-        # Отдельная кнопка на каждую страницу задания: в английском задание
-        # ссылается и на упражнения, и на словарь далеко в конце книги.
-        row = []
-        for page in pages:
-            label = pdf_to_printed(textbook_path, page) if textbook_path else page
-            row.append(InlineKeyboardButton(
-                text=str(label), callback_data=f"{prefix}:{page}"))
-            if len(row) == 4:
+        # У пересказа страниц целый параграф (15–20 штук): отдельные кнопки
+        # заняли бы пол-экрана, а листать удобнее стрелками на самой странице.
+        if task.status != TaskStatus.RETELL:
+            # Отдельная кнопка на каждую страницу задания: в английском задание
+            # ссылается и на упражнения, и на словарь далеко в конце книги.
+            row = []
+            for page in pages:
+                label = pdf_to_printed(
+                    textbook_path, page) if textbook_path else page
+                row.append(InlineKeyboardButton(
+                    text=str(label), callback_data=f"{prefix}:{page}"))
+                if len(row) == 4:
+                    lst.append(row)
+                    row = []
+            if row:
                 lst.append(row)
-                row = []
-        if row:
-            lst.append(row)
     lst.append(
         [
             InlineKeyboardButton(
@@ -501,16 +616,12 @@ async def lesson(callback: CallbackQuery):
         homeworks_list, files, links = await get_homework_for_lesson(session, date.fromisocalendar(year, week, day), subject_id)
         tasks = []
         for homework in homeworks_list:
-            tasks.extend(await get_solvable_homework_tasks(session, homework.id))
+            tasks.extend(await get_actionable_homework_tasks(session, homework.id))
     answer = []
     day_date = date.fromisocalendar(year, week, day)
     for homework in homeworks_list:
         if homework.text.strip():
             answer.append(homework.text)
-        if homework.check_at and homework.check_at != day_date:
-            # У задания может быть другой срок сдачи, чем день урока.
-            answer.append(
-                f"Сдать к {homework.check_at.day} {int_to_month[homework.check_at.month]}")
     if not answer:
         answer = ["Нет задания"]
     keyboard = generate_InlineKeyboardMarkup_for_lesson(
@@ -538,12 +649,14 @@ async def show_task(callback: CallbackQuery):
         subject = await get_subject(session, homework.subject_id)
 
     text = task.instruction
+    if task.textbook_paragraphs:
+        text += f"\n\nПараграфы: {', '.join(str(p) for p in task.textbook_paragraphs)}"
     if task.targets:
         text += f"\n\nНомера: {', '.join(task.targets)}"
     if task.textbook_pages and subject and subject.textbook_path:
         printed = [pdf_to_printed(subject.textbook_path, page)
                    for page in task.textbook_pages]
-        text += f"\n\nСтраницы: {', '.join(str(page) for page in printed)}"
+        text += f"\n\nСтраницы: {format_pages(printed)}"
     if not task.textbook_pages and task.status == TaskStatus.NOT_SOLVABLE:
         text += "\n\nЭто задание нельзя выполнить текстом."
 
@@ -564,7 +677,7 @@ async def show_page(callback: CallbackQuery):
     task_id = int(task_id)
     page = int(page)
 
-    pdf_path, textbook_path, task_pages, total = await _task_book(task_id)
+    pdf_path, textbook_path, task_pages, total, task_status = await _task_book(task_id)
     if not task_pages or not total:
         await callback.answer("У этого задания нет страниц учебника", show_alert=True)
         return
@@ -580,28 +693,29 @@ async def show_page(callback: CallbackQuery):
     printed_total = pdf_to_printed(textbook_path, total)
     caption = f"Стр. {printed} из {printed_total}"
     if page in task_pages:
-        caption += " · страница задания"
+        caption += (" · страница параграфа" if task_status == TaskStatus.RETELL
+                    else " · страница задания")
     keyboard = generate_InlineKeyboardMarkup_for_page(
         year, week, day, subject_id, task_id, page, total)
     await _show_photo(callback.message, image, f"page_{page}.png", caption, keyboard)
     await callback.answer()
 
 
-async def _task_book(task_id: int) -> tuple[str | None, str | None, list[int], int]:
-    """Путь к PDF, путь учебника (для печатных номеров), страницы задания, всего страниц."""
+async def _task_book(task_id: int) -> tuple[str | None, str | None, list[int], int, TaskStatus | None]:
+    """Путь к PDF, путь учебника (для печатных номеров), страницы задания, всего страниц, статус."""
     async with SessionLocal() as session:
         task = await get_homework_task(session, task_id)
         if task is None or not task.textbook_pages:
-            return None, None, [], 0
+            return None, None, [], 0, None
         homework = await get_homework(session, task.homework_id)
         subject = await get_subject(session, homework.subject_id)
         if subject is None or not subject.textbook_path:
-            return None, None, [], 0
+            return None, None, [], 0, task.status
         pdf_path = str(BOOKS_DIR / f"{subject.textbook_path.strip('/')}.pdf")
         if not os.path.exists(pdf_path):
-            return None, None, [], 0
+            return None, None, [], 0, task.status
         return (pdf_path, subject.textbook_path,
-                list(task.textbook_pages), get_page_count(pdf_path))
+                list(task.textbook_pages), get_page_count(pdf_path), task.status)
 
 
 @dp.callback_query(F.data.startswith("ai:"))
@@ -617,9 +731,14 @@ async def show_answer(callback: CallbackQuery):
 
     # закрываем «часики» сразу: решение может занять минуту
     await callback.answer()
+    async with SessionLocal() as session:
+        task = await get_homework_task(session, task_id)
+    is_retell = task is not None and task.status == TaskStatus.RETELL
+    progress = "Готовлю пересказ…" if is_retell else "Решаю задание…"
+
     # Если ниже экрана уже лежит файл вложения, экран переносится вниз:
     # иначе ответ разорвётся на «часть 1 → файл → часть 2».
-    message = await _show_text(callback.message, "Решаю задание…")
+    message = await _show_text(callback.message, progress)
 
     keyboard = generate_InlineKeyboardMarkup_for_answer(
         year, week, day, subject_id, task_id)
@@ -629,12 +748,15 @@ async def show_answer(callback: CallbackQuery):
         # Обрыв сети, лимит токенов, кривой ответ модели: без перехвата
         # экран навсегда остаётся с «Решаю задание…».
         logger.exception("задание %d: решить не удалось", task_id)
-        await _show_text(message, "Не получилось решить задание. "
-                                  "Попробуй ещё раз.", keyboard)
+        error_text = ("Не получилось подготовить пересказ. Попробуй ещё раз."
+                      if is_retell
+                      else "Не получилось решить задание. Попробуй ещё раз.")
+        await _show_text(message, error_text, keyboard)
         return
 
     if not answer.strip():
-        answer = "Не удалось решить задание."
+        answer = ("Не удалось подготовить пересказ." if is_retell
+                  else "Не удалось решить задание.")
 
     day_date = date.fromisocalendar(year, week, day)
     header = f"{day_date.day} {int_to_month[day_date.month]} {int_to_weekday[day]} {subject_name(subject_id)}\n\n"
@@ -653,13 +775,55 @@ async def show_answer(callback: CallbackQuery):
         _remember(message)
 
 
+START_RETRY_PAUSE = 2
+START_LOG_EVERY = 10
+
+
 async def main():
     setup_logging("bot")
     # Названия предметов кэшируем один раз: экраны рисуются из памяти,
     # без запроса в БД на каждое нажатие.
     await load_subject_names()
     logger.info("бот запущен")
-    await dp.start_polling(bot)
+    # Ссылку на задачу держим: иначе сборщик мусора может её забрать.
+    keepalive = asyncio.create_task(bot.session.keep_alive(bot))
+    await start_polling()
+    keepalive.cancel()
+
+
+async def start_polling() -> None:
+    """Запускает polling, дожидаясь доступности Telegram сколько потребуется.
+
+    Отдельная проверка доступности не нужна: первый же bot.me() и есть она.
+    Неудачный коннект обрывается через CONNECT_TIMEOUT, так что попытки идут
+    примерно раз в 7 секунд.
+
+    Апдейты обрабатываются по одному (`handle_as_tasks=False`) не из экономии:
+    там, где провайдер режет Telegram, новые TCP-соединения почти не проходят,
+    а уже открытое соединение работает — aiohttp держит его в пуле и
+    переиспользует. При параллельной обработке (по умолчанию) ответ ученику
+    требует ВТОРОГО соединения, пока висит long polling getUpdates, и падает
+    с «Request timeout error». Последовательно ответ уходит по тому же
+    соединению, что и getUpdates, и доходит.
+    """
+    attempt = 0
+    while True:
+        attempt += 1
+        try:
+            await dp.start_polling(bot, handle_as_tasks=False)
+            return
+        except TelegramNetworkError as error:
+            if attempt == 1:
+                logger.warning(
+                    "нет связи с Telegram (%s), жду и пробую снова", error)
+            elif attempt % START_LOG_EVERY == 0:
+                logger.warning(
+                    "связи с Telegram всё ещё нет, попытка %d", attempt)
+            else:
+                logger.debug(
+                    "нет связи с Telegram, попытка %d: %s", attempt, error)
+            await asyncio.sleep(START_RETRY_PAUSE)
+
 
 if __name__ == "__main__":
     asyncio.run(main())

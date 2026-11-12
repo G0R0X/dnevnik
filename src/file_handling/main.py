@@ -141,7 +141,15 @@ def pdf_to_printed(textbook_path: str, page: int) -> int:
     return page
 
 
-def get_pages_for_paragraphs(textbook_path: str, paragraphs: list[int]) -> list[int]:
+def get_pages_for_paragraphs(textbook_path: str, paragraphs: list[int],
+                             include_boundary: bool = True) -> list[int]:
+    """PDF-страницы параграфов.
+
+    `include_boundary=True` добавляет первую страницу следующего параграфа:
+    задания часто доживают до неё, поэтому она нужна при решении задач.
+    Для пересказа граница уже относится к следующей теме, поэтому её
+    отрезают (`include_boundary=False`).
+    """
     structure = load_structure(textbook_path)
     if structure is None:
         return []
@@ -158,8 +166,10 @@ def get_pages_for_paragraphs(textbook_path: str, paragraphs: list[int]) -> list[
         end = total_pages
         for num, page in sorted_starts:
             if page > start:
-                end = page
+                end = page if include_boundary else page - 1
                 break
+        if end < start:
+            continue
         pages.update(range(start, end + 1))
 
     return sorted(pages)

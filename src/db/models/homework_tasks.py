@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 
 class TaskStatus(StrEnum):
     READY = "ready"
+    RETELL = "retell"
     NOT_SOLVABLE = "not_solvable"
 
 

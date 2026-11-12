@@ -23,8 +23,13 @@ files/books/**/*.pdf
 .vscode/*
 !.vscode/settings.json
 
+# Инструменты агента: скиллы и их лок-файл ставятся на машине, к проекту не относятся
+.agents/
+skills-lock.json
+
 # Личные черновики (test.py когда-то светил токены — в git ему нельзя)
 /test.py
+/test.txt
 
 # Логи: пишутся в logs/<процесс>.log с ротацией по 5 МБ
 logs/

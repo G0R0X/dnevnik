@@ -1,11 +1,15 @@
 """Решение домашних заданий с помощью ИИ (этап 4)."""
 
 import json
+import logging
+import re
 from dataclasses import dataclass, field
 
 from ai import promts
 from ai.client import aiclient
+from ai.page_text import get_pages_text
 from db.crud.main import get_homework, get_homework_task, get_materials, get_subject, save_task_solution
+from db.models.homework_tasks import TaskStatus
 from db.session import SessionLocal
 from file_handling.main import (
     BOOKS_DIR,
@@ -14,6 +18,8 @@ from file_handling.main import (
     limit_attachment_text,
     read_attachment,
 )
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -24,6 +30,10 @@ class SolveContext:
     targets: list[str]
     subject_name: str
     materials: list[dict]
+    status: TaskStatus | None = None
+    textbook_path: str | None = None
+    textbook_paragraphs: list[int] = field(default_factory=list)
+    textbook_pages: list[int] = field(default_factory=list)
     page_images: dict[str, bytes] = field(default_factory=dict)
     attachment_images: dict[str, bytes] = field(default_factory=dict)
     attachment_texts: list[dict] = field(default_factory=list)
@@ -61,6 +71,20 @@ def build_solve_prompt(context: SolveContext, targets: list[str]) -> list[dict]:
     ]
 
 
+def build_retell_prompt(context: SolveContext, text: str) -> list[dict]:
+    """Промпт пересказа: модель получает текст страниц, а не картинки."""
+    user_data = {
+        "subject": context.subject_name,
+        "instruction": context.instruction,
+        "paragraphs": context.textbook_paragraphs,
+        "text": text,
+    }
+    return [
+        {"role": "system", "content": promts.RETELL_PARAGRAPH_PROMT},
+        {"role": "user", "content": json.dumps(user_data, ensure_ascii=False)},
+    ]
+
+
 async def load_solve_context(task_id: int) -> SolveContext | None:
     """Собирает контекст решения задачи из БД и файлов."""
     async with SessionLocal() as session:
@@ -69,23 +93,33 @@ async def load_solve_context(task_id: int) -> SolveContext | None:
             return None
         homework = await get_homework(session, task.homework_id)
         subject = await get_subject(session, homework.subject_id)
-        files, links = await get_materials(session, task.homework_id)
+        textbook_path = subject.textbook_path if subject else None
+        is_retell = task.status == TaskStatus.RETELL
 
+        # Для пересказа не нужны ни вложения, ни картинки страниц: текст
+        # параграфа читается отдельно, а PNG-рендер только тратил бы время.
+        files, links = ([], []) if is_retell else await get_materials(
+            session, task.homework_id)
         materials = [
             {"kind": "file", "title": f.title, "url": f.url} for f in files
         ] + [
             {"kind": "link", "title": link.title, "url": link.url} for link in links
         ]
-        attachment_texts, attachment_images = _attachment_content(files)
+        attachment_texts, attachment_images = (
+            ([], {}) if is_retell else _attachment_content(files))
+        page_images = {} if is_retell else _page_images(
+            textbook_path, task.textbook_pages or [])
+
         return SolveContext(
             instruction=task.instruction,
             targets=list(task.targets or []),
             subject_name=(subject.name_ru or subject.name) if subject else "",
             materials=materials,
-            page_images=_page_images(
-                subject.textbook_path if subject else None,
-                task.textbook_pages or [],
-            ),
+            status=task.status,
+            textbook_path=textbook_path,
+            textbook_paragraphs=list(task.textbook_paragraphs or []),
+            textbook_pages=list(task.textbook_pages or []),
+            page_images=page_images,
             attachment_images=attachment_images,
             attachment_texts=attachment_texts,
             solution=task.solution,
@@ -128,6 +162,62 @@ def _clean_answer(text: str) -> str:
     ).strip()
 
 
+# Модель иногда выводит план, даже когда промпт его не просит.
+_PLAN_HEADER = re.compile(r"^[#*_\s]*план[#*_\s]*:?[#*_\s]*$", re.IGNORECASE)
+_RETELL_HEADER = re.compile(r"^[#*_\s]*пересказ[#*_\s]*:?[#*_\s]*$", re.IGNORECASE)
+_LIST_ITEM = re.compile(r"^\s*(\d{1,2}[.)]|[-•*–—])\s+")
+
+
+def _strip_plan(text: str) -> str:
+    """Убирает план из начала ответа: он нужен модели, а не ученику.
+
+    Если модель всё же написала «**План**», режем до заголовка «Пересказ»,
+    а когда заголовка нет — до конца списка пунктов.
+    """
+    lines = text.split("\n")
+    start = next(
+        (index for index, line in enumerate(lines[:6])
+         if line.strip() and _PLAN_HEADER.match(line.strip())),
+        None,
+    )
+    if start is None:
+        return text
+
+    for index in range(start + 1, len(lines)):
+        if _RETELL_HEADER.match(lines[index].strip()):
+            rest = "\n".join(lines[index + 1:]).strip()
+            # Если после плана ничего нет — лучше отдать как есть, чем пустоту.
+            return rest or text
+
+    index = start + 1
+    while index < len(lines) and (not lines[index].strip()
+                                  or _LIST_ITEM.match(lines[index])):
+        index += 1
+    rest = "\n".join(lines[index:]).strip()
+    return rest or text
+
+
+async def _solve_retell(task_id: int, context: SolveContext) -> str:
+    """Читает текст параграфа и готовит по нему пересказ."""
+    if not context.textbook_path or not context.textbook_pages:
+        logger.warning("задача %d: пересказ без страниц учебника", task_id)
+        return ""
+
+    text = await get_pages_text(context.textbook_path, context.textbook_pages)
+    if not text.strip():
+        logger.warning("задача %d: не удалось получить текст параграфа", task_id)
+        return ""
+
+    answer = await aiclient.generate(build_retell_prompt(context, text))
+    answer = _strip_plan(_clean_answer(answer))
+    if answer:
+        async with SessionLocal() as session:
+            await save_task_solution(session, task_id, answer)
+        logger.info("задача %d: пересказ готов, страниц %d, символов %d",
+                    task_id, len(context.textbook_pages), len(answer))
+    return answer
+
+
 async def solve_task(task_id: int, targets: list[str] | None = None) -> str:
     """Решает задачу по id. targets — решить только часть номеров этой задачи."""
     context = await load_solve_context(task_id)
@@ -138,6 +228,9 @@ async def solve_task(task_id: int, targets: list[str] | None = None) -> str:
         targets = context.targets
         if context.solution:
             return context.solution
+
+    if context.status == TaskStatus.RETELL:
+        return await _solve_retell(task_id, context)
 
     prompt = build_solve_prompt(context, targets)
     if context.images:
