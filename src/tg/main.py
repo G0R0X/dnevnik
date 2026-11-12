@@ -17,6 +17,7 @@ from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, C
 from aiogram.exceptions import TelegramBadRequest, TelegramNetworkError
 from aiogram.filters import Command
 from aiogram.client.session.aiohttp import AiohttpSession
+from aiogram.client.telegram import TelegramAPIServer
 from aiogram.methods.base import TelegramMethod, TelegramType
 from dotenv import load_dotenv
 import os
@@ -26,6 +27,10 @@ BOT_TOKEN = os.getenv("BOT_API_KEY")
 # Прокси для Bot API: нужен там, где telegram недоступен напрямую — в РФ
 # провайдеры режут 149.154.160.0/20 и 91.108.4.0/22. Пусто — работаем без прокси.
 BOT_PROXY = os.getenv("BOT_PROXY") or None
+# Адрес Bot API, если api.telegram.org недоступен вообще (не только по TCP):
+# запросы идут на зеркало, а оно уже ходит в Telegram. Годится Cloudflare Worker
+# и любой другой реверс-прокси. Пусто — стандартный api.telegram.org.
+BOT_API_BASE = os.getenv("BOT_API_BASE") or None
 
 # Таймауты запроса к Telegram. Общий — как DEFAULT_TIMEOUT в aiogram, а вот
 # sock_connect важен отдельно: по умолчанию его нет, и неудачный коннект висит
@@ -51,10 +56,16 @@ class BotSession(AiohttpSession):
     Отдельно ограничен sock_connect: там, где провайдер режет Telegram по IP,
     попытка соединения должна падать за CONNECT_TIMEOUT, а не ждать ОС.
     Иначе проверка доступности занимает полминуты вместо пяти секунд.
+
+    Если прямой доступ к api.telegram.org закрыт, адрес подменяется через
+    `BOT_API_BASE` — тогда хостом в запросах становится зеркало.
     """
 
     def __init__(self) -> None:
-        super().__init__(proxy=BOT_PROXY, timeout=REQUEST_TIMEOUT)
+        kwargs: dict = {}
+        if BOT_API_BASE:
+            kwargs["api"] = TelegramAPIServer.from_base(BOT_API_BASE)
+        super().__init__(proxy=BOT_PROXY, timeout=REQUEST_TIMEOUT, **kwargs)
         self._connector_init["family"] = socket.AF_INET
         self._connector_init["keepalive_timeout"] = KEEPALIVE_TIMEOUT
         self._in_flight = 0
