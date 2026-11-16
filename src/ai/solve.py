@@ -3,6 +3,7 @@
 import json
 import logging
 import re
+import time
 from dataclasses import dataclass, field
 
 from ai import promts
@@ -20,6 +21,20 @@ from file_handling.main import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _model_name() -> str:
+    """Модель, которой реально уходит запрос: в логе видно, кто ответил."""
+    return getattr(aiclient, "model", "?")
+
+
+def _usage_note() -> str:
+    """Цена последнего вызова ИИ, если провайдер её вернул."""
+    usage = getattr(aiclient, "last_usage", None) or {}
+    cost = usage.get("cost")
+    if not isinstance(cost, (int, float)):
+        return ""
+    return f", {cost:.3f} ₽"
 
 
 @dataclass
@@ -203,18 +218,26 @@ async def _solve_retell(task_id: int, context: SolveContext) -> str:
         logger.warning("задача %d: пересказ без страниц учебника", task_id)
         return ""
 
+    paragraphs = ", ".join(f"§{p}" for p in context.textbook_paragraphs) or "параграф"
+    started = time.perf_counter()
     text = await get_pages_text(context.textbook_path, context.textbook_pages)
+    text_seconds = time.perf_counter() - started
     if not text.strip():
         logger.warning("задача %d: не удалось получить текст параграфа", task_id)
         return ""
 
+    logger.info("ИИ: пересказ задачи %d (%s, %s), модель %s: текст %d страниц за %.1f с",
+                task_id, context.subject_name, paragraphs, _model_name(),
+                len(context.textbook_pages), text_seconds)
+    started = time.perf_counter()
     answer = await aiclient.generate(build_retell_prompt(context, text))
+    seconds = time.perf_counter() - started
     answer = _strip_plan(_clean_answer(answer))
     if answer:
         async with SessionLocal() as session:
             await save_task_solution(session, task_id, answer)
-        logger.info("задача %d: пересказ готов, страниц %d, символов %d",
-                    task_id, len(context.textbook_pages), len(answer))
+        logger.info("ИИ: пересказ задачи %d готов за %.1f с, символов %d%s",
+                    task_id, seconds, len(answer), _usage_note())
     return answer
 
 
@@ -227,17 +250,25 @@ async def solve_task(task_id: int, targets: list[str] | None = None) -> str:
     if targets is None:
         targets = context.targets
         if context.solution:
+            logger.info("задача %d: ответ уже есть в БД, ИИ не вызывается", task_id)
             return context.solution
 
     if context.status == TaskStatus.RETELL:
         return await _solve_retell(task_id, context)
 
     prompt = build_solve_prompt(context, targets)
+    logger.info("ИИ: решение задачи %d (%s), модель %s, номеров %d%s",
+                task_id, context.subject_name, _model_name(), len(targets),
+                ", с картинками" if context.images else "")
+    started = time.perf_counter()
     if context.images:
         answer = await aiclient.generate_with_images(prompt, context.images)
     else:
         answer = await aiclient.generate(prompt)
+    seconds = time.perf_counter() - started
     answer = _clean_answer(answer)
+    logger.info("ИИ: решение задачи %d готово за %.1f с, символов %d%s",
+                task_id, seconds, len(answer), _usage_note())
 
     # частичное решение не сохраняем: иначе оно затрёт ответ по всему заданию
     if full_solve and answer:

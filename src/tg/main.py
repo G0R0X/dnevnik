@@ -12,7 +12,7 @@ import logging
 import re
 import socket
 from aiohttp import ClientTimeout
-from aiogram import Bot, Dispatcher, F
+from aiogram import BaseMiddleware, Bot, Dispatcher, F
 from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, BufferedInputFile, InputMediaPhoto
 from aiogram.exceptions import TelegramBadRequest, TelegramNetworkError
 from aiogram.filters import Command
@@ -21,7 +21,7 @@ from aiogram.client.telegram import TelegramAPIServer
 from aiogram.methods.base import TelegramMethod, TelegramType
 from dotenv import load_dotenv
 import os
-from logging_setup import setup_logging
+from logging_setup import bind_user, reset_user, setup_logging
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_API_KEY")
 # Прокси для Bot API: нужен там, где telegram недоступен напрямую — в РФ
@@ -120,6 +120,28 @@ bot = Bot(BOT_TOKEN, session=BotSession())
 dp = Dispatcher()
 
 logger = logging.getLogger(__name__)
+
+
+class UserLogMiddleware(BaseMiddleware):
+    """Привязывает telegram id к текущей обработке.
+
+    Всё, что обработчик напишет в лог — включая строки решения и пересказа
+    из `ai.solve`, — получит метку `[tg:<id>]` перед именем модуля. Без этого
+    по боту нельзя понять, кто именно нажал кнопку и чей запрос ушёл в ИИ.
+    """
+
+    async def __call__(self, handler, event, data):
+        user = data.get("event_from_user") or getattr(event, "from_user", None)
+        token = bind_user(getattr(user, "id", None))
+        try:
+            return await handler(event, data)
+        finally:
+            reset_user(token)
+
+
+# outer — значит оборачивает обработчик целиком: метка видна и в его логах,
+# и в логах вложенных вызовов (БД, ИИ, файлы).
+dp.update.outer_middleware(UserLogMiddleware())
 
 # Русские названия предметов (id -> название), загружаются из БД при старте.
 subject_names: dict[int, str] = {}

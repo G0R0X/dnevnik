@@ -10,8 +10,9 @@ User=dnevnik
 Group=dnevnik
 # python -m tg.main ищет пакеты в src, поэтому рабочая папка — src.
 WorkingDirectory=/opt/dnevnik/src
-# Часовой пояс: worker и default_weeks() считают даты от локального «сейчас».
-Environment=TZ=Europe/Moscow
+# Часовой пояс: worker и default_weeks() считают даты от локального «сейчас»,
+# а в логах время должно совпадать с часами ученика (Красноярск, UTC+7).
+Environment=TZ=Asia/Krasnoyarsk
 Environment=PYTHONUNBUFFERED=1
 Environment=PYTHONIOENCODING=utf-8
 ExecStart=/opt/dnevnik/.venv/bin/python -m tg.main

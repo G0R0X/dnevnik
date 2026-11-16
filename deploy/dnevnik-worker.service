@@ -8,7 +8,7 @@ Type=simple
 User=dnevnik
 Group=dnevnik
 WorkingDirectory=/opt/dnevnik/src
-Environment=TZ=Europe/Moscow
+Environment=TZ=Asia/Krasnoyarsk
 Environment=PYTHONUNBUFFERED=1
 Environment=PYTHONIOENCODING=utf-8
 # Воркер должен быть один: второй экземпляр выйдет по advisory-локе,

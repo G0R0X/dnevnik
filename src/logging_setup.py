@@ -6,25 +6,58 @@
 
 Уровень задаётся переменной окружения `LOG_LEVEL` (по умолчанию `INFO`),
 путь к файлу — `LOG_FILE` (по умолчанию `logs/<имя процесса>.log`).
+
+Время в строках — местное для процесса (`TZ` из systemd-юнита). Кто именно
+дёрнул обработчик, видно по `[tg:<id>]` перед именем модуля: бот привязывает
+telegram id к корутине через `bind_user` на входе в middleware, поэтому метка
+сама появляется во всех строках, написанных во время обработки нажатия.
 """
 
 import logging
 import os
 import sys
+from contextvars import ContextVar
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 LOG_DIR = PROJECT_ROOT / "logs"
 
-# Время, уровень, имя модуля — по нему видно, откуда пришла строка.
-LOG_FORMAT = "%(asctime)s %(levelname)-8s %(name)s: %(message)s"
+# Telegram id того, кто сейчас обрабатывается. ContextVar, а не глобальная
+# переменная: у бота обработка последовательная, но воркер и CLI живут
+# отдельными процессами, а корутины могут накладываться.
+_current_user: ContextVar[int | None] = ContextVar("log_user", default=None)
+
+# Время, уровень, [tg:<id>], имя модуля — по нему видно, откуда строка.
+# Метку пользователя подставляет UserFormatter: `%(user)s` — либо « [tg:123]»,
+# либо пустая строка, чтобы в воркере и CLI не было мусорных скобок.
+LOG_FORMAT = "%(asctime)s %(levelname)-8s %(name)s%(user)s: %(message)s"
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 # Файл растёт на 20–30 МБ в неделю при INFO, поэтому ротация по 5 МБ:
 # пять архивов, старое вытесняется само.
 MAX_BYTES = 5 * 1024 * 1024
 BACKUP_COUNT = 5
+
+
+def bind_user(user_id: int | None):
+    """Привязывает telegram id к текущей корутине. Возвращает токен для reset."""
+    return _current_user.set(user_id)
+
+
+def reset_user(token) -> None:
+    """Снимает привязку: следующие строки снова идут без пользователя."""
+    _current_user.reset(token)
+
+
+class UserFormatter(logging.Formatter):
+    """Добавляет к строке telegram id того, кто её вызвал (если он известен)."""
+
+    def format(self, record: logging.LogRecord) -> str:
+        user = _current_user.get()
+        record.user = f" [tg:{user}]" if user else ""
+        return super().format(record)
+
 
 
 def setup_logging(name: str = "dnevnik", level: str | None = None) -> None:
@@ -46,7 +79,7 @@ def setup_logging(name: str = "dnevnik", level: str | None = None) -> None:
     log_level = _parse_level(level or os.getenv("LOG_LEVEL"), logging.INFO)
     root.setLevel(log_level)
 
-    formatter = logging.Formatter(LOG_FORMAT, DATE_FORMAT)
+    formatter = UserFormatter(LOG_FORMAT, DATE_FORMAT)
 
     console = logging.StreamHandler(_utf8_stream(sys.stderr))
     console.setLevel(log_level)
