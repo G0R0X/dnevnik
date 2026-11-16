@@ -54,7 +54,10 @@ class Token():
     async def refresh(self, session: ClientSession):
         async with session.post(url_refresh, data={"refresh-token": f"{self.refresh_token}"}, headers={"Authorization": f"Bearer {self.access_token}"}) as resp:
             if resp.status != 200:
-                raise Exception()
+                body = await resp.text()
+                logger.error("Ошибка обновления токена: HTTP %s, ответ: %s",
+                             resp.status, body[:500])
+                raise RuntimeError("Не удалось обновить токен")
 
             d = await resp.json()
             acc = d.get("accessToken")
