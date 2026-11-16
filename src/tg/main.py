@@ -12,7 +12,7 @@ import logging
 import re
 import socket
 from aiohttp import ClientTimeout
-from aiogram import BaseMiddleware, Bot, Dispatcher, F
+from aiogram import Bot, Dispatcher, F
 from aiogram.types import Update, Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, BufferedInputFile, InputMediaPhoto
 from aiogram.exceptions import TelegramBadRequest, TelegramNetworkError
 from aiogram.filters import Command
@@ -117,35 +117,13 @@ class BotSession(AiohttpSession):
 
 
 bot = Bot(BOT_TOKEN, session=BotSession())
-dp = Dispatcher()
 
 logger = logging.getLogger(__name__)
 
 
-class UserLogMiddleware(BaseMiddleware):
-    """Привязывает telegram id к текущей обработке.
-
-    Всё, что обработчик напишет в лог — включая строки решения и пересказа
-    из `ai.solve`, — получит метку `[tg:<id>]` перед именем модуля. Без этого
-    по боту нельзя понять, кто именно нажал кнопку и чей запрос ушёл в ИИ.
-    """
-
-    async def __call__(self, handler, event, data):
-        user = data.get("event_from_user") or getattr(event, "from_user", None)
-        token = bind_user(getattr(user, "id", None))
-        try:
-            # Строка на каждый апдейт: само нажатие иначе видно только в
-            # «Update ... is handled» от aiogram, а оно пишется уже после
-            # reset_user, поэтому без метки пользователя.
-            logger.info("апдейт %s: %s", event.update_id, _update_kind(event))
-            return await handler(event, data)
-        finally:
-            reset_user(token)
-
-
-def _update_kind(event: Update) -> str:
+def _update_kind(update: Update) -> str:
     """Что пришло: текст сообщения или данные нажатой кнопки."""
-    inner = event.event
+    inner = update.event
     if isinstance(inner, CallbackQuery):
         return f"кнопка {inner.data}"
     if isinstance(inner, Message):
@@ -154,9 +132,30 @@ def _update_kind(event: Update) -> str:
     return type(inner).__name__
 
 
-# outer — значит оборачивает обработчик целиком: метка видна и в его логах,
-# и в логах вложенных вызовов (БД, ИИ, файлы).
-dp.update.outer_middleware(UserLogMiddleware())
+class UserLogDispatcher(Dispatcher):
+    """Метка `[tg:<id>]` на всё время обработки апдейта.
+
+    Всё, что обработчик напишет в лог — включая строки решения и пересказа
+    из `ai.solve`, — получит метку `[tg:<id>]` перед именем модуля. Без этого
+    по боту нельзя понять, кто именно нажал кнопку и чей запрос ушёл в ИИ.
+
+    Обёртка именно здесь, а не в outer-middleware: `aiogram.event: Update ...
+    is handled` пишется в `finally` самого `feed_update`, то есть уже после
+    возврата из middleware, и метку успели бы снять.
+    """
+
+    async def feed_update(self, bot: Bot, update: Update, **kwargs):
+        user = getattr(update.event, "from_user", None)
+        token = bind_user(getattr(user, "id", None))
+        try:
+            logger.info("апдейт %s: %s", update.update_id, _update_kind(update))
+            return await super().feed_update(bot, update, **kwargs)
+        finally:
+            reset_user(token)
+
+
+dp = UserLogDispatcher()
+
 
 # Русские названия предметов (id -> название), загружаются из БД при старте.
 subject_names: dict[int, str] = {}
