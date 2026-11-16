@@ -13,7 +13,7 @@ import re
 import socket
 from aiohttp import ClientTimeout
 from aiogram import BaseMiddleware, Bot, Dispatcher, F
-from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, BufferedInputFile, InputMediaPhoto
+from aiogram.types import Update, Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, BufferedInputFile, InputMediaPhoto
 from aiogram.exceptions import TelegramBadRequest, TelegramNetworkError
 from aiogram.filters import Command
 from aiogram.client.session.aiohttp import AiohttpSession
@@ -134,9 +134,24 @@ class UserLogMiddleware(BaseMiddleware):
         user = data.get("event_from_user") or getattr(event, "from_user", None)
         token = bind_user(getattr(user, "id", None))
         try:
+            # Строка на каждый апдейт: само нажатие иначе видно только в
+            # «Update ... is handled» от aiogram, а оно пишется уже после
+            # reset_user, поэтому без метки пользователя.
+            logger.info("апдейт %s: %s", event.update_id, _update_kind(event))
             return await handler(event, data)
         finally:
             reset_user(token)
+
+
+def _update_kind(event: Update) -> str:
+    """Что пришло: текст сообщения или данные нажатой кнопки."""
+    inner = event.event
+    if isinstance(inner, CallbackQuery):
+        return f"кнопка {inner.data}"
+    if isinstance(inner, Message):
+        text = (inner.text or inner.caption or "").strip()
+        return f"сообщение {text[:60]!r}" if text else "сообщение без текста"
+    return type(inner).__name__
 
 
 # outer — значит оборачивает обработчик целиком: метка видна и в его логах,
