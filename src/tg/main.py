@@ -35,8 +35,11 @@ BOT_API_BASE = os.getenv("BOT_API_BASE") or None
 # Таймауты запроса к Telegram. Общий — как DEFAULT_TIMEOUT в aiogram, а вот
 # sock_connect важен отдельно: по умолчанию его нет, и неудачный коннект висит
 # до системного таймаута ОС (~21 с на Windows), потому что SYN просто дропается.
-REQUEST_TIMEOUT = 40
-CONNECT_TIMEOUT = 5
+# Общий таймаут короче 40 с намеренно: на душащем зеркале запрос либо успевает
+# за пару секунд, либо висит до обрыва, и ждать сорок секунд дороже, чем
+# повторить его заново (см. `_tg_request`).
+REQUEST_TIMEOUT = 30
+CONNECT_TIMEOUT = 10
 
 # Сколько живёт простаивающее соединение в пуле и через сколько молчания его
 # пингуем. aiohttp по умолчанию закрывает соединение через 15 с, а решение
@@ -119,6 +122,30 @@ class BotSession(AiohttpSession):
 bot = Bot(BOT_TOKEN, session=BotSession())
 
 logger = logging.getLogger(__name__)
+
+# Сколько раз повторяем запрос к Telegram, если сеть не ответила. Провайдер
+# душит часть адресов Cloudflare, через которые идёт зеркало Bot API: отдельные
+# запросы висят 20–40 с и обрываются. Без повтора один такой обрыв оставляет
+# экран недорисованным (и «часики» на кнопке), поэтому одну попытку повторяем.
+TG_ATTEMPTS = 2
+TG_RETRY_PAUSE = 1.0
+
+
+async def _tg_request(call, what: str):
+    """Повторяет обращение к Telegram при сетевой ошибке.
+
+    `call` — функция без аргументов, возвращающая корутину: готовую корутину
+    повторно запустить нельзя, а каждый вызов создаёт новую.
+    """
+    for attempt in range(1, TG_ATTEMPTS + 1):
+        try:
+            return await call()
+        except TelegramNetworkError as error:
+            if attempt == TG_ATTEMPTS:
+                raise
+            logger.warning("%s: сеть не ответила (%s), повтор %d из %d",
+                           what, error, attempt + 1, TG_ATTEMPTS)
+            await asyncio.sleep(TG_RETRY_PAUSE)
 
 
 def _update_kind(update: Update) -> str:
@@ -558,14 +585,19 @@ async def _show_text(message: Message, text: str, markup=None,
         text = to_html(text)
     if _is_last(message) and not (message.photo or message.document or message.video):
         try:
-            await message.edit_text(text, reply_markup=markup, parse_mode="HTML")
+            await _tg_request(
+                lambda: message.edit_text(
+                    text, reply_markup=markup, parse_mode="HTML"),
+                "экран")
         except TelegramBadRequest as error:
             if "message is not modified" not in str(error):
                 raise
         _remember(message)
         return message
     await message.delete()
-    sent = await message.answer(text, reply_markup=markup, parse_mode="HTML")
+    sent = await _tg_request(
+        lambda: message.answer(text, reply_markup=markup, parse_mode="HTML"),
+        "экран")
     _remember(sent)
     return sent
 
@@ -579,15 +611,19 @@ async def _show_photo(message: Message, image: bytes, filename: str,
     """
     photo = BufferedInputFile(image, filename=filename)
     if message.photo and _is_last(message):
-        await message.edit_media(
-            media=InputMediaPhoto(media=photo, caption=caption),
-            reply_markup=markup,
-        )
+        await _tg_request(
+            lambda: message.edit_media(
+                media=InputMediaPhoto(media=photo, caption=caption),
+                reply_markup=markup,
+            ),
+            "страница")
         _remember(message)
         return message
     await message.delete()
-    sent = await message.answer_photo(
-        photo, caption=caption, reply_markup=markup)
+    sent = await _tg_request(
+        lambda: message.answer_photo(
+            photo, caption=caption, reply_markup=markup),
+        "страница")
     _remember(sent)
     return sent
 
@@ -616,16 +652,20 @@ async def start(message: Message):
 
 @dp.callback_query(F.data.startswith("week:"))
 async def week(callback: CallbackQuery):
+    # «Часики» закрываем сразу, до отрисовки: на медленной сети запрос
+    # с экраном может идти десятки секунд, и тогда Telegram уже не принимает
+    # ответ на нажатие — «query is too old».
+    await callback.answer()
     _, year, week = callback.data.split(":")
     year = int(year)
     week = int(week)
     text, markup = week_screen(year, week)
     await _show_text(callback.message, text, markup)
-    await callback.answer()
 
 
 @dp.callback_query(F.data.startswith("day:"))
 async def day(callback: CallbackQuery):
+    await callback.answer()
     _, year, week, day = callback.data.split(":")
     year = int(year)
     week = int(week)
@@ -637,11 +677,11 @@ async def day(callback: CallbackQuery):
             session, date.fromisocalendar(year, week, day))
     text, markup = day_screen(schedule, homs_files_links, year, week, day)
     await _show_text(callback.message, text, markup)
-    await callback.answer()
 
 
 @dp.callback_query(F.data.startswith("file:"))
 async def read_file(callback: CallbackQuery):
+    await callback.answer()
     _, file_id = callback.data.split(":")
     file_path = get_attachment_path(int(file_id))
     if file_path is None:
@@ -649,11 +689,11 @@ async def read_file(callback: CallbackQuery):
     else:
         sent = await callback.message.answer_document(FSInputFile(str(file_path)))
     _remember(sent)
-    await callback.answer()
 
 
 @dp.callback_query(F.data.startswith("lesson:"))
 async def lesson(callback: CallbackQuery):
+    await callback.answer()
     _, year, week, day, subject_id = callback.data.split(":")
     year = int(year)
     week = int(week)
@@ -675,11 +715,11 @@ async def lesson(callback: CallbackQuery):
         files, links, year, week, day, subject_id, tasks)
     s = f"{day_date.day} {int_to_month[day_date.month]} {int_to_weekday[day]} {subject_name(subject_id)}\n\n"
     await _show_text(callback.message, s + '\n'.join(answer), keyboard)
-    await callback.answer()
 
 
 @dp.callback_query(F.data.startswith("task:"))
 async def show_task(callback: CallbackQuery):
+    await callback.answer()
     _, year, week, day, subject_id, task_id = callback.data.split(":")
     year = int(year)
     week = int(week)
@@ -690,7 +730,9 @@ async def show_task(callback: CallbackQuery):
     async with SessionLocal() as session:
         task = await get_homework_task(session, task_id)
         if task is None:
-            await callback.answer("Задание не найдено", show_alert=True)
+            # Раньше это было всплывающим окном, но нажатие уже подтверждено
+            # на входе в обработчик — второе окно Telegram отклонит.
+            await callback.message.answer("Задание не найдено.")
             return
         homework = await get_homework(session, task.homework_id)
         subject = await get_subject(session, homework.subject_id)
@@ -711,11 +753,11 @@ async def show_task(callback: CallbackQuery):
         year, week, day, subject_id, task,
         subject.textbook_path if subject else None)
     await _show_text(callback.message, text, keyboard)
-    await callback.answer()
 
 
 @dp.callback_query(F.data.startswith("pg:"))
 async def show_page(callback: CallbackQuery):
+    await callback.answer()
     _, year, week, day, subject_id, task_id, page = callback.data.split(":")
     year = int(year)
     week = int(week)
@@ -726,13 +768,13 @@ async def show_page(callback: CallbackQuery):
 
     pdf_path, textbook_path, task_pages, total, task_status = await _task_book(task_id)
     if not task_pages or not total:
-        await callback.answer("У этого задания нет страниц учебника", show_alert=True)
+        await callback.message.answer("У этого задания нет страниц учебника")
         return
 
     page = max(1, min(page, total))
     image = get_textbook_pages(pdf_path, [page]).get(page)
     if image is None:
-        await callback.answer("Не удалось отрисовать страницу", show_alert=True)
+        await callback.message.answer("Не удалось отрисовать страницу")
         return
 
     # Нумерация в подписи — как напечатано на скане, а не PDF-страница.
@@ -745,7 +787,6 @@ async def show_page(callback: CallbackQuery):
     keyboard = generate_InlineKeyboardMarkup_for_page(
         year, week, day, subject_id, task_id, page, total)
     await _show_photo(callback.message, image, f"page_{page}.png", caption, keyboard)
-    await callback.answer()
 
 
 async def _task_book(task_id: int) -> tuple[str | None, str | None, list[int], int, TaskStatus | None]:
@@ -817,8 +858,11 @@ async def show_answer(callback: CallbackQuery):
     rest = chunks[1:]
     for number, chunk in enumerate(rest):
         last = number == len(rest) - 1
-        message = await message.answer(
-            chunk, reply_markup=keyboard if last else None, parse_mode="HTML")
+        message = await _tg_request(
+            lambda chunk=chunk, last=last: message.answer(
+                chunk, reply_markup=keyboard if last else None,
+                parse_mode="HTML"),
+            "ответ")
         _remember(message)
 
 

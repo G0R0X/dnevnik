@@ -1,0 +1,13 @@
+[Unit]
+Description=dnevnik: автоподбор адреса зеркала Bot API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# Root нужен: скрипт правит /etc/hosts и перезапускает бота.
+# Путь к репозиторию подставь свой (на этом сервере — /home/gorox/projects/dnevnik,
+# в остальных местах документации — /opt/dnevnik).
+WorkingDirectory=/opt/dnevnik
+ExecStart=/opt/dnevnik/deploy/bot-api-ip.sh
+Nice=10

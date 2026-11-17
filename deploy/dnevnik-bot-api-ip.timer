@@ -1,0 +1,13 @@
+[Unit]
+Description=dnevnik: проверка адреса зеркала Bot API
+
+[Timer]
+# Первая проверка после загрузки и дальше раз в 5 минут: «плохой» адрес
+# Cloudflare меняется в течение дня, и ждать до утра смысла нет.
+OnBootSec=1min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Persistent=true
+
+[Install]
+WantedBy=timers.target
