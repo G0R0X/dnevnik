@@ -1,0 +1,6 @@
+# Скрипты и systemd-юниты обязаны лежать в LF: CRLF ломает bash на сервере
+# (`$'\r': command not found`). На Windows core.autocrlf=true конвертирует
+# файлы при checkout, поэтому правило задано явно.
+*.sh text eol=lf
+*.service text eol=lf
+*.timer text eol=lf
