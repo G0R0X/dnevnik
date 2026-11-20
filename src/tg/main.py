@@ -13,7 +13,7 @@ import re
 import socket
 from aiohttp import ClientTimeout
 from aiogram import Bot, Dispatcher, F
-from aiogram.types import Update, Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, BufferedInputFile, InputMediaPhoto
+from aiogram.types import Update, ErrorEvent, Message, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, FSInputFile, BufferedInputFile, InputMediaPhoto
 from aiogram.exceptions import TelegramBadRequest, TelegramNetworkError
 from aiogram.filters import Command
 from aiogram.client.session.aiohttp import AiohttpSession
@@ -182,6 +182,25 @@ class UserLogDispatcher(Dispatcher):
 
 
 dp = UserLogDispatcher()
+
+# Отказы Telegram, которые не означают поломки бота: кнопку нажали, пока бот
+# перезапускался или висел на медленном зеркале, и апдейт пришёл с опозданием.
+# Ответить на такой callback уже нельзя, а трейсбек на пол-экрана только мешает.
+BENIGN_TG_ERRORS = ("query is too old", "query ID is invalid",
+                    "message is not modified")
+
+
+@dp.errors()
+async def on_error(event: ErrorEvent) -> bool:
+    """Приглушает безобидные отказы Telegram, остальное пишет с трейсбеком."""
+    error = event.exception
+    if (isinstance(error, TelegramBadRequest)
+            and any(text in str(error) for text in BENIGN_TG_ERRORS)):
+        logger.debug("апдейт %s: %s", event.update.update_id, error)
+        return True
+    logger.error("апдейт %s: обработчик упал: %s",
+                 event.update.update_id, error, exc_info=error)
+    return True
 
 
 # Русские названия предметов (id -> название), загружаются из БД при старте.
