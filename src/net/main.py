@@ -188,17 +188,18 @@ async def write_new_data(year: int, week: int, token: Token, http_session: Clien
     return homs
 
 
+def sanitize_filename(filename: str) -> str:
+    filename = Path(filename).name
+
+    filename = re.sub(r"[^a-zA-Z0-9а-яА-ЯёЁ._-]", "_", filename)
+
+    if filename in {"", ".", ".."}:
+        raise ValueError("Invalid filename")
+
+    return filename
+
+
 async def save_file(file: homework_files.HomeworkFile, session: ClientSession):
-
-    def sanitize_filename(filename: str) -> str:
-        filename = Path(filename).name
-
-        filename = re.sub(r"[^a-zA-Z0-9а-яА-ЯёЁ._-]", "_", filename)
-
-        if filename in {"", ".", ".."}:
-            raise ValueError("Invalid filename")
-
-        return filename
 
     # Путь от корня проекта: синк запускают и из src, и из корня,
     # а get_attachment_path ищет вложение в files/homework/<id>.
@@ -237,9 +238,9 @@ async def save_file(file: homework_files.HomeworkFile, session: ClientSession):
     logger.info("вложение %s сохранено: %d КБ", file.title, total_size // 1024)
 
 
-def default_weeks() -> list[tuple[int, int]]:
+def default_weeks(today: date | None = None) -> list[tuple[int, int]]:
     """Недели по умолчанию: прошлая, текущая и следующая."""
-    today = date.today()
+    today = today or date.today()
     return [week_of(today + timedelta(weeks=offset))
             for offset in (-1, 0, 1)]
 

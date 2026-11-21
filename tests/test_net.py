@@ -1,5 +1,7 @@
+import pytest
 from datetime import date
-from net.main import update_env, get_homework_for_week
+from net.main import update_env, get_homework_for_week,  save_file, default_weeks, week_of, sanitize_filename
+from db.models import homework_files
 
 
 def make_homework(id=555, lesson_date="2026-11-10", check_at="2026-11-12", text="§42, №43.4", files=None, links=None):
@@ -82,34 +84,74 @@ def test_update_env_create_env_file(tmp_path):
         assert f.read() == expected_data
 
 
+class FakeContent():
+    def __init__(self, chunks=None):
+        self.chunks = chunks
+
+    async def iter_chunked(self, n):
+        for chunk in self.chunks:
+            yield chunk
+
+
 class FakeResponse():
-    def __init__(self, data, week):
+    def __init__(self, data, week, token, chunks=None):
         self.data = data
         self.week = week
-    status = 200
+        self.token = token
+        self.content = FakeContent(chunks)
+        self.set_status()
+
+    def set_status(self):
+        if not self.token:
+            self.status = 200
+            return
+        if self.token.access_token == "old_token":
+            self.status = 401
+        elif self.token.access_token == "new_token":
+            self.status = 200
+        else:
+            self.status = 404
 
     def raise_for_status(self):
-        return True
+        if self.status >= 400:
+            raise Exception()
+        return None
 
     async def json(self):
         return self.data[self.week]
 
 
+class FakeFileResponse():
+    def __init__(self, chunks):
+        self.chunks = chunks
+        self.content = FakeContent(chunks)
+
+    def raise_for_status(self):
+        return None
+
+
 class FakeObject():
-    def __init__(self, data=None, week=46):
+    def __init__(self, data=None, week=46, token=None, chunks=None):
         self.data = data
-        self.week = 46
+        self.week = week
+        self.token = token
+        self.chunks = chunks
 
     async def __aenter__(self):
-        return FakeResponse(data=self.data, week=self.week)
+        if self.week is None:
+            return FakeFileResponse(self.chunks)
+        return FakeResponse(data=self.data, week=self.week, token=self.token)
 
     async def __aexit__(self, exc_type, exc, tb):
         return None
 
 
 class FakeHttpSession():
-    def __init__(self, data=None):
+    def __init__(self, data=None, token=None):
         self.data = data
+        self.token = token
+        self.content = FakeContent()
+        self.history = []
 
     def get(self, url, headers=None):
         a = url.split("&week=")
@@ -121,11 +163,28 @@ class FakeHttpSession():
             except ValueError:
                 break
         week = int(s)
-        return FakeObject(data=self.data, week=week)
+        self.history.append(week)
+        return FakeObject(data=self.data, week=week, token=self.token)
+
+
+class FakeFileSession():
+    def __init__(self, url,
+                 chunks=None):
+        self.chunks = chunks
+        self.url = url
+        self.request_url = None
+
+    def get(self, url):
+        self.request_url = url
+        return FakeObject(week=None, chunks=self.chunks)
 
 
 class FakeToken():
-    access_token = "token"
+    def __init__(self, token="new_token"):
+        self.access_token = token
+
+    async def refresh(self, session):
+        self.access_token = "new_token"
 
 
 async def test_get_db_object_from_data():
@@ -188,10 +247,86 @@ async def test_get_db_object_from_data_with_links_and_files():
 
 
 async def test_loads_another_week():
-    data = make_payload([make_lesson(event_id=1), make_lesson(event_id=2, lesson_date="2026-11-17", created_homework_id=666)],
-                        [make_homework(id=555), make_homework(id=666, lesson_date="2026-11-17", check_at="2026-11-19")])
-    weeks = make_payload_for_weeks([46, 47], data=[data])
+    data1 = make_payload([make_lesson(event_id=1, created_homework_id=1111)], [make_homework(id=1111), make_homework(
+        id=666, lesson_date="2026-11-17", check_at="2026-11-19")])
+    data2 = make_payload(
+        [make_lesson(event_id=2, lesson_date="2026-11-17",  created_homework_id=666)], [])
+    weeks = make_payload_for_weeks([46, 47], data=[data1]+[data2])
+    session = FakeHttpSession(data=weeks)
+    token = FakeToken()
+    ans = await get_homework_for_week(2026, 46, token, session, {"Алгебра": 15})
+    by_id = {h.kiasuo_id: h for h in ans}
+    assert sorted(by_id) == [666, 1111]
+    assert by_id[666].lesson_date == date(2026, 11, 17)
+
+
+async def test_refresh():
+    data = make_payload(lessons=[make_lesson()], homeworks=[make_homework()])
+    weeks = make_payload_for_weeks(data=[data])
+    token = FakeToken(token="old_token")
+    session = FakeHttpSession(data=weeks, token=token)
+    ans = await get_homework_for_week(2026, 46, token, session, {"Алгебра": 15})
+    assert len(ans) == 1
+    assert ans[0].kiasuo_id == 555
+    assert token.access_token == "new_token"
+
+
+async def test_downolads_week_once():
+    data1 = make_payload([], [make_homework(id=1111,  lesson_date="2026-11-18", text="first"), make_homework(
+        id=666, lesson_date="2026-11-17", text="second")])
+    data2 = make_payload(
+        [make_lesson(event_id=2, lesson_date="2026-11-17",  created_homework_id=666), make_lesson(event_id=3, lesson_date="2026-11-18",  created_homework_id=1111)], [])
+    weeks = make_payload_for_weeks([46, 47], data=[data1]+[data2])
     session = FakeHttpSession(data=weeks)
     token = FakeToken()
     ans = await get_homework_for_week(2026, 46, token, session, {"Алгебра": 15})
     assert len(ans) == 2
+    assert session.history.count(47) == 1
+    assert session.history.count(46) == 1
+
+
+def test_default_weeks():
+    assert default_weeks(date(2026, 12, 31)) == [
+        (2026, 52), (2026, 53), (2027, 1)]
+    assert default_weeks(date(2027, 3, 10)) == [
+        (2027, 9), (2027, 10), (2027, 11)]
+    weeks = default_weeks()
+    assert len(weeks) == 3
+    assert week_of(date.today()) in weeks
+
+
+async def test_save_file(tmp_path, monkeypatch):
+    monkeypatch.setattr("net.main.HOMEWORK_DIR", tmp_path)
+    file = homework_files.HomeworkFile(
+        id=7, homework_id=1, url='/f/1', title="test.pdf")
+
+    session = FakeFileSession(url='/f/1', chunks=[b"abc",  b'test'])
+    await save_file(file, session)
+    assert (tmp_path / "7" / "test.pdf").read_bytes() == b"abctest"
+    assert session.request_url == "https://diaryapi.kiasuo.ru/f/1"
+
+
+@pytest.mark.parametrize("raw, expected", [
+    ("task.pdf", "task.pdf"),
+    ("../../etc/passwd", "passwd"),
+    ("my file?.pdf", "my_file_.pdf"),
+])
+def test_sanitize_filename(raw, expected):
+    assert sanitize_filename(raw) == expected
+
+
+@pytest.mark.parametrize("raw", ["", ".", ".."])
+def test_sanitize_filename_rejects_bad_names(raw):
+    with pytest.raises(ValueError):
+        sanitize_filename(raw)
+
+
+async def test_big_file(tmp_path, monkeypatch):
+    monkeypatch.setattr("net.main.HOMEWORK_DIR", tmp_path)
+    file = homework_files.HomeworkFile(
+        id=7, homework_id=1, url="/f/1", title="big.bin")
+    session = FakeFileSession(
+        chunks=[b"x" * 1_000_000] * 21, url="/f/1")   # 21 МБ
+    with pytest.raises(ValueError):
+        await save_file(file, session)
+    assert not (tmp_path / "7" / "big.bin").exists()
