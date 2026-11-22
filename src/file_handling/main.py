@@ -12,9 +12,7 @@ HOMEWORK_DIR = PROJECT_ROOT / "files" / "homework"
 
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
 
-# Больше в промпт не отдаём: длинные файлы дорого стоят и не влезают в контекст.
-ATTACHMENT_TEXT_LIMIT = 20000
-# Скан без текстового слоя показываем картинками, но не целиком.
+TEXT_LIMIT = 20000
 PDF_IMAGE_PAGE_LIMIT = 6
 
 _W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
@@ -23,7 +21,6 @@ _X = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
 
 def get_textbook_pages(pdf_path: str, page_numbers: list[int]) -> dict[int, bytes]:
     path = Path(pdf_path)
-
     pages = {}
 
     with pymupdf.open(path) as document:
@@ -31,7 +28,7 @@ def get_textbook_pages(pdf_path: str, page_numbers: list[int]) -> dict[int, byte
             page = document[page_number - 1]
             pixmap = page.get_pixmap(dpi=180)
 
-            if _is_blank(pixmap):
+            if _is_empty(pixmap):
                 # страница отрендерилась пустой — почти всегда битый JPEG2000-слой
                 fallback = _extract_page_image(document, page)
                 if fallback is not None:
@@ -42,13 +39,7 @@ def get_textbook_pages(pdf_path: str, page_numbers: list[int]) -> dict[int, byte
     return pages
 
 
-def get_page_count(pdf_path: str) -> int:
-    """Сколько всего страниц в PDF учебника."""
-    with pymupdf.open(Path(pdf_path)) as document:
-        return len(document)
-
-
-def _is_blank(pixmap: pymupdf.Pixmap) -> bool:
+def _is_empty(pixmap: pymupdf.Pixmap) -> bool:
     """Проверяет, что страница однотонная (белая) — рендер не удался."""
     samples = pixmap.samples
     channels = pixmap.n
@@ -81,6 +72,11 @@ def _extract_page_image(document: pymupdf.Document, page: pymupdf.Page) -> pymup
     return best
 
 
+def get_count_of_pages(pdf_path: str) -> int:
+    with pymupdf.open(Path(pdf_path)) as document:
+        return len(document)
+
+
 def load_structure(textbook_path: str) -> dict | None:
     stem = textbook_path.strip("/")
     structure_path = BOOKS_DIR / f"{stem}.structure.json"
@@ -90,44 +86,38 @@ def load_structure(textbook_path: str) -> dict | None:
         return json.load(f)
 
 
-def get_paragraph_starts(textbook_path: str) -> dict[int, int]:
-    """Стартовые страницы параграфов уже в нумерации PDF.
-
-    В structure.json страницы записаны как напечатанные в книге, а для
-    рендера нужны PDF-страницы, поэтому пересчитываем каждую через
-    printed_to_pdf (там учитываются и пропущенные при сканировании страницы).
-    """
-    structure = load_structure(textbook_path)
-    if structure is None:
-        return {}
-    return {
-        int(k): printed_to_pdf(textbook_path, v)
-        for k, v in structure["paragraphs"].items()
-        if k.isdigit()
-    }
-
-
-def printed_to_pdf(textbook_path: str, page: int) -> int:
-    """Переводит напечатанный номер страницы в PDF-страницу.
-
-    В английском учебнике часть страниц при сканировании пропущена
-    (`skipped_pages`), поэтому одного `page_offset` мало: после каждого
-    пропуска печатный номер уезжает от PDF ещё на единицу.
-    """
-    structure = load_structure(textbook_path)
-    if structure is None:
-        return page
+def _printed_to_pdf(structure: dict, page: int) -> int:
+    """Печатный номер → PDF-страница. structure.json уже прочитан."""
     offset = int(structure.get("page_offset", 0))
     skipped = structure.get("skipped_pages") or []
     missing = sum(1 for skipped_page in skipped if skipped_page <= page)
     return page + offset - missing
 
 
-def pdf_to_printed(textbook_path: str, page: int) -> int:
-    """Переводит PDF-страницу в напечатанный в книге номер (обратное к printed_to_pdf).
+def printed_to_pdf(textbook_path: str, page: int) -> int:
+    structure = load_structure(textbook_path)
+    if structure is None:
+        return page
+    return _printed_to_pdf(structure, page)
 
-    Номер нужен для подписи в боте: ученик видит на скане «238», а не «232».
-    """
+
+def _starts_of_paragraph(structure: dict) -> dict[int, int]:
+    """Начала параграфов в PDF-страницах. structure.json уже прочитан."""
+    return {
+        int(k): _printed_to_pdf(structure, v)
+        for k, v in structure["paragraphs"].items()
+        if k.isdigit()
+    }
+
+
+def get_starts_of_paragraph(textbook_path: str) -> dict[int, int]:
+    structure = load_structure(textbook_path)
+    if structure is None:
+        return {}
+    return _starts_of_paragraph(structure)
+
+
+def pdf_to_printed(textbook_path: str, page: int) -> int:
     structure = load_structure(textbook_path)
     if structure is None:
         return page
@@ -142,20 +132,13 @@ def pdf_to_printed(textbook_path: str, page: int) -> int:
 
 
 def get_pages_for_paragraphs(textbook_path: str, paragraphs: list[int],
-                             include_boundary: bool = True) -> list[int]:
-    """PDF-страницы параграфов.
-
-    `include_boundary=True` добавляет первую страницу следующего параграфа:
-    задания часто доживают до неё, поэтому она нужна при решении задач.
-    Для пересказа граница уже относится к следующей теме, поэтому её
-    отрезают (`include_boundary=False`).
-    """
+                             include_next_page: bool = True) -> list[int]:
     structure = load_structure(textbook_path)
     if structure is None:
         return []
 
     total_pages = structure["total_pages"]
-    starts = get_paragraph_starts(textbook_path)
+    starts = _starts_of_paragraph(structure)
     sorted_starts = sorted(starts.items())
 
     pages: set[int] = set()
@@ -164,9 +147,9 @@ def get_pages_for_paragraphs(textbook_path: str, paragraphs: list[int],
         if start is None:
             continue
         end = total_pages
-        for num, page in sorted_starts:
+        for _, page in sorted_starts:
             if page > start:
-                end = page if include_boundary else page - 1
+                end = page if include_next_page else page - 1
                 break
         if end < start:
             continue
@@ -197,7 +180,6 @@ def normalize_target(value: str) -> str:
 
 
 def load_exercises(textbook_path: str) -> dict | None:
-    """Индекс заданий учебника (`<N>.exercises.json`), если скан уже сделан."""
     stem = textbook_path.strip("/")
     path = BOOKS_DIR / f"{stem}.exercises.json"
     if not path.exists():
@@ -226,11 +208,6 @@ def _normalize_unit(unit) -> str:
 
 
 def get_unit_ranges(textbook_path: str) -> list[tuple[str, int, int]]:
-    """Диапазоны Unit'ов в PDF-страницах — по заголовкам параграфов.
-
-    Нужны там, где нумерация заданий начинается заново в каждом Unit
-    (английский): без диапазона один номер находится сразу в четырёх местах.
-    """
     structure = load_structure(textbook_path)
     if structure is None:
         return []
@@ -240,18 +217,19 @@ def get_unit_ranges(textbook_path: str) -> list[tuple[str, int, int]]:
     for key, page in structure["paragraphs"].items():
         match = re.match(r"^(unit\s+\w+)", key, re.IGNORECASE)
         if match:
-            starts.setdefault(key[:match.end(1)], printed_to_pdf(textbook_path, page))
+            starts.setdefault(key[:match.end(1)],
+                              _printed_to_pdf(structure, page))
 
     ordered = sorted(starts.items(), key=lambda item: item[1])
     ranges = []
     for index, (name, start) in enumerate(ordered):
-        end = ordered[index + 1][1] - 1 if index + 1 < len(ordered) else total_pages
+        end = ordered[index + 1][1] - 1 if index + \
+            1 < len(ordered) else total_pages
         ranges.append((name, start, end))
     return ranges
 
 
-def _unit_pages(textbook_path: str, unit) -> set[int]:
-    """PDF-страницы одного Unit'а; пустое множество — Unit не найден."""
+def get_unit_pages(textbook_path: str, unit) -> set[int]:
     wanted = _normalize_unit(unit)
     pages: set[int] = set()
     for name, start, end in get_unit_ranges(textbook_path):
@@ -286,28 +264,25 @@ def get_page_unit_from_index(textbook_path: str, pages: list[int]) -> str | None
     return None
 
 
-def _item_matches(item: dict, target: str) -> bool:
+def _matches_target(number: str, block: str, target: str) -> bool:
     """Совпадает ли задание со страницы с искомым элементом.
 
-    Элемент может быть сквозным номером («42.15») или заданием из блока
-    («Вопросы №3»). Блок сравниваем по началу названия: модели называют
-    его то «Вопросы», то «Вопросы и задания».
+    Все три строки уже приведены `normalize_target`. Элемент задания может
+    быть сквозным номером («42.15») или заданием из блока («Вопросы №3»).
+    Блок сравниваем по началу названия: модели называют его то «Вопросы»,
+    то «Вопросы и задания».
     """
-    number = normalize_target(item.get("number") or "")
-    block = normalize_target(item.get("block") or "")
     if not number:
         return False
-
-    text = normalize_target(target)
-    if text == number:
+    if target == number:
         return True
-    if block and text in (f"{block} {number}", f"{block} №{number}"):
+    if block and target in (f"{block} {number}", f"{block} №{number}"):
         return True
     if not block:
         return False
 
     match = re.match(
-        rf"^(?P<head>.*?)\s*(?:№|#)?\s*(?<!\d){re.escape(number)}$", text)
+        rf"^(?P<head>.*?)\s*(?:№|#)?\s*(?<!\d){re.escape(number)}$", target)
     if match is None:
         return False
     head = match.group("head").strip(" №#.,")
@@ -323,28 +298,42 @@ def find_pages_by_targets(textbook_path: str, targets: list[str],
     Возвращает (PDF-страницы, ненайденные targets). Если индекса нет,
     все targets считаются ненайденными — вызывающий код идёт по старинке.
     """
-    index = load_exercises(textbook_path)
-    if index is None:
+    exercises = load_exercises(textbook_path)
+    if exercises is None:
         return [], [str(target) for target in targets]
 
     allowed = None
     if unit is not None:
-        allowed = _unit_pages(textbook_path, unit)
+        allowed = get_unit_pages(textbook_path, unit)
         if not allowed:
             return [], [str(target) for target in targets]
 
     page_units = get_page_units(textbook_path) if unit is None else {}
 
+    # Индекс нормализуем один раз на вызов: каждый элемент сравнивается
+    # с каждым target, поэтому нормализация в цикле стоит targets × items.
+    index: list[tuple[int, list[tuple[str, str]]]] = []
+    for page, data in exercises.get("pages", {}).items():
+        page_number = int(page)
+        if allowed is not None and page_number not in allowed:
+            continue
+        index.append((
+            page_number,
+            [
+                (normalize_target(item.get("number") or ""),
+                 normalize_target(item.get("block") or ""))
+                for item in data.get("items", [])
+            ],
+        ))
+
     pages: set[int] = set()
     missing: list[str] = []
     for target in targets:
+        text = normalize_target(target)
         target_pages = set()
         target_units = set()
-        for page, data in index.get("pages", {}).items():
-            page_number = int(page)
-            if allowed is not None and page_number not in allowed:
-                continue
-            if any(_item_matches(item, target) for item in data.get("items", [])):
+        for page_number, items in index:
+            if any(_matches_target(number, block, text) for number, block in items):
                 target_pages.add(page_number)
                 if page_number in page_units:
                     target_units.add(page_units[page_number])
@@ -360,11 +349,6 @@ def find_pages_by_targets(textbook_path: str, targets: list[str],
 
 
 def get_attachment_path(file_id: int) -> Path | None:
-    """Фактический файл вложения.
-
-    Имя на диске может не совпадать с `HomeworkFile.title` (регистр, пробелы),
-    поэтому берём то, что реально лежит в папке вложения.
-    """
     folder = HOMEWORK_DIR / str(file_id)
     if not folder.is_dir():
         return None
@@ -375,7 +359,6 @@ def get_attachment_path(file_id: int) -> Path | None:
 
 
 def read_attachment(path: Path) -> tuple[str, dict[str, bytes]]:
-    """Читает вложение: (текст, картинки). Что не умеем — возвращает пустое."""
     suffix = path.suffix.lower()
     if suffix in IMAGE_SUFFIXES:
         return "", {path.name: path.read_bytes()}
@@ -458,9 +441,9 @@ def _pdf_content(path: Path) -> tuple[str, dict[str, bytes]]:
 def limit_attachment_text(text: str) -> str:
     """Обрезает слишком длинный текст файла, помечая обрыв."""
     text = text.strip()
-    if len(text) <= ATTACHMENT_TEXT_LIMIT:
+    if len(text) <= TEXT_LIMIT:
         return text
-    return text[:ATTACHMENT_TEXT_LIMIT].rstrip() + "\n[текст файла обрезан]"
+    return text[:TEXT_LIMIT].rstrip() + "\n[текст файла обрезан]"
 
 
 if __name__ == "__main__":

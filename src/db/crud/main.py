@@ -22,13 +22,7 @@ async def write_homeworks(homs: list[homeworks.Homework], db_session: AsyncSessi
     await db_session.commit()
 
 
-async def get_homeworks_id(session: AsyncSession):
-    result = await session.execute(select(homeworks.Homework.kiasuo_id))
-    return set(result.scalars().all())
-
-
 async def get_homeworks_by_kiasuo_ids(session: AsyncSession, kiasuo_ids) -> dict[int, homeworks.Homework]:
-    """Строки ДЗ по их id в Киасуо — чтобы обновить даты у уже загруженных."""
     ids = list(kiasuo_ids)
     if not ids:
         return {}
@@ -44,47 +38,32 @@ async def get_schedule_for_day(session: AsyncSession, weekday: int):
     return result.scalars().all()
 
 
-def _homework_days(day: date):
-    """ДЗ относится ко дню, если его надо сдать в этот день.
-
-    `lesson_date` — урок, на котором задали, — в дневнике не показываем:
-    ученику нужно видеть задание в день сдачи, а не в день, когда его выдали.
-    """
-    return homeworks.Homework.check_at == day
-
-
-async def get_homework_for_day(session: AsyncSession, day: date) -> dict[int, dict[str, bool]]:
-    """Что показать по предметам в дне: есть ли текст, файлы, ссылки.
-
-    Вложения подгружаются заранее (`selectinload`), иначе на каждое ДЗ
-    уходило по два лишних запроса.
-    """
+async def get_homework_marks_for_day(session: AsyncSession, day: date) -> dict[int, dict[str, bool]]:
     result = await session.execute(
         select(homeworks.Homework).options(
             selectinload(homeworks.Homework.homework_files),
             selectinload(homeworks.Homework.homework_links),
-        ).where(_homework_days(day))
+        ).where(homeworks.Homework.check_at == day)
     )
-    homs = defaultdict(dict)
+    marks = defaultdict(dict)
     for homework in result.scalars().all():
         if homework.text.strip():
-            homs[homework.subject_id]["text"] = True
+            marks[homework.subject_id]["text"] = True
         if homework.homework_files:
-            homs[homework.subject_id]["files"] = True
+            marks[homework.subject_id]["files"] = True
         if homework.homework_links:
-            homs[homework.subject_id]["links"] = True
-    return homs
+            marks[homework.subject_id]["links"] = True
+    return marks
 
 
 async def get_homework_for_lesson(session: AsyncSession, day: date, subject_id: int) -> tuple[list[homeworks.Homework], list[homework_files.HomeworkFile], list[homework_links.HomeworkLink]]:
-    """ДЗ предмета за день вместе с вложениями — для экрана урока."""
     result = await session.execute(
         select(homeworks.Homework).options(
             selectinload(homeworks.Homework.homework_files),
             selectinload(homeworks.Homework.homework_links),
         ).where(and_(
             homeworks.Homework.subject_id == subject_id,
-            _homework_days(day),
+            homeworks.Homework.check_at == day,
         ))
     )
     homeworks_lst = list(result.scalars().all())
@@ -115,7 +94,6 @@ async def get_subject(session: AsyncSession, subject_id: int) -> subjects.Subjec
 
 
 async def get_subject_names(session: AsyncSession) -> dict[int, str]:
-    """id предмета -> русское название (слаг, если name_ru ещё не заполнен)."""
     result = await session.execute(
         select(
             subjects.Subject.id,
@@ -128,7 +106,6 @@ async def get_subject_names(session: AsyncSession) -> dict[int, str]:
 
 
 async def get_subject_ids_by_name(session: AsyncSession) -> dict[str, int]:
-    """Русское название предмета -> id (по нему дневник отдаёт предмет в ДЗ)."""
     result = await session.execute(
         select(subjects.Subject.id, subjects.Subject.name_ru)
     )
@@ -145,16 +122,10 @@ async def get_materials(session: AsyncSession, homework_id: int) -> tuple[list[h
         select(homework_links.HomeworkLink).where(
             homework_links.HomeworkLink.homework_id == homework_id)
     )).scalars().all()
-    return list(files), list(links)
+    return files, links
 
 
 async def rewrite_homework_tasks(session: AsyncSession, homework_id: int, tasks: list[homework_tasks.HomeworkTask], force: bool = False) -> bool:
-    """Перезаписывает задачи ДЗ.
-
-    Без `force` существующие задачи не трогает: при переподготовке у них
-    терялись сохранённые решения и менялись id, а на старые id ссылаются
-    кнопки в уже отправленных сообщениях бота.
-    """
     if not force:
         existing = await get_homework_tasks(session, homework_id)
         if existing:
@@ -179,8 +150,7 @@ async def get_homework_tasks(session: AsyncSession, homework_id: int) -> list[ho
     return result.scalars().all()
 
 
-async def get_actionable_homework_tasks(session: AsyncSession, homework_id: int) -> list[homework_tasks.HomeworkTask]:
-    """Задачи, с которыми бот что-то делает: решает или готовит пересказ."""
+async def get_solvable_homework_tasks(session: AsyncSession, homework_id: int) -> list[homework_tasks.HomeworkTask]:
     result = await session.execute(
         select(homework_tasks.HomeworkTask).where(and_(
             homework_tasks.HomeworkTask.homework_id == homework_id,
@@ -211,7 +181,7 @@ async def save_task_solution(session: AsyncSession, task_id: int, answer: str):
 async def main():
     from db.session import SessionLocal
     async with SessionLocal() as session:
-        res = await get_homework_for_day(session, date(2026, 10, 13))
+        res = await get_homework_marks_for_day(session, date(2026, 10, 13))
         print(res)
 
 

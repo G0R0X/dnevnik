@@ -275,7 +275,8 @@ _PARAGRAPH_GROUP = re.compile(
 
 def _single_paragraph_instruction(instruction: str, paragraph: int) -> str:
     """«Прочитать и изучить §27 и §28» → «Прочитать и изучить §27»."""
-    replaced, count = _PARAGRAPH_GROUP.subn(f"§{paragraph}", instruction, count=1)
+    replaced, count = _PARAGRAPH_GROUP.subn(
+        f"§{paragraph}", instruction, count=1)
     return replaced if count else f"{instruction} (§{paragraph})"
 
 
@@ -308,7 +309,7 @@ def _split_retell_task(task: HomeworkTask,
 
     page_sets = [
         get_pages_for_paragraphs(textbook_path, [paragraph],
-                                 include_boundary=False)
+                                 include_next_page=False)
         for paragraph in paragraphs
     ]
     if not all(page_sets):
@@ -383,7 +384,7 @@ async def _resolve_task(item: dict, textbook_path: str | None, has_files: bool =
         retell_pages: list[int] = []
         if textbook_path and paragraphs:
             retell_pages = get_pages_for_paragraphs(
-                textbook_path, paragraphs, include_boundary=False)
+                textbook_path, paragraphs, include_next_page=False)
         if not retell_pages:
             retell_pages = pages
         if retell_pages:

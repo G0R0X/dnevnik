@@ -14,7 +14,7 @@ class TaskStatus(StrEnum):
     NOT_SOLVABLE = "not_solvable"
 
 
-def _enum_values(enum_cls):
+def enum_values(enum_cls):
     return [member.value for member in enum_cls]
 
 
@@ -26,7 +26,7 @@ class HomeworkTask(Base):
         ForeignKey("homeworks.id"), index=True)
     instruction: Mapped[str] = mapped_column(Text)
     status: Mapped[TaskStatus] = mapped_column(
-        Enum(TaskStatus, values_callable=_enum_values),
+        Enum(TaskStatus, values_callable=enum_values),
         nullable=False,
     )
     textbook_paragraphs: Mapped[list[int] | None] = mapped_column(

@@ -3,7 +3,7 @@ import zipfile
 import pytest
 
 from file_handling.main import (
-    ATTACHMENT_TEXT_LIMIT,
+    TEXT_LIMIT,
     find_pages_by_targets,
     get_attachment_path,
     get_page_units,
@@ -76,7 +76,8 @@ def test_paragraph_pages_include_boundary_by_default():
 
 
 def test_paragraph_pages_without_boundary_stop_before_next_paragraph():
-    pages = get_pages_for_paragraphs("algebra/1", [42], include_boundary=False)
+    pages = get_pages_for_paragraphs(
+        "algebra/1", [42], include_next_page=False)
     assert pages[-1] == 330
     assert len(pages) == 11
 
@@ -180,14 +181,14 @@ def test_short_text_is_stripped_only():
 
 
 def test_text_exactly_at_limit_is_not_cut():
-    text = "a" * ATTACHMENT_TEXT_LIMIT
+    text = "a" * TEXT_LIMIT
     assert limit_attachment_text(text) == text
 
 
 def test_long_text_is_cut_and_marked():
-    text = "b" * (ATTACHMENT_TEXT_LIMIT * 3)
+    text = "b" * (TEXT_LIMIT * 3)
     assert limit_attachment_text(text) == (
-        "b" * ATTACHMENT_TEXT_LIMIT + "\n[текст файла обрезан]")
+        "b" * TEXT_LIMIT + "\n[текст файла обрезан]")
 
 
 def test_reads_utf8_text_file(tmp_path):

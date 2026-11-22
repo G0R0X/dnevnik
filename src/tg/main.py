@@ -1,7 +1,7 @@
-from db.crud.main import get_actionable_homework_tasks
+from db.crud.main import get_solvable_homework_tasks
 from ai.solve import solve_task
-from file_handling.main import BOOKS_DIR, get_attachment_path, get_page_count, get_textbook_pages, pdf_to_printed
-from db.crud.main import get_schedule_for_day, get_homework_for_lesson, get_homework_for_day, get_homework, get_homework_task, get_subject, get_subject_names
+from file_handling.main import BOOKS_DIR, get_attachment_path, get_count_of_pages, get_textbook_pages, pdf_to_printed
+from db.crud.main import get_schedule_for_day, get_homework_for_lesson, get_homework_marks_for_day, get_homework, get_homework_task, get_subject, get_subject_names
 from db.session import SessionLocal
 from db.models.homework_tasks import TaskStatus
 from datetime import date, timedelta
@@ -175,7 +175,8 @@ class UserLogDispatcher(Dispatcher):
         user = getattr(update.event, "from_user", None)
         token = bind_user(getattr(user, "id", None))
         try:
-            logger.info("апдейт %s: %s", update.update_id, _update_kind(update))
+            logger.info("апдейт %s: %s", update.update_id,
+                        _update_kind(update))
             return await super().feed_update(bot, update, **kwargs)
         finally:
             reset_user(token)
@@ -692,7 +693,7 @@ async def day(callback: CallbackQuery):
 
     async with SessionLocal() as session:
         schedule = await get_schedule_for_day(session, day)
-        homs_files_links = await get_homework_for_day(
+        homs_files_links = await get_homework_marks_for_day(
             session, date.fromisocalendar(year, week, day))
     text, markup = day_screen(schedule, homs_files_links, year, week, day)
     await _show_text(callback.message, text, markup)
@@ -722,7 +723,7 @@ async def lesson(callback: CallbackQuery):
         homeworks_list, files, links = await get_homework_for_lesson(session, date.fromisocalendar(year, week, day), subject_id)
         tasks = []
         for homework in homeworks_list:
-            tasks.extend(await get_actionable_homework_tasks(session, homework.id))
+            tasks.extend(await get_solvable_homework_tasks(session, homework.id))
     answer = []
     day_date = date.fromisocalendar(year, week, day)
     for homework in homeworks_list:
@@ -822,7 +823,7 @@ async def _task_book(task_id: int) -> tuple[str | None, str | None, list[int], i
         if not os.path.exists(pdf_path):
             return None, None, [], 0, task.status
         return (pdf_path, subject.textbook_path,
-                list(task.textbook_pages), get_page_count(pdf_path), task.status)
+                list(task.textbook_pages), get_count_of_pages(pdf_path), task.status)
 
 
 @dp.callback_query(F.data.startswith("ai:"))
