@@ -23,11 +23,6 @@ url_refresh = "https://diaryapi.kiasuo.ru/diary/refresh"
 
 
 def update_env(updates: dict[str, str], path: Path | None = None) -> None:
-    """Перезаписывает значения в .env по ключам, остальные строки не трогает.
-
-    Если файла нет (контейнер, где секреты приходят переменными окружения),
-    он создаётся: иначе обновление токенов падало бы на чтении.
-    """
     env_path = Path(path) if path else PROJECT_ROOT / ".env"
     lines = (env_path.read_text(encoding="utf-8").splitlines()
              if env_path.exists() else [])
@@ -62,6 +57,9 @@ class Token():
             d = await resp.json()
             acc = d.get("accessToken")
             ref = d.get("refreshToken")
+            if not acc or not ref:
+                raise RuntimeError(
+                    f"в ответе на refresh нет токенов, поля: {sorted(d)}")
 
             self.access_token = acc
             self.refresh_token = ref
@@ -79,8 +77,7 @@ class Token():
                 logger.warning("не удалось записать токены в .env: %s", error)
 
 
-def week_of(day: date) -> tuple[int, int]:
-    """ISO-год и номер недели даты."""
+def year_and_week(day: date) -> tuple[int, int]:
     iso = day.isocalendar()
     return iso[0], iso[1]
 
@@ -108,7 +105,7 @@ async def get_data_for_week(year: int, week: int, token: Token, session: ClientS
 
 async def get_data_for_day(day: date, token: Token, session, data: ScheduleResponse | None = None) -> list[Lesson]:
     if data is None:
-        data = await get_data_for_week(*week_of(day), token, session)
+        data = await get_data_for_week(*year_and_week(day), token, session)
     lessons = []
     for lesson in data.schedule:
         if lesson.lesson_date == day:
@@ -126,7 +123,7 @@ async def get_homework_for_week(year, week, token, http_session, subject_ids: di
     data = await get_data_for_week(year, week, token, http_session)
     downloaded_weeks[(year, week)] = data
     for h in data.homeworks:
-        homework_year, homework_week = week_of(h.lesson_date)
+        homework_year, homework_week = year_and_week(h.lesson_date)
 
         if h.lesson_date in downloaded_days:
             data_for_day = downloaded_days[h.lesson_date]
@@ -201,8 +198,6 @@ def sanitize_filename(filename: str) -> str:
 
 async def save_file(file: homework_files.HomeworkFile, session: ClientSession):
 
-    # Путь от корня проекта: синк запускают и из src, и из корня,
-    # а get_attachment_path ищет вложение в files/homework/<id>.
     folder_path = HOMEWORK_DIR / str(file.id)
     folder_path.mkdir(parents=True, exist_ok=True)
 
@@ -238,21 +233,14 @@ async def save_file(file: homework_files.HomeworkFile, session: ClientSession):
     logger.info("вложение %s сохранено: %d КБ", file.title, total_size // 1024)
 
 
-def default_weeks(today: date | None = None) -> list[tuple[int, int]]:
-    """Недели по умолчанию: прошлая, текущая и следующая."""
+def last_current_next_weeks(today: date | None = None) -> list[tuple[int, int]]:
     today = today or date.today()
-    return [week_of(today + timedelta(weeks=offset))
+    return [year_and_week(today + timedelta(weeks=offset))
             for offset in (-1, 0, 1)]
 
 
 async def sync_weeks(weeks: list[tuple[int, int]] | None = None, prepare: bool = True) -> list[homeworks.Homework]:
-    """Догружает недели дневника и готовит задачи для новых ДЗ.
-
-    `weeks` — список (год, номер недели). Существующие ДЗ обновляются
-    (даты, текст), но заново не готовятся.
-    Возвращает только новые ДЗ — их же и готовит.
-    """
-    weeks = weeks or default_weeks()
+    weeks = weeks or last_current_next_weeks()
     names = ", ".join(f"{year}-W{week:02d}" for year, week in weeks)
     logger.info("синк недель: %s", names)
     started = time.monotonic()

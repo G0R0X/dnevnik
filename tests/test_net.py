@@ -1,6 +1,6 @@
 import pytest
 from datetime import date
-from net.main import update_env, get_homework_for_week,  save_file, default_weeks, week_of, sanitize_filename
+from net.main import update_env, get_homework_for_week,  save_file, last_current_next_weeks, year_and_week, sanitize_filename
 from db.models import homework_files
 
 
@@ -286,13 +286,13 @@ async def test_downolads_week_once():
 
 
 def test_default_weeks():
-    assert default_weeks(date(2026, 12, 31)) == [
+    assert last_current_next_weeks(date(2026, 12, 31)) == [
         (2026, 52), (2026, 53), (2027, 1)]
-    assert default_weeks(date(2027, 3, 10)) == [
+    assert last_current_next_weeks(date(2027, 3, 10)) == [
         (2027, 9), (2027, 10), (2027, 11)]
-    weeks = default_weeks()
+    weeks = last_current_next_weeks()
     assert len(weeks) == 3
-    assert week_of(date.today()) in weeks
+    assert year_and_week(date.today()) in weeks
 
 
 async def test_save_file(tmp_path, monkeypatch):
