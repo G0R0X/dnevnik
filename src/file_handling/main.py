@@ -15,11 +15,24 @@ IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
 TEXT_LIMIT = 20000
 PDF_IMAGE_PAGE_LIMIT = 6
 
+# Качество JPEG для страницы на экране бота. 85 на скане учебника неотличимо
+# от PNG, зато страница весит 250–350 КБ вместо 1–2 МБ.
+DISPLAY_JPEG_QUALITY = 85
+
 _W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 _X = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
 
 
-def get_textbook_pages(pdf_path: str, page_numbers: list[int]) -> dict[int, bytes]:
+def get_textbook_pages(pdf_path: str, page_numbers: list[int],
+                       display: bool = False) -> dict[int, bytes]:
+    """Рендерит страницы учебника в картинки.
+
+    `display=True` — для экрана бота: JPEG вместо PNG (в 4–6 раз меньше при тех
+    же пикселях). Telegram всё равно пережимает фото и уменьшает длинную сторону
+    до 1280 px, поэтому PNG на 1–2 МБ уходил впустую, а через медленный прокси
+    не успевал за таймаут отправки. Для ИИ и OCR остаётся PNG: сжатие с
+    потерями может стоить распознавания мелких формул.
+    """
     path = Path(pdf_path)
     pages = {}
 
@@ -34,7 +47,9 @@ def get_textbook_pages(pdf_path: str, page_numbers: list[int]) -> dict[int, byte
                 if fallback is not None:
                     pixmap = fallback
 
-            pages[page_number] = pixmap.tobytes("png")
+            pages[page_number] = (
+                pixmap.tobytes("jpeg", jpg_quality=DISPLAY_JPEG_QUALITY)
+                if display else pixmap.tobytes("png"))
 
     return pages
 

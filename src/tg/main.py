@@ -190,6 +190,11 @@ dp = UserLogDispatcher()
 BENIGN_TG_ERRORS = ("query is too old", "query ID is invalid",
                     "message is not modified")
 
+# Отказы удаления, из-за которых не надо ронять переход на следующий экран:
+# сообщение уже удалили (двойной клик) или оно старше 48 часов.
+DELETE_IGNORED_ERRORS = ("message to delete not found",
+                         "message can't be deleted")
+
 
 @dp.errors()
 async def on_error(event: ErrorEvent) -> bool:
@@ -590,6 +595,21 @@ def generate_InlineKeyboardMarkup_for_answer(year, week, day, subject_id, task_i
         inline_keyboard=lst)
 
 
+async def _tg_delete(message: Message) -> None:
+    """Удаляет прежний экран, не падая, если сообщения уже нет.
+
+    Экран заменяется удалением и отправкой, поэтому второй клик по той же
+    кнопке приходит с `callback.message`, который первый клик уже удалил, и
+    Telegram отвечает «message to delete not found». Ничего страшного не
+    случилось: новый экран всё равно отправится.
+    """
+    try:
+        await _tg_request(lambda: message.delete(), "удаление экрана")
+    except TelegramBadRequest as error:
+        if not any(text in str(error) for text in DELETE_IGNORED_ERRORS):
+            raise
+
+
 async def _show_text(message: Message, text: str, markup=None,
                      rendered: bool = False) -> Message:
     """Показывает текстовый экран, возвращает сообщение с экраном.
@@ -614,7 +634,7 @@ async def _show_text(message: Message, text: str, markup=None,
                 raise
         _remember(message)
         return message
-    await message.delete()
+    await _tg_delete(message)
     sent = await _tg_request(
         lambda: message.answer(text, reply_markup=markup, parse_mode="HTML"),
         "экран")
@@ -639,7 +659,7 @@ async def _show_photo(message: Message, image: bytes, filename: str,
             "страница")
         _remember(message)
         return message
-    await message.delete()
+    await _tg_delete(message)
     sent = await _tg_request(
         lambda: message.answer_photo(
             photo, caption=caption, reply_markup=markup),
@@ -792,7 +812,7 @@ async def show_page(callback: CallbackQuery):
         return
 
     page = max(1, min(page, total))
-    image = get_textbook_pages(pdf_path, [page]).get(page)
+    image = get_textbook_pages(pdf_path, [page], display=True).get(page)
     if image is None:
         await callback.message.answer("Не удалось отрисовать страницу")
         return
@@ -806,7 +826,7 @@ async def show_page(callback: CallbackQuery):
                     else " · страница задания")
     keyboard = generate_InlineKeyboardMarkup_for_page(
         year, week, day, subject_id, task_id, page, total)
-    await _show_photo(callback.message, image, f"page_{page}.png", caption, keyboard)
+    await _show_photo(callback.message, image, f"page_{page}.jpg", caption, keyboard)
 
 
 async def _task_book(task_id: int) -> tuple[str | None, str | None, list[int], int, TaskStatus | None]:
